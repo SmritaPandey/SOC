@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield Antivirus — Product Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--brand:#ef4444;--cyan:#00f0ff;--accent:#06ffa5;--orange:#f97316;--bg:#0a0e1a;--card:#111827;--text:#f0f4ff;--muted:#94a3b8;--border:rgba(255,255,255,.06)}
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh}
+        .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;opacity:0;transform:translateX(60px);transition:all .8s cubic-bezier(.4,0,.2,1);pointer-events:none;text-align:center}
+        .slide.active{opacity:1;transform:translateX(0);pointer-events:auto}.slide.exit{opacity:0;transform:translateX(-60px)}
+        .slide h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.1;margin-bottom:20px}
+        .slide h2{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:700;margin-bottom:16px}
+        .slide p{color:var(--muted);font-size:clamp(.9rem,1.5vw,1.15rem);max-width:700px;line-height:1.7}
+        .gradient-text{background:linear-gradient(135deg,var(--brand),var(--orange),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .narration{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);padding:20px 40px;color:var(--text);font-size:1rem;line-height:1.6;border-top:1px solid var(--border);z-index:100;min-height:80px;display:flex;align-items:center;justify-content:center;text-align:center}
+        .narration .speaker{color:var(--brand);font-weight:700;margin-right:8px}
+        .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--orange));transition:width .5s;z-index:200}
+        .controls{position:fixed;top:20px;right:20px;z-index:200;display:flex;gap:8px}
+        .controls button{background:rgba(255,255,255,.1);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:.8rem;transition:all .3s}
+        .controls button:hover{background:rgba(239,68,68,.15);border-color:var(--brand)}
+        .slide-counter{position:fixed;top:20px;left:20px;color:var(--muted);font-size:.8rem;z-index:200}
+
+        .engine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;max-width:750px;width:100%}
+        .engine-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;opacity:0;transform:translateY(20px);transition:all .5s}
+        .slide.active .engine-card{opacity:1;transform:translateY(0)}
+        .engine-card:nth-child(1){transition-delay:.1s}.engine-card:nth-child(2){transition-delay:.2s}.engine-card:nth-child(3){transition-delay:.3s}.engine-card:nth-child(4){transition-delay:.4s}.engine-card:nth-child(5){transition-delay:.5s}.engine-card:nth-child(6){transition-delay:.6s}
+        .engine-icon{font-size:1.8rem;margin-bottom:6px}.engine-name{font-weight:700;font-size:.82rem}.engine-desc{font-size:.7rem;color:var(--muted);margin-top:4px}
+
+        .malware-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:24px;max-width:700px;width:100%}
+        .malware-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:.75rem;font-weight:500;opacity:0;transform:scale(.8);transition:all .4s}
+        .slide.active .malware-item{opacity:1;transform:scale(1)}
+
+        .scan-demo{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-top:24px;max-width:650px;width:100%;text-align:left;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.8}
+        .scan-line{opacity:0;transition:opacity .4s}.slide.active .scan-line{opacity:1}
+        .scan-prompt{color:var(--accent)}.scan-file{color:var(--muted)}.scan-clean{color:var(--accent)}.scan-threat{color:var(--brand)}.scan-info{color:var(--cyan)}
+
+        .crypto-list{list-style:none;margin-top:24px;text-align:left;max-width:600px}
+        .crypto-list li{padding:10px 16px;margin:8px 0;border-radius:8px;background:var(--card);border-left:3px solid var(--brand);opacity:0;transform:translateX(-20px);transition:all .5s;font-size:.9rem}
+        .slide.active .crypto-list li{opacity:1;transform:translateX(0)}
+        .crypto-list li:nth-child(1){transition-delay:.2s}.crypto-list li:nth-child(2){transition-delay:.4s}.crypto-list li:nth-child(3){transition-delay:.6s}
+
+        .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:28px;max-width:700px;width:100%}
+        .feature-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;opacity:0;transform:translateY(20px);transition:all .5s}
+        .slide.active .feature-item{opacity:1;transform:translateY(0)}
+        .feature-item:nth-child(1){transition-delay:.1s}.feature-item:nth-child(2){transition-delay:.2s}.feature-item:nth-child(3){transition-delay:.3s}.feature-item:nth-child(4){transition-delay:.4s}
+        .feature-icon{font-size:1.8rem;margin-bottom:6px}.feature-name{font-weight:600;font-size:.82rem}.feature-desc{font-size:.7rem;color:var(--muted);margin-top:4px}
+
+        .badge-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+        .badge{padding:8px 16px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:.8rem;opacity:0;transition:all .5s}
+        .slide.active .badge{opacity:1}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.float{animation:float 3s ease-in-out infinite}
+        @media(max-width:768px){.engine-grid{grid-template-columns:1fr 1fr}.malware-grid{grid-template-columns:repeat(3,1fr)}}
+    </style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="slide-counter" id="counter">1 / 8</div>
+<div class="controls">
+    <button onclick="prevSlide()">← Prev</button>
+    <button onclick="toggleAuto()" id="autoBtn">⏸ Pause</button>
+    <button onclick="nextSlide()">Next →</button>
+</div>
+
+<!-- SLIDE 1: Title -->
+<div class="slide active" id="s1">
+    <div style="font-size:4rem;margin-bottom:16px" class="float">🛡️</div>
+    <h1>QShield <span class="gradient-text">Antivirus</span></h1>
+    <p>AI-Powered Quantum-Safe Endpoint Protection — Custom neural network, multi-engine detection, and real-time file system monitoring. Pure C performance.</p>
+    <div class="badge-row" style="margin-top:24px">
+        <div class="badge" style="transition-delay:.3s">6 Detection Engines</div>
+        <div class="badge" style="transition-delay:.5s">14 Malware Classes</div>
+        <div class="badge" style="transition-delay:.7s">Native C Engine</div>
+        <div class="badge" style="transition-delay:.9s">NIST PQC</div>
+    </div>
+</div>
+
+<!-- SLIDE 2: Detection Engines -->
+<div class="slide" id="s2">
+    <h2>6 Detection Engines. <span class="gradient-text">Zero Escape.</span></h2>
+    <p>Multi-layered detection ensures threats are caught regardless of technique.</p>
+    <div class="engine-grid">
+        <div class="engine-card"><div class="engine-icon">🧠</div><div class="engine-name">Neural Network</div><div class="engine-desc">20→64→32→14 custom NN</div></div>
+        <div class="engine-card"><div class="engine-icon">🔍</div><div class="engine-name">Signature Scanner</div><div class="engine-desc">SHA-256 + YARA rules</div></div>
+        <div class="engine-card"><div class="engine-icon">🌲</div><div class="engine-name">Random Forest</div><div class="engine-desc">50-tree behavioral classifier</div></div>
+        <div class="engine-card"><div class="engine-icon">🎯</div><div class="engine-name">Isolation Forest</div><div class="engine-desc">100-tree zero-day detector</div></div>
+        <div class="engine-card"><div class="engine-icon">⚡</div><div class="engine-name">Heuristic Engine</div><div class="engine-desc">Behavioral pattern rules</div></div>
+        <div class="engine-card"><div class="engine-icon">📚</div><div class="engine-name">RAG Threat Intel</div><div class="engine-desc">TF-IDF retrieval engine</div></div>
+    </div>
+</div>
+
+<!-- SLIDE 3: Neural Network -->
+<div class="slide" id="s3">
+    <div style="font-size:3rem;margin-bottom:16px">🧠</div>
+    <h2>Custom <span class="gradient-text">Neural Network</span></h2>
+    <p>A purpose-built feedforward neural network classifies files into 14 malware families with sub-5ms inference time.</p>
+    <div class="malware-grid">
+        <div class="malware-item" style="transition-delay:.05s;border-color:var(--accent)">✅ Clean</div>
+        <div class="malware-item" style="transition-delay:.1s;border-color:var(--brand)">🐴 Trojan</div>
+        <div class="malware-item" style="transition-delay:.15s;border-color:var(--brand)">💀 Ransomware</div>
+        <div class="malware-item" style="transition-delay:.2s;border-color:var(--brand)">👁️ Spyware</div>
+        <div class="malware-item" style="transition-delay:.25s;border-color:var(--orange)">📢 Adware</div>
+        <div class="malware-item" style="transition-delay:.3s;border-color:var(--brand)">🐛 Worm</div>
+        <div class="malware-item" style="transition-delay:.35s;border-color:var(--brand)">👻 Rootkit</div>
+        <div class="malware-item" style="transition-delay:.4s;border-color:var(--brand)">⌨️ Keylogger</div>
+        <div class="malware-item" style="transition-delay:.45s;border-color:var(--brand)">🚪 Backdoor</div>
+        <div class="malware-item" style="transition-delay:.5s;border-color:var(--orange)">⛏️ Cryptominer</div>
+        <div class="malware-item" style="transition-delay:.55s;border-color:var(--brand)">🤖 Botnet</div>
+        <div class="malware-item" style="transition-delay:.6s;border-color:var(--brand)">💨 Fileless</div>
+        <div class="malware-item" style="transition-delay:.65s;border-color:var(--orange)">⚠️ PUP</div>
+        <div class="malware-item" style="transition-delay:.7s;border-color:var(--muted)">❓ Unknown</div>
+    </div>
+</div>
+
+<!-- SLIDE 4: Scan Demo -->
+<div class="slide" id="s4">
+    <h2>See It <span class="gradient-text">In Action</span></h2>
+    <p>Command-line scanning with instant results and AI classification.</p>
+    <div class="scan-demo">
+        <div class="scan-line" style="transition-delay:.3s"><span class="scan-prompt">$</span> qshield_scan.exe --scan C:\Downloads --recursive</div>
+        <div class="scan-line" style="transition-delay:.6s"><span class="scan-info">[INFO]</span> QShield AV v1.0.0 — Scanning 2,847 files...</div>
+        <div class="scan-line" style="transition-delay:.9s"><span class="scan-clean">[CLEAN]</span> <span class="scan-file">document.pdf</span> — benign (confidence: 0.99)</div>
+        <div class="scan-line" style="transition-delay:1.2s"><span class="scan-clean">[CLEAN]</span> <span class="scan-file">photo.jpg</span> — benign (confidence: 0.98)</div>
+        <div class="scan-line" style="transition-delay:1.5s"><span class="scan-threat">[THREAT]</span> <span class="scan-file">update.exe</span> — <strong>Trojan</strong> (confidence: 0.94) → QUARANTINED</div>
+        <div class="scan-line" style="transition-delay:1.8s"><span class="scan-threat">[THREAT]</span> <span class="scan-file">keylogger.dll</span> — <strong>Keylogger</strong> (confidence: 0.91) → QUARANTINED</div>
+        <div class="scan-line" style="transition-delay:2.1s"><span class="scan-info">[DONE]</span> Scanned: 2,847 | Clean: 2,845 | Threats: 2 | Time: 4.2s</div>
+    </div>
+</div>
+
+<!-- SLIDE 5: Real-Time -->
+<div class="slide" id="s5">
+    <div style="font-size:3rem;margin-bottom:16px">⚡</div>
+    <h2>Real-Time <span class="gradient-text">Protection Daemon</span></h2>
+    <p>The QShield daemon monitors your file system 24/7 — detecting and quarantining threats the instant they appear.</p>
+    <div class="feature-grid" style="max-width:650px">
+        <div class="feature-item"><div class="feature-icon">📁</div><div class="feature-name">File System Monitor</div><div class="feature-desc">On-access scanning of every file write</div></div>
+        <div class="feature-item"><div class="feature-icon">🔄</div><div class="feature-name">Process Monitoring</div><div class="feature-desc">Behavioral analysis of running processes</div></div>
+        <div class="feature-item"><div class="feature-icon">🌐</div><div class="feature-name">Network Watch</div><div class="feature-desc">Block connections to malicious domains</div></div>
+        <div class="feature-item"><div class="feature-icon">🔔</div><div class="feature-name">Instant Alerts</div><div class="feature-desc">System tray notifications on detection</div></div>
+    </div>
+</div>
+
+<!-- SLIDE 6: PQC -->
+<div class="slide" id="s6">
+    <div style="font-size:3rem;margin-bottom:16px">🔬</div>
+    <h2>Quantum-Safe <span class="gradient-text">Foundations</span></h2>
+    <p>The first antivirus with NIST PQC algorithms protecting update channels, signature integrity, and code signing.</p>
+    <ul class="crypto-list">
+        <li><strong>CRYSTALS-Kyber (FIPS 203)</strong> — ML-KEM-1024 encrypts signature database update channels against quantum interception</li>
+        <li><strong>CRYSTALS-Dilithium (FIPS 204)</strong> — ML-DSA-87 signs every signature DB update, verifying integrity before loading</li>
+        <li><strong>SPHINCS+ (FIPS 205)</strong> — SLH-DSA provides hash-based firmware and code signing for the AV engine itself</li>
+    </ul>
+</div>
+
+<!-- SLIDE 7: Lightweight -->
+<div class="slide" id="s7">
+    <h2>Native C. <span class="gradient-text">Lightning Fast.</span></h2>
+    <p>Written in pure C for maximum performance with minimal resource usage.</p>
+    <div class="feature-grid" style="max-width:650px">
+        <div class="feature-item"><div class="feature-icon">⚡</div><div class="feature-name">&lt;200KB Executables</div><div class="feature-desc">Tiny footprint, no bloat</div></div>
+        <div class="feature-item"><div class="feature-icon">🧵</div><div class="feature-name">512MB Min RAM</div><div class="feature-desc">Runs on any machine</div></div>
+        <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-name">&lt;5ms Inference</div><div class="feature-desc">Neural network per-file speed</div></div>
+        <div class="feature-item"><div class="feature-icon">📀</div><div class="feature-name">Zero Dependencies</div><div class="feature-desc">No Java, no runtime needed</div></div>
+    </div>
+</div>
+
+<!-- SLIDE 8: CTA -->
+<div class="slide" id="s8">
+    <div style="font-size:4rem;margin-bottom:16px" class="float">🛡️</div>
+    <h1>Protect Your Endpoints with <span class="gradient-text">QShield AV</span></h1>
+    <p style="margin-bottom:32px">Download the scanner, start protecting in seconds. AI-powered, quantum-safe, and designed for the Indian market.</p>
+    <div class="badge-row">
+        <div class="badge" style="transition-delay:.2s;font-size:.9rem;padding:12px 24px;background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3)">📥 Download Scanner</div>
+        <div class="badge" style="transition-delay:.4s;font-size:.9rem;padding:12px 24px">🛡️ Install Daemon</div>
+        <div class="badge" style="transition-delay:.6s;font-size:.9rem;padding:12px 24px">📞 Enterprise License</div>
+    </div>
+    <p style="margin-top:32px;font-size:.8rem">www.qsgrc.com &nbsp;|&nbsp; © 2026 QualityShield Technologies Pvt. Ltd.</p>
+</div>
+
+<div class="narration" id="narration">
+    <span class="speaker">🔊</span>
+    <span id="narrationText">Welcome to the QShield Antivirus product demonstration — AI-powered quantum-safe endpoint protection built with native C performance.</span>
+</div>
+
+<script>
+const narrations=[
+    "Welcome to the QShield Antivirus product demonstration. QShield AV is the world's first antivirus engine with built-in NIST post-quantum cryptography — written in pure C for maximum performance with a custom neural network detection engine.",
+    "QShield AV uses 6 detection engines working in parallel. The custom neural network classifies files into 14 malware families. The signature scanner uses SHA-256 and YARA rules. Random Forest handles behavioral classification. Isolation Forest catches zero-day anomalies. The heuristic engine applies behavioral rules. And the RAG engine retrieves contextual threat intelligence.",
+    "The neural network at the core of QShield AV is a custom-built feedforward network with 20 input features, 64 and 32 hidden neurons, and 14 output classes. It classifies files into categories like Trojan, Ransomware, Spyware, Rootkit, Keylogger, Backdoor, Cryptominer, Botnet, and more — with sub-5-millisecond inference time.",
+    "Watch the scanner in action. A single command scans an entire directory recursively. Each file is analyzed by all 6 engines. Clean files pass through silently. Threats are identified with their malware classification and confidence score, then automatically quarantined to a secure vault. A full scan of nearly 3,000 files completes in just 4 seconds.",
+    "The real-time protection daemon runs as a Windows service, monitoring every file write on your system. When a threat is detected, it's quarantined instantly and a notification appears in the system tray. Process monitoring, behavior analysis, and network connection blocking run continuously in the background.",
+    "QShield AV is the first antivirus to ship with NIST PQC algorithms. Kyber encrypts the update channels so signature databases can't be tampered with in transit. Dilithium signs every database update to guarantee integrity. And SPHINCS+ provides hash-based code signing for the engine itself. No other antivirus — not Quick Heal, not Kaspersky, not Norton — offers this level of cryptographic assurance.",
+    "Despite its powerful AI and crypto engines, QShield AV is remarkably lightweight. The scanner executable is under 200 kilobytes. It requires only 512 megabytes of RAM. Neural network inference takes less than 5 milliseconds per file. And it has zero external dependencies — no Java, no dot-NET, no runtime. Just download and run.",
+    "Thank you for watching the QShield Antivirus demonstration. Download the scanner today — it's a single portable executable. For enterprise-wide protection, install the real-time daemon as a Windows service. Visit www.qsgrc.com to get started."
+];
+let current=0,autoPlay=true,timer;const totalSlides=8;
+function showSlide(i){document.querySelectorAll('.slide').forEach((s,j)=>{s.classList.remove('active','exit');if(j<i)s.classList.add('exit')});document.getElementById('s'+(i+1)).classList.add('active');document.getElementById('narrationText').textContent=narrations[i];document.getElementById('counter').textContent=(i+1)+' / '+totalSlides;document.getElementById('progress').style.width=((i+1)/totalSlides*100)+'%';current=i}
+function nextSlide(){if(current<totalSlides-1)showSlide(current+1);else if(autoPlay){clearInterval(timer);autoPlay=false;document.getElementById('autoBtn').textContent='▶ Play'}}
+function prevSlide(){if(current>0)showSlide(current-1)}
+function toggleAuto(){autoPlay=!autoPlay;document.getElementById('autoBtn').textContent=autoPlay?'⏸ Pause':'▶ Play';if(autoPlay)timer=setInterval(nextSlide,10000);else clearInterval(timer)}
+timer=setInterval(nextSlide,10000);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();if(e.key===' '){e.preventDefault();toggleAuto()}});
+</script>
+</body>
+</html>

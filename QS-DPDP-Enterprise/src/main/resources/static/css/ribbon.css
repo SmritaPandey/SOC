@@ -1,0 +1,773 @@
+/* ============================================================
+   QS-DPDP Enterprise — Ribbon Navigation
+   Microsoft Office Fluent Design Theme
+   ============================================================ */
+
+/* ── Ribbon Container ────────────────────────────────────── */
+.ribbon {
+    background: var(--bg-white, #fff);
+    border-bottom: 1px solid var(--border, #e2e8f0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    user-select: none;
+    flex-shrink: 0;
+}
+
+/* ── Ribbon Tabs Bar ─────────────────────────────────────── */
+.ribbon-tabs {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    background: linear-gradient(180deg, #0078D4 0%, #006CBE 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    gap: 0;
+    height: 34px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.ribbon-tabs::-webkit-scrollbar {
+    height: 3px;
+}
+
+.ribbon-tabs::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+.ribbon-tab {
+    padding: 0 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    position: relative;
+    transition: all 0.2s ease;
+    font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.ribbon-tab:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.ribbon-tab.active {
+    color: #0078D4;
+    background: var(--bg-white, #fff);
+    font-weight: 600;
+    text-shadow: none;
+    border-radius: 6px 6px 0 0;
+    transform: translateY(1px);
+}
+
+.ribbon-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--bg-white, #fff);
+}
+
+/* ── Ribbon Panels ───────────────────────────────────────── */
+.ribbon-panels {
+    position: relative;
+    background: var(--bg-white, #fff);
+}
+
+.ribbon-panel {
+    display: none;
+    padding: 8px 12px;
+    min-height: 66px;
+    align-items: stretch;
+    gap: 0;
+    animation: ribbonFade 0.15s ease;
+}
+
+.ribbon-panel.active {
+    display: flex;
+}
+
+@keyframes ribbonFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Ribbon Groups ───────────────────────────────────────── */
+.ribbon-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+    position: relative;
+}
+
+.ribbon-group::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border-light, #f1f5f9);
+}
+
+.ribbon-group:last-child::after {
+    display: none;
+}
+
+/* ── Group Label ─────────────────────────────────────────── */
+.ribbon-group-label {
+    font-size: 9px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    padding-top: 2px;
+    font-weight: 600;
+}
+
+/* ── Ribbon Buttons ──────────────────────────────────────── */
+.ribbon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+    min-width: 52px;
+}
+
+.ribbon-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: #64748b;
+    fill: none;
+    stroke-width: 1.8;
+    transition: stroke 0.15s ease;
+}
+
+.ribbon-btn i {
+    font-size: 18px;
+    color: #64748b;
+    transition: color 0.15s ease;
+}
+
+.ribbon-btn span {
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+}
+
+.ribbon-btn:hover {
+    background: rgba(0, 120, 212, 0.06);
+    border-color: rgba(0, 120, 212, 0.18);
+}
+
+.ribbon-btn:hover svg {
+    stroke: #0078D4;
+}
+
+.ribbon-btn:hover i {
+    color: #0078D4;
+}
+
+.ribbon-btn:hover span {
+    color: #0078D4;
+}
+
+.ribbon-btn:active {
+    background: rgba(0, 120, 212, 0.12);
+}
+
+/* Primary ribbon button */
+.ribbon-btn-primary {
+    background: rgba(0, 120, 212, 0.06);
+    border-color: rgba(0, 120, 212, 0.15);
+}
+
+.ribbon-btn-primary svg {
+    stroke: #0078D4;
+}
+
+.ribbon-btn-primary i {
+    color: #0078D4;
+}
+
+.ribbon-btn-primary span {
+    color: #0078D4;
+    font-weight: 600;
+}
+
+.ribbon-btn-primary:hover {
+    background: rgba(0, 120, 212, 0.12);
+    border-color: #0078D4;
+}
+
+/* Danger ribbon button */
+.ribbon-btn-danger:hover {
+    background: rgba(220, 38, 38, 0.06);
+    border-color: rgba(220, 38, 38, 0.2);
+}
+
+.ribbon-btn-danger:hover svg {
+    stroke: #DC2626;
+}
+
+.ribbon-btn-danger:hover i {
+    color: #DC2626;
+}
+
+.ribbon-btn-danger:hover span {
+    color: #DC2626;
+}
+
+/* ── Ribbon Inline Stats ─────────────────────────────────── */
+.ribbon-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 12px;
+    margin-left: auto;
+}
+
+.ribbon-stat {
+    text-align: center;
+}
+
+.ribbon-stat .stat-val {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0078D4;
+    line-height: 1.2;
+}
+
+.ribbon-stat .stat-lab {
+    font-size: 9px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* ── App Header / Title Bar ──────────────────────────────── */
+.app-header {
+    flex-shrink: 0;
+    background: var(--bg-white, #fff);
+    border-bottom: 1px solid var(--border, #e2e8f0);
+    user-select: none;
+}
+
+.app-title-bar {
+    display: flex;
+    align-items: center;
+    padding: 6px 16px;
+    gap: 12px;
+    background: linear-gradient(180deg, #0078D4 0%, #006CBE 100%);
+    color: #fff;
+    min-height: 42px;
+}
+
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.app-name {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.app-subtitle {
+    font-size: 11px;
+    opacity: 0.85;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    color: #fff;
+}
+
+/* ── QS Branding Badges ─────────────────────────────────── */
+.qs-brand-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+}
+
+.qs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    backdrop-filter: blur(4px);
+}
+
+.rai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #fff;
+    backdrop-filter: blur(4px);
+}
+
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-actions .btn-icon {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+    color: inherit;
+    transition: 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-actions .btn-icon:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+}
+
+.header-actions .btn-icon svg,
+.header-actions .btn-icon i {
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.language-selector {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+}
+
+.language-selector option {
+    background: #fff;
+    color: #1a1a2e;
+}
+
+.btn-user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 3px 10px 3px 3px;
+    cursor: pointer;
+    color: inherit;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+    transition: 0.15s ease;
+}
+
+.btn-user:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.user-avatar-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.user-name-text {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ── Menu Bar (File/Edit/View/Tools/Help) ────────────────── */
+.ent-menu-bar {
+    display: flex;
+    background: var(--bg-white, #fff);
+    border-bottom: 1px solid var(--border, #e2e8f0);
+    padding: 0 8px;
+    flex-shrink: 0;
+    font-size: 13px;
+    user-select: none;
+}
+
+.ent-menu-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.ent-menu-item>span {
+    display: block;
+    padding: 4px 12px;
+    color: #64748b;
+    transition: background 0.15s, color 0.15s;
+}
+
+.ent-menu-item:hover>span,
+.ent-menu-item.open>span {
+    background: #0078D4;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.ent-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    padding: 4px 0;
+}
+
+.ent-menu-dropdown.show {
+    display: block;
+}
+
+.ent-menu-dropdown button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 6px 16px;
+    color: #1a1a2e;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+}
+
+.ent-menu-dropdown button:hover {
+    background: #0078D4;
+    color: #fff;
+}
+
+.ent-menu-dropdown hr {
+    margin: 4px 8px;
+    border: none;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ── Tool Sidebar (left icon strip) ──────────────────────── */
+.tool-sidebar {
+    width: 72px;
+    min-width: 72px;
+    background: var(--bg-white, #fff);
+    border-right: 1px solid var(--border, #e2e8f0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 4px;
+    gap: 2px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+    z-index: 10;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+}
+
+.tool-sidebar::-webkit-scrollbar {
+    width: 3px;
+}
+
+.tool-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.tool-sidebar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 3px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    border: 1.5px solid transparent;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.tool-sidebar-item:hover {
+    background: #f3f4f6;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.tool-sidebar-item.active {
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.08), rgba(0, 120, 212, 0.15));
+    border-color: #0078D4;
+    box-shadow: 0 2px 8px rgba(0, 120, 212, 0.15);
+}
+
+.tool-sidebar-item.active::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: linear-gradient(180deg, #0078D4, #50A7F5);
+    border-radius: 0 3px 3px 0;
+}
+
+.tool-logo {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tool-logo i {
+    font-size: 20px;
+    color: #0078D4;
+}
+
+.tool-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #64748b;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.tool-sidebar-divider {
+    width: 48px;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 4px 0;
+    flex-shrink: 0;
+}
+
+/* ── Status Bar ──────────────────────────────────────────── */
+.status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 16px;
+    background: #0078D4;
+    border-top: none;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.9);
+    flex-shrink: 0;
+    min-height: 24px;
+}
+
+.status-bar .status-left,
+.status-bar .status-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-bar .status-dot-sm {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7eff7e;
+    box-shadow: 0 0 4px rgba(126, 255, 126, 0.6);
+}
+
+/* ── Compliance Donut Chart ──────────────────────────────── */
+.compliance-ring-wrapper {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.compliance-ring-container {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+}
+
+.compliance-ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.compliance-ring-bg {
+    fill: none;
+    stroke: #f1f5f9;
+    stroke-width: 12;
+}
+
+.compliance-ring-fg {
+    fill: none;
+    stroke: #0078D4;
+    stroke-width: 12;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s ease;
+}
+
+.compliance-ring-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    font-weight: 800;
+    color: #0078D4;
+}
+
+.compliance-breakdown {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.compliance-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 4px;
+    padding: 6px 8px;
+}
+
+.compliance-item:hover {
+    background: #f8f9fc;
+}
+
+.compliance-item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.compliance-item-value {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.compliance-item-value.high {
+    color: #22c55e;
+}
+
+.compliance-item-value.medium {
+    color: #f59e0b;
+}
+
+.compliance-item-value.low {
+    color: #ef4444;
+}
+
+/* ── App Body Wrapper ────────────────────────────────────── */
+.app-body-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+    position: relative;
+}
+
+.app-main-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    background: #f0f2f5;
+}
+
+/* ── Drill-down clickable ────────────────────────────────── */
+[data-drilldown] {
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+[data-drilldown]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.12);
+}
+
+/* ── App container ───────────────────────────────────────── */
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    min-height: 0;
+}

@@ -1,0 +1,444 @@
+/* QS-DPDP Mobile — Premium Dark Theme */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-primary: #0f172a;
+    --bg-card: #1e293b;
+    --bg-card-hover: #253349;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.3);
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --teal: #14b8a6;
+    --radius: 16px;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding-bottom: calc(72px + var(--safe-bottom));
+    overflow-x: hidden;
+}
+
+/* ─── Status Bar ─── */
+.status-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-bar h1 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.status-bar .badge {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.status-bar .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-right: 6px;
+}
+
+/* ─── Pull To Refresh ─── */
+.pull-indicator {
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: none;
+}
+
+.pull-indicator.active {
+    display: block;
+}
+
+/* ─── KPI Cards ─── */
+.kpi-scroll {
+    display: flex;
+    gap: 12px;
+    padding: 16px 16px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.kpi-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.kpi-card {
+    min-width: 140px;
+    padding: 16px;
+    border-radius: var(--radius);
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    border-radius: var(--radius);
+}
+
+.kpi-card.blue {
+    background: linear-gradient(135deg, #1e3a5f, #1e293b);
+    border-left: 3px solid var(--blue);
+}
+
+.kpi-card.green {
+    background: linear-gradient(135deg, #14332a, #1e293b);
+    border-left: 3px solid var(--green);
+}
+
+.kpi-card.amber {
+    background: linear-gradient(135deg, #3d2e0a, #1e293b);
+    border-left: 3px solid var(--amber);
+}
+
+.kpi-card.purple {
+    background: linear-gradient(135deg, #2d1b4e, #1e293b);
+    border-left: 3px solid var(--purple);
+}
+
+.kpi-card.teal {
+    background: linear-gradient(135deg, #0d3331, #1e293b);
+    border-left: 3px solid var(--teal);
+}
+
+.kpi-card.red {
+    background: linear-gradient(135deg, #3b1111, #1e293b);
+    border-left: 3px solid var(--red);
+}
+
+.kpi-card .kpi-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+    opacity: 0.7;
+}
+
+.kpi-card .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+}
+
+.kpi-card .kpi-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ─── Sections ─── */
+.section {
+    padding: 8px 16px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px 0 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title .see-all {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* ─── Module Cards Grid ─── */
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0 16px 12px;
+}
+
+.module-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 14px 8px;
+    text-align: center;
+    transition: transform 0.2s, background 0.2s;
+    cursor: pointer;
+}
+
+.module-card:active {
+    transform: scale(0.95);
+    background: var(--bg-card-hover);
+}
+
+.module-card .mod-icon {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.module-card .mod-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.module-card .mod-count {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+/* ─── Data Lists ─── */
+.data-list {
+    padding: 0 16px;
+}
+
+.data-item {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.data-item:active {
+    background: var(--bg-card-hover);
+}
+
+.data-item .item-left {
+    flex: 1;
+}
+
+.data-item .item-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.data-item .item-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.data-item .item-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.badge-active {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+}
+
+.badge-critical {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--red);
+}
+
+.badge-high {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--amber);
+}
+
+.badge-medium {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--accent);
+}
+
+.badge-pending {
+    background: rgba(148, 163, 184, 0.15);
+    color: var(--text-secondary);
+}
+
+.badge-completed {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+}
+
+/* ─── Compliance Meter ─── */
+.compliance-meter {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 0 16px 12px;
+    text-align: center;
+}
+
+.meter-ring {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 12px;
+    position: relative;
+}
+
+.meter-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.meter-ring .ring-bg {
+    fill: none;
+    stroke: #334155;
+    stroke-width: 8;
+}
+
+.meter-ring .ring-fg {
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.meter-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.meter-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* ─── Bottom Navigation ─── */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 calc(8px + var(--safe-bottom));
+    z-index: 200;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px 12px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.nav-item.active {
+    color: var(--accent);
+}
+
+.nav-item.active i {
+    filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+/* ─── Page Transitions ─── */
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+/* ─── Loading Skeleton ─── */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-card) 25%, #2d3a4f 50%, var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0
+    }
+
+    100% {
+        background-position: -200% 0
+    }
+}
+
+/* ─── Responsive ─── */
+@media (min-width:480px) {
+    .module-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .kpi-card {
+        min-width: 160px;
+    }
+}

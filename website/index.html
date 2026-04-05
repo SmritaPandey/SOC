@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield ONE — Quantum-Safe Cybersecurity Platform</title>
+    <meta name="description" content="Enterprise-grade cybersecurity platform with SIEM, SOAR, DLP, EDR, XDR, Antivirus and Identity Management. AI-powered, quantum-safe, NIST PQC compliant.">
+    <meta name="keywords" content="cybersecurity, SIEM, SOAR, DLP, EDR, XDR, antivirus, IAM, quantum-safe, NIST PQC, AI security">
+    <link rel="stylesheet" href="css/qshield-platform.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛡️</text></svg>">
+</head>
+<body>
+
+<!-- Particle Background -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Navigation -->
+<nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">
+        <div class="shield-icon">🛡</div>
+        <span class="brand-text">QShield ONE</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="platform.html">Platform</a></li>
+        <li class="dropdown">
+            <a href="#">Products ▾</a>
+            <div class="dropdown-menu">
+                <a href="products/siem.html"><div class="dm-icon icon-cyan">📊</div><div><strong>QS-SIEM</strong><br><small>Security Information & Event Management</small></div></a>
+                <a href="products/soar.html"><div class="dm-icon icon-purple">⚡</div><div><strong>QS-SOAR</strong><br><small>Security Orchestration & Response</small></div></a>
+                <a href="products/dlp.html"><div class="dm-icon icon-green">🔐</div><div><strong>QS-DLP</strong><br><small>Data Loss Prevention</small></div></a>
+                <a href="products/edr.html"><div class="dm-icon icon-orange">🎯</div><div><strong>QS-EDR</strong><br><small>Endpoint Detection & Response</small></div></a>
+                <a href="products/xdr.html"><div class="dm-icon icon-blue">🌐</div><div><strong>QS-XDR</strong><br><small>Extended Detection & Response</small></div></a>
+                <a href="products/antivirus.html"><div class="dm-icon icon-red">🛡️</div><div><strong>QS-AV</strong><br><small>Quantum-Safe Antivirus</small></div></a>
+                <a href="products/idam.html"><div class="dm-icon icon-magenta">🔑</div><div><strong>QS-IDAM</strong><br><small>Identity & Access Management</small></div></a>
+            </div>
+        </li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
+        <li><a href="enterprise.html">Enterprise</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="free-trial.html" class="nav-cta">Free Trial →</a></li>
+    </ul>
+    <div class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="pulse"></span>
+            Quantum-Safe • AI-Powered • Enterprise-Grade
+        </div>
+        <h1>
+            The Unified<br>
+            <span class="gradient-text">Cybersecurity Platform</span>
+        </h1>
+        <p>
+            7 integrated security products powered by RAG AI analytics, NLP processing,
+            and NIST PQC quantum-safe cryptography. From SIEM to Antivirus — one platform,
+            complete protection.
+        </p>
+        <div class="hero-actions">
+            <a href="free-trial.html" class="btn btn-primary btn-lg">Start Free Trial →</a>
+            <a href="platform.html" class="btn btn-secondary btn-lg">Explore Platform</a>
+        </div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" data-count="2847563">0</div>
+                <div class="stat-label">Threats Blocked Today</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" data-count="145000">0</div>
+                <div class="stat-label">Protected Endpoints</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" data-count="42000000">0</div>
+                <div class="stat-label">Threat Signatures</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">99.97%</div>
+                <div class="stat-label">Detection Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section class="section section-alt" id="products">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Complete Security Suite</div>
+            <h2>7 Products. One Platform.<br><span class="gradient-text">Zero Compromise.</span></h2>
+            <p>Every product is RAG AI-enriched, NLP-capable, and quantum-safe by default. Choose individual products or deploy the complete QShield ONE platform.</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- QS-SIEM -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #00f0ff, #3b82f6)">
+                <div class="card-icon icon-cyan">📊</div>
+                <h3>QS-SIEM</h3>
+                <p class="card-desc">Next-generation Security Information & Event Management with AI-driven correlation, UEBA behavioral analytics, and real-time threat detection across your entire infrastructure.</p>
+                <div class="card-features">
+                    <span>Log Aggregation</span>
+                    <span>UEBA</span>
+                    <span>Correlation Rules</span>
+                    <span>Real-Time Dashboards</span>
+                    <span>Compliance Reporting</span>
+                </div>
+                <a href="products/siem.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-SOAR -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #8b5cf6, #d946ef)">
+                <div class="card-icon icon-purple">⚡</div>
+                <h3>QS-SOAR</h3>
+                <p class="card-desc">Automated security orchestration and response with AI-powered playbooks, incident workflow automation, and integrated threat intelligence feeds for rapid response.</p>
+                <div class="card-features">
+                    <span>Automated Playbooks</span>
+                    <span>Incident Workflows</span>
+                    <span>Threat Intel Feeds</span>
+                    <span>Case Management</span>
+                </div>
+                <a href="products/soar.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-DLP -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #10b981, #06ffa5)">
+                <div class="card-icon icon-green">🔐</div>
+                <h3>QS-DLP</h3>
+                <p class="card-desc">Quantum-safe Data Loss Prevention with NLP-powered PII/PHI detection, content inspection, and policy enforcement across endpoints, network, and cloud.</p>
+                <div class="card-features">
+                    <span>NLP PII Detection</span>
+                    <span>Content Inspection</span>
+                    <span>Endpoint DLP</span>
+                    <span>Cloud DLP</span>
+                    <span>Policy Engine</span>
+                </div>
+                <a href="products/dlp.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-EDR -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #f97316, #ff6b35)">
+                <div class="card-icon icon-orange">🎯</div>
+                <h3>QS-EDR</h3>
+                <p class="card-desc">Advanced Endpoint Detection & Response with behavioral analysis, process telemetry, and AI-powered threat hunting to catch zero-day threats in real time.</p>
+                <div class="card-features">
+                    <span>Behavioral Analysis</span>
+                    <span>Process Telemetry</span>
+                    <span>Threat Hunting</span>
+                    <span>Forensic Analysis</span>
+                </div>
+                <a href="products/edr.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-XDR -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #3b82f6, #00d4ff)">
+                <div class="card-icon icon-blue">🌐</div>
+                <h3>QS-XDR</h3>
+                <p class="card-desc">Extended Detection & Response unifying telemetry across endpoints, network, cloud, email, and identity layers for cross-domain threat correlation and response.</p>
+                <div class="card-features">
+                    <span>Cross-Layer Visibility</span>
+                    <span>Unified Investigation</span>
+                    <span>Auto-Correlation</span>
+                    <span>Threat Scoring</span>
+                </div>
+                <a href="products/xdr.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-AV -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #ef4444, #f97316)">
+                <div class="card-icon icon-red">🛡️</div>
+                <h3>QShield Antivirus</h3>
+                <p class="card-desc">AI-powered endpoint protection with custom neural network scanning engine, multi-engine detection, and NIST PQC quantum-safe cryptographic foundations.</p>
+                <div class="card-features">
+                    <span>Neural Network Engine</span>
+                    <span>Real-Time Protection</span>
+                    <span>RAG Threat Intel</span>
+                    <span>PQC Encryption</span>
+                    <span>Multi-Platform</span>
+                </div>
+                <a href="products/antivirus.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-IDAM -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #d946ef, #8b5cf6)">
+                <div class="card-icon icon-magenta">🔑</div>
+                <h3>QS-IDAM</h3>
+                <p class="card-desc">Enterprise Identity & Access Management with SSO/OIDC, WebAuthn/FIDO2 passkeys, Privileged Access Management, and AI-driven adaptive authentication.</p>
+                <div class="card-features">
+                    <span>SSO / OIDC</span>
+                    <span>WebAuthn / FIDO2</span>
+                    <span>PAM Vault</span>
+                    <span>W3C Verifiable Credentials</span>
+                    <span>AI Risk Engine</span>
+                </div>
+                <a href="products/idam.html" class="card-link">Learn More →</a>
+            </div>
+
+            <!-- QS-GRC Link -->
+            <div class="product-card reveal" style="--card-accent: linear-gradient(90deg, #06ffa5, #00d4ff)">
+                <div class="card-icon icon-green">📋</div>
+                <h3>QS-GRC</h3>
+                <p class="card-desc">Governance, Risk & Compliance platform with asset discovery, patch monitoring, compliance frameworks, and regulatory reporting — already live at qsgrc.com.</p>
+                <div class="card-features">
+                    <span>Asset Discovery</span>
+                    <span>Patch Monitoring</span>
+                    <span>Compliance Frameworks</span>
+                    <span>Risk Assessment</span>
+                </div>
+                <a href="https://www.qsgrc.com" target="_blank" class="card-link">Visit QS-GRC →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI & Quantum Safe Section -->
+<section class="section" id="technology">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Core Technology</div>
+            <h2>AI-Powered. <span class="gradient-text">Quantum-Safe.</span></h2>
+            <p>Every QShield product is built on three foundational pillars — ensuring your security infrastructure is future-proof.</p>
+        </div>
+
+        <div class="pqc-grid reveal">
+            <div class="pqc-card">
+                <span class="pqc-icon">🧠</span>
+                <h3>RAG AI Analytics</h3>
+                <div class="standard">Retrieval-Augmented Generation</div>
+                <p>Every product embeds a RAG engine using TF-IDF vector search and contextual retrieval for intelligent threat analysis, compliance guidance, and automated decision-making.</p>
+            </div>
+            <div class="pqc-card">
+                <span class="pqc-icon">💬</span>
+                <h3>NLP Processing</h3>
+                <div class="standard">Apache OpenNLP + Custom Models</div>
+                <p>Natural Language Processing for log analysis, PII/PHI entity extraction, natural language security queries, and intelligent alert triage across all products.</p>
+            </div>
+            <div class="pqc-card">
+                <span class="pqc-icon">🔬</span>
+                <h3>Quantum-Safe Crypto</h3>
+                <div class="standard">NIST FIPS 203 · 204 · 205</div>
+                <p>Full NIST PQC compliance with CRYSTALS-Kyber (ML-KEM), CRYSTALS-Dilithium (ML-DSA), and SPHINCS+ (SLH-DSA) across all encryption and signing operations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Architecture / Platform Hub -->
+<section class="section section-alt" id="architecture">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Unified Platform</div>
+            <h2>All Products. One <span class="gradient-text">Command Center.</span></h2>
+            <p>QShield ONE unifies all seven security products into a single pane of glass — like Trend Micro Vision One, but quantum-safe and AI-first.</p>
+        </div>
+
+        <div class="arch-hub reveal">
+            <div class="arch-center">
+                <span class="center-icon">🛡️</span>
+                QShield ONE
+            </div>
+            <div class="arch-spokes">
+                <div class="arch-spoke">
+                    <span class="spoke-icon">📊</span>
+                    QS-SIEM
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">⚡</span>
+                    QS-SOAR
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">🔐</span>
+                    QS-DLP
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">🎯</span>
+                    QS-EDR
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">🌐</span>
+                    QS-XDR
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">🛡️</span>
+                    QS-AV
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">🔑</span>
+                    QS-IDAM
+                </div>
+                <div class="arch-spoke">
+                    <span class="spoke-icon">📋</span>
+                    QS-GRC
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Segments -->
+<section class="section" id="segments">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">For Every Organization</div>
+            <h2>Deployment Models for <span class="gradient-text">Every Scale</span></h2>
+            <p>From individual systems to global enterprises — QShield adapts to your infrastructure.</p>
+        </div>
+
+        <div class="features-grid reveal">
+            <div class="feature-card">
+                <div class="f-icon icon-blue">🏢</div>
+                <h3>Enterprise (On-Premises)</h3>
+                <p>Full self-hosted deployment with volume licensing, custom integrations, dedicated support, and complete data sovereignty. Perfect for regulated industries.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-cyan">☁️</div>
+                <h3>SaaS (Cloud)</h3>
+                <p>Fully managed cloud security-as-a-service. Zero infrastructure overhead, automatic updates, and elastic scaling. Multi-tenant with complete isolation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-green">💻</div>
+                <h3>Individual System</h3>
+                <p>Protect your personal computer or small office with professional-grade security. Easy installation, affordable annual subscription, full AI protection.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-purple">📱</div>
+                <h3>Mobile (MDM)</h3>
+                <p>Android and iOS endpoint agents with MDM integration, app scanning, device compliance enforcement, and secure container management.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust & Compliance Bar -->
+<section class="section section-alt" id="trust" style="padding: 50px 0">
+    <div class="container">
+        <div class="section-header reveal" style="margin-bottom: 32px">
+            <h2 style="font-size: 1.5rem">Trusted by Security Professionals Worldwide</h2>
+        </div>
+        <div class="trust-bar reveal">
+            <div class="trust-item">
+                <div class="trust-icon">🏛️</div>
+                <span>ISO 27001</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔒</div>
+                <span>ISO 27701</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">📋</div>
+                <span>NIST CSF</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🛡️</div>
+                <span>NIST PQC</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🌐</div>
+                <span>OWASP</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🇮🇳</div>
+                <span>CERT-In</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">✅</div>
+                <span>STQC</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🏆</div>
+                <span>DSCI</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">📜</div>
+                <span>DPDP Act 2023</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Threat Map -->
+<section class="section" id="threat-map">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Global Intelligence</div>
+            <h2>Live Threat <span class="gradient-text">Intelligence Map</span></h2>
+            <p>Real-time visualization of threats detected and neutralized by QShield endpoints worldwide.</p>
+        </div>
+        <div class="threat-map-container reveal">
+            <canvas id="threat-map-canvas"></canvas>
+            <div class="threat-map-legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#ef4444"></div>
+                    Ransomware
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#fb923c"></div>
+                    Trojan
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#8b5cf6"></div>
+                    Spyware
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#00f0ff"></div>
+                    Phishing
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#10b981"></div>
+                    Blocked
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2>Ready to Secure Your <span class="gradient-text">Organization?</span></h2>
+    <p>Start with a free trial of any product or deploy the complete QShield ONE platform for comprehensive protection.</p>
+    <div class="cta-actions">
+        <a href="free-trial.html" class="btn btn-primary btn-lg">Start Free Trial →</a>
+        <a href="enterprise.html" class="btn btn-secondary btn-lg">Contact Sales</a>
+        <a href="downloads.html" class="btn btn-ghost btn-lg">Download Center ↓</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">🛡️ QShield ONE</div>
+                <p class="footer-desc">The quantum-safe, AI-powered cybersecurity platform. Protecting today's infrastructure against tomorrow's threats with NIST PQC compliance.</p>
+            </div>
+            <div>
+                <h4>Products</h4>
+                <ul class="footer-links">
+                    <li><a href="products/siem.html">QS-SIEM</a></li>
+                    <li><a href="products/soar.html">QS-SOAR</a></li>
+                    <li><a href="products/dlp.html">QS-DLP</a></li>
+                    <li><a href="products/edr.html">QS-EDR</a></li>
+                    <li><a href="products/xdr.html">QS-XDR</a></li>
+                    <li><a href="products/antivirus.html">QShield AV</a></li>
+                    <li><a href="products/idam.html">QS-IDAM</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Solutions</h4>
+                <ul class="footer-links">
+                    <li><a href="enterprise.html">Enterprise</a></li>
+                    <li><a href="pricing.html">SaaS / Cloud</a></li>
+                    <li><a href="pricing.html">Individual</a></li>
+                    <li><a href="pricing.html">Mobile</a></li>
+                    <li><a href="https://www.qsgrc.com" target="_blank">QS-GRC</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="downloads.html">Downloads</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">Knowledge Base</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Partners</a></li>
+                    <li><a href="#">Press Kit</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© <span class="current-year">2026</span> QualityShield Technologies Pvt. Ltd. All rights reserved.</span>
+            <span>Quantum Safe • AI Powered • Enterprise Ready</span>
+        </div>
+    </div>
+</footer>
+
+<script src="js/qshield-platform.js"></script>
+</body>
+</html>

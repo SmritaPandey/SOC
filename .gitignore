@@ -1,0 +1,59 @@
+# ═══════════════════════════════════════
+# QShield ONE — .gitignore
+# ═══════════════════════════════════════
+
+# Java Build Output
+target/
+*.class
+*.jar
+!**/src/**/*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment & Secrets
+*.env
+*.p12
+*.keystore
+*.jks
+
+# Large Binaries (exceed GitHub 100MB limit)
+*.exe
+*.msi
+*.dmg
+*.pkg
+website/dist/qs-soc/*.jar
+website/dist/qs-idam/*.jar
+website/dist/qs-av/*.jar
+
+# Build intermediates
+v2-build-input/
+v2-output/
+v2-installer/
+installer/*.msi
+
+# Logs
+*.log
+logs/
+
+# H2 Database files
+*.db
+*.trace.db
+
+# Node modules (if any)
+node_modules/

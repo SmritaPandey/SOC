@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield IDAM — Product Data Sheet</title>
+    <meta name="description" content="QShield IDAM technical data sheet. Quantum-safe identity and access management with SSO, WebAuthn, PAM, and AI risk engine.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --brand: #d946ef; --bg: #0a0e1a; --card: #111827; --text: #f0f4ff; --muted: #94a3b8; --border: rgba(255,255,255,0.06); --accent: #06ffa5; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .header { padding: 60px 0 40px; text-align: center; border-bottom: 1px solid var(--border); }
+        .header .badge { display: inline-block; padding: 6px 16px; border-radius: 100px; background: rgba(217,70,239,0.1); color: var(--brand); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; }
+        .header .sub { font-size: 1.2rem; color: var(--brand); font-weight: 600; }
+        .header .desc { color: var(--muted); margin-top: 16px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+        .section h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; color: var(--brand); }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+        th { background: rgba(217,70,239,0.06); color: var(--brand); padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid rgba(217,70,239,0.15); }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); }
+        td:first-child { color: var(--text); font-weight: 500; }
+        .kpi-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 20px 0; }
+        .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        .kpi .value { font-size: 1.8rem; font-weight: 800; color: var(--brand); }
+        .kpi .label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .spec-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+        .spec-card h4 { font-size: 0.9rem; color: var(--brand); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .spec-list { list-style: none; }
+        .spec-list li { padding: 4px 0; font-size: 0.88rem; color: var(--muted); display: flex; gap: 8px; }
+        .spec-list li::before { content: '▸'; color: var(--accent); flex-shrink: 0; }
+        .footer { padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.8rem; }
+        @media print { body { background: #fff; color: #000; } th { background: #f0f0f0; color: #000; } td { color: #333; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="badge">Product Data Sheet</div>
+    <h1>🔑 QShield IDAM</h1>
+    <div class="sub">Quantum-Safe Identity & Access Management</div>
+    <p class="desc">Enterprise IAM with SSO/OIDC, WebAuthn/FIDO2 passkeys, Privileged Access Management, W3C Verifiable Credentials, and AI-driven adaptive authentication. Version 1.0.0.</p>
+</div>
+
+<div class="section">
+    <h2>Key Performance Indicators</h2>
+    <div class="kpi-bar">
+        <div class="kpi"><div class="value">9</div><div class="label">Auth Methods</div></div>
+        <div class="kpi"><div class="value">39</div><div class="label">Automated Tests</div></div>
+        <div class="kpi"><div class="value">5-Factor</div><div class="label">Risk Scoring</div></div>
+        <div class="kpi"><div class="value">&lt;50ms</div><div class="label">Auth Latency</div></div>
+        <div class="kpi"><div class="value">∞</div><div class="label">Tenants</div></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Feature Specifications</h2>
+    <div class="specs-grid">
+        <div class="spec-card">
+            <h4>🔐 Authentication</h4>
+            <ul class="spec-list">
+                <li>Email + Password (Argon2id hashing)</li>
+                <li>OAuth2 + PKCE (Authorization Code)</li>
+                <li>OpenID Connect with JWKS endpoint</li>
+                <li>WebAuthn / FIDO2 passkeys</li>
+                <li>Magic link passwordless login</li>
+                <li>OTP (TOTP/HOTP) multi-factor</li>
+                <li>Biometric (Touch ID / Windows Hello)</li>
+                <li>Device trust fingerprinting</li>
+                <li>Social login (Google, GitHub, SAML)</li>
+            </ul>
+        </div>
+        <div class="spec-card">
+            <h4>🏛️ Access Control</h4>
+            <ul class="spec-list">
+                <li>Role-Based Access Control (RBAC)</li>
+                <li>Attribute-Based Access Control (ABAC)</li>
+                <li>Fine-grained permission policies</li>
+                <li>API scope management</li>
+                <li>Tenant-isolated authorization</li>
+                <li>Session management with revocation</li>
+                <li>Token introspection endpoint</li>
+                <li>Refresh token rotation</li>
+            </ul>
+        </div>
+        <div class="spec-card">
+            <h4>🔒 PAM Vault</h4>
+            <ul class="spec-list">
+                <li>Privileged credential vaulting</li>
+                <li>Automated password rotation</li>
+                <li>Just-in-time (JIT) access grants</li>
+                <li>Session recording & playback</li>
+                <li>Emergency break-glass access</li>
+                <li>Service account management</li>
+            </ul>
+        </div>
+        <div class="spec-card">
+            <h4>🧠 AI Risk Engine</h4>
+            <ul class="spec-list">
+                <li>5-factor adaptive authentication</li>
+                <li>Device reputation scoring</li>
+                <li>Geographic anomaly detection</li>
+                <li>Behavioral pattern analysis</li>
+                <li>Impossible travel detection</li>
+                <li>Risk-based step-up MFA</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>System Requirements</h2>
+    <table>
+        <thead><tr><th>Component</th><th>Minimum</th><th>Recommended</th></tr></thead>
+        <tbody>
+            <tr><td>Operating System</td><td>Windows 10+ / Linux / macOS</td><td>Windows Server 2019+ / Ubuntu 22.04+</td></tr>
+            <tr><td>Java Runtime</td><td>OpenJDK 17+</td><td>OpenJDK 21</td></tr>
+            <tr><td>Memory</td><td>2 GB</td><td>8 GB</td></tr>
+            <tr><td>Storage</td><td>500 MB</td><td>10 GB</td></tr>
+            <tr><td>Database</td><td>H2 (embedded)</td><td>PostgreSQL 14+</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Security & Compliance</h2>
+    <table>
+        <thead><tr><th>Control</th><th>Implementation</th><th>Standard</th></tr></thead>
+        <tbody>
+            <tr><td>Password Hashing</td><td>Argon2id (m=65536, t=3, p=4)</td><td>OWASP ASVS 2.4</td></tr>
+            <tr><td>JWT Tokens</td><td>HMAC-SHA256, 30-min access, 7-day refresh</td><td>NIST IA-5</td></tr>
+            <tr><td>Transport Security</td><td>TLS 1.3 (PKCS12 keystore)</td><td>NIST SC-8</td></tr>
+            <tr><td>Rate Limiting</td><td>100/min API, 10/min auth (per-IP)</td><td>NIST AC-7</td></tr>
+            <tr><td>PQC Tokens</td><td>ML-DSA-87 (Dilithium) JWT signing</td><td>FIPS 204</td></tr>
+            <tr><td>Security Headers</td><td>CSP, HSTS, X-Frame-Options, Permissions-Policy</td><td>OWASP A05</td></tr>
+            <tr><td>Automated Tests</td><td>39 (VAPT + NIST SP 800-53 + STQC IS 15408)</td><td>ISO 27001</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Deployment Options</h2>
+    <table>
+        <thead><tr><th>Format</th><th>File</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr><td>Standalone JAR</td><td>QShield-IDAM-Server-1.0.0.jar (99 MB)</td><td>Cross-platform. Requires Java 17+.</td></tr>
+            <tr><td>Windows Installer</td><td>QShield-IDAM-Setup-1.0.0.exe (88 MB)</td><td>GUI wizard with bundled JRE.</td></tr>
+            <tr><td>Docker</td><td>Dockerfile included</td><td>Container deployment supported.</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <p>© 2026 QualityShield Technologies Pvt. Ltd. | www.qsgrc.com | support@qsgrc.com</p>
+    <p style="margin-top:8px;">Document Version: DS-IDAM-1.0.0 | Classification: Public</p>
+</div>
+
+</div>
+</body>
+</html>

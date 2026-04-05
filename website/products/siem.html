@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QS-SIEM — AI-Powered Security Information & Event Management | QShield ONE</title>
+    <meta name="description" content="Next-generation SIEM with AI-driven correlation, UEBA, quantum-safe log integrity, and RAG-powered alert enrichment. Enterprise & SaaS deployment.">
+    <link rel="stylesheet" href="../css/qshield-platform.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📊</text></svg>">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="mainNav">
+    <a href="../index.html" class="nav-logo">
+        <div class="shield-icon">🛡</div>
+        <span class="brand-text">QShield ONE</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="../platform.html">Platform</a></li>
+        <li class="dropdown">
+            <a href="#">Products ▾</a>
+            <div class="dropdown-menu">
+                <a href="siem.html"><div class="dm-icon icon-cyan">📊</div><div><strong>QS-SIEM</strong><br><small>Security Information & Event Management</small></div></a>
+                <a href="soar.html"><div class="dm-icon icon-purple">⚡</div><div><strong>QS-SOAR</strong><br><small>Security Orchestration & Response</small></div></a>
+                <a href="dlp.html"><div class="dm-icon icon-green">🔐</div><div><strong>QS-DLP</strong><br><small>Data Loss Prevention</small></div></a>
+                <a href="edr.html"><div class="dm-icon icon-orange">🎯</div><div><strong>QS-EDR</strong><br><small>Endpoint Detection & Response</small></div></a>
+                <a href="xdr.html"><div class="dm-icon icon-blue">🌐</div><div><strong>QS-XDR</strong><br><small>Extended Detection & Response</small></div></a>
+                <a href="antivirus.html"><div class="dm-icon icon-red">🛡️</div><div><strong>QS-AV</strong><br><small>Quantum-Safe Antivirus</small></div></a>
+                <a href="idam.html"><div class="dm-icon icon-magenta">🔑</div><div><strong>QS-IDAM</strong><br><small>Identity & Access Management</small></div></a>
+            </div>
+        </li>
+        <li><a href="../pricing.html">Pricing</a></li>
+        <li><a href="../downloads.html">Downloads</a></li>
+        <li><a href="../enterprise.html">Enterprise</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../free-trial.html" class="nav-cta">Free Trial →</a></li>
+    </ul>
+    <div class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="label">Security Operations</div>
+    <h1>QS-SIEM</h1>
+    <p>Next-generation Security Information & Event Management with AI-driven correlation, UEBA analytics, and quantum-safe log integrity.</p>
+    <div style="margin-top:32px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="../free-trial.html" class="btn btn-primary">Start Free Trial →</a>
+        <a href="../enterprise.html" class="btn btn-secondary">Request Demo</a>
+    </div>
+</section>
+
+<!-- Key Features -->
+<section class="section" id="features">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Capabilities</div>
+            <h2>Enterprise SIEM. <span class="gradient-text">AI-Supercharged.</span></h2>
+            <p>Comprehensive security visibility with intelligent automation — rivaling IBM QRadar and Trend Micro's Agentic SIEM.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="f-icon icon-cyan">📥</div>
+                <h3>Universal Log Aggregation</h3>
+                <p>Ingest logs from any source — firewalls, servers, endpoints, cloud, SaaS apps, custom applications — via Syslog, REST API, file-based, and agent-based collection.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-purple">🧠</div>
+                <h3>AI Correlation Engine</h3>
+                <p>RAG-powered correlation rules that learn from your environment. Automatically detect multi-stage attacks with contextual enrichment from MITRE ATT&CK framework.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-green">👤</div>
+                <h3>UEBA Analytics</h3>
+                <p>User & Entity Behavior Analytics using Isolation Forest and statistical models to detect insider threats, compromised accounts, and anomalous access patterns.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-orange">📊</div>
+                <h3>Real-Time Dashboards</h3>
+                <p>Live operational dashboards with threat timelines, geolocation maps, risk scoring, and drill-down investigation views. WebSocket-powered real-time updates.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-blue">💬</div>
+                <h3>NLP Log Query</h3>
+                <p>Search your logs using natural language. Ask "show me failed logins from Russia in the last 24 hours" and get instant results with AI-powered query translation.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-magenta">📋</div>
+                <h3>Compliance Reporting</h3>
+                <p>Pre-built report templates for ISO 27001, NIST CSF, PCI-DSS, HIPAA, DPDP Act 2023, and custom frameworks. Automated scheduling and distribution.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-cyan">🔗</div>
+                <h3>SOAR Integration</h3>
+                <p>Native integration with QS-SOAR for automated incident response. Alerts trigger playbooks, create tickets, and initiate containment — all hands-free.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-green">🔒</div>
+                <h3>Quantum-Safe Log Integrity</h3>
+                <p>Every log event is signed with CRYSTALS-Dilithium (FIPS 204) digital signatures. Tamper-evident event chains ensure forensic-grade integrity.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="f-icon icon-orange">🌊</div>
+                <h3>Elastic Scalability</h3>
+                <p>Built on Elasticsearch 8 for unlimited horizontal scaling. Process millions of events per second with sub-second search across petabytes of data.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI & PQC Section -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="platform-visual reveal">
+            <div class="platform-text">
+                <h3>RAG AI-Enriched <span class="gradient-text">Alert Triage</span></h3>
+                <p>QS-SIEM's RAG engine retrieves contextual intelligence from a continuously updated knowledge base containing MITRE ATT&CK mappings, CVE data, and threat actor profiles.</p>
+                <p>Every alert is automatically enriched with:</p>
+                <ul style="color:var(--text-secondary); font-size:0.9rem; margin-top:12px;">
+                    <li style="padding:6px 0;">✓ MITRE ATT&CK technique mapping</li>
+                    <li style="padding:6px 0;">✓ CVE correlation and severity scoring</li>
+                    <li style="padding:6px 0;">✓ Historical pattern matching</li>
+                    <li style="padding:6px 0;">✓ Recommended response actions</li>
+                    <li style="padding:6px 0;">✓ False positive probability scoring</li>
+                </ul>
+            </div>
+            <div class="platform-diagram">
+                <div style="text-align:center; padding:20px 0;">
+                    <div style="font-size:2.5rem; margin-bottom:16px;">🧠</div>
+                    <div style="font-size:1.2rem; font-weight:700; margin-bottom:24px;">RAG AI Pipeline</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        <div style="background:rgba(0,212,255,0.06); border:1px solid rgba(0,212,255,0.15); border-radius:8px; padding:12px; font-size:0.82rem;">
+                            <div style="font-weight:700; margin-bottom:4px;">TF-IDF Vectorizer</div>
+                            <div style="color:var(--text-muted);">Feature extraction</div>
+                        </div>
+                        <div style="background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.15); border-radius:8px; padding:12px; font-size:0.82rem;">
+                            <div style="font-weight:700; margin-bottom:4px;">Cosine Similarity</div>
+                            <div style="color:var(--text-muted);">Context retrieval</div>
+                        </div>
+                        <div style="background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.15); border-radius:8px; padding:12px; font-size:0.82rem;">
+                            <div style="font-weight:700; margin-bottom:4px;">Threat KB</div>
+                            <div style="color:var(--text-muted);">MITRE + CVE + IOCs</div>
+                        </div>
+                        <div style="background:rgba(249,115,22,0.06); border:1px solid rgba(249,115,22,0.15); border-radius:8px; padding:12px; font-size:0.82rem;">
+                            <div style="font-weight:700; margin-bottom:4px;">NLP Classifier</div>
+                            <div style="color:var(--text-muted);">Alert categorization</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Deployment Options -->
+<section class="section">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Deployment</div>
+            <h2>Your Infrastructure, <span class="gradient-text">Your Choice</span></h2>
+        </div>
+        <div class="features-grid reveal">
+            <div class="feature-card">
+                <div class="f-icon icon-blue">🏢</div>
+                <h3>Enterprise On-Premises</h3>
+                <p>Full self-hosted SIEM with unlimited EPS. Deploy on bare metal or VMs. Complete data sovereignty with air-gapped network support.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-cyan">☁️</div>
+                <h3>SaaS / Cloud</h3>
+                <p>Managed SIEM-as-a-Service with elastic scaling. No infrastructure to manage. Per-GB ingestion pricing with unlimited retention options.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-green">💻</div>
+                <h3>Individual / SMB</h3>
+                <p>Lightweight SIEM for small organizations. Pre-configured dashboards, essential correlation rules, and simplified deployment. Up to 500 EPS.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Preview -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Pricing</div>
+            <h2>QS-SIEM Plans</h2>
+        </div>
+        <div class="pricing-grid reveal">
+            <div class="pricing-card">
+                <h3>Essentials</h3>
+                <div class="pricing-price">$12</div>
+                <div class="pricing-period">per GB/day ingestion · monthly</div>
+                <ul class="pricing-features">
+                    <li>Up to 10 GB/day log ingestion</li>
+                    <li>90-day log retention</li>
+                    <li>500+ built-in correlation rules</li>
+                    <li>Real-time dashboards</li>
+                    <li>Basic compliance reports</li>
+                    <li>Email alerting</li>
+                </ul>
+                <a href="../free-trial.html" class="btn btn-secondary" style="width:100%;justify-content:center">Start Free Trial</a>
+            </div>
+            <div class="pricing-card featured">
+                <div class="popular-badge">Most Popular</div>
+                <h3>Professional</h3>
+                <div class="pricing-price">$24</div>
+                <div class="pricing-period">per GB/day ingestion · monthly</div>
+                <ul class="pricing-features">
+                    <li>Unlimited log ingestion</li>
+                    <li>1-year log retention</li>
+                    <li>RAG AI alert enrichment</li>
+                    <li>UEBA analytics</li>
+                    <li>NLP log search</li>
+                    <li>SOAR integration</li>
+                    <li>Custom correlation rules</li>
+                    <li>All compliance frameworks</li>
+                </ul>
+                <a href="../free-trial.html" class="btn btn-primary" style="width:100%;justify-content:center">Start Free Trial</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="pricing-price">Custom</div>
+                <div class="pricing-period">volume licensing · annual</div>
+                <ul class="pricing-features">
+                    <li>Everything in Professional</li>
+                    <li>On-premises deployment</li>
+                    <li>Quantum-safe log integrity</li>
+                    <li>Unlimited retention</li>
+                    <li>Air-gapped support</li>
+                    <li>Dedicated threat analyst</li>
+                    <li>Custom integrations</li>
+                    <li>24/7 SOC support & SLA</li>
+                </ul>
+                <a href="../enterprise.html" class="btn btn-secondary" style="width:100%;justify-content:center">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Integration -->
+<section class="section">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Integrations</div>
+            <h2>Works With Your <span class="gradient-text">Existing Stack</span></h2>
+        </div>
+        <div class="features-grid reveal">
+            <div class="feature-card">
+                <div class="f-icon icon-purple">⚡</div>
+                <h3>QS-SOAR</h3>
+                <p>Bi-directional integration for automated incident response. SIEM alerts trigger SOAR playbooks automatically.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-orange">🎯</div>
+                <h3>QS-EDR / XDR</h3>
+                <p>Endpoint telemetry flows into SIEM for cross-correlation. Unified investigation across endpoint and network.</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-magenta">🔑</div>
+                <h3>QS-IDAM</h3>
+                <p>Identity events, authentication logs, and access policy violations enriched with user context for insider threat detection.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <h2>Deploy QS-SIEM <span class="gradient-text">Today</span></h2>
+    <p>Start your free trial with full features. No credit card required. Deploy in minutes.</p>
+    <div class="cta-actions">
+        <a href="../free-trial.html" class="btn btn-primary btn-lg">Start Free Trial →</a>
+        <a href="../downloads.html" class="btn btn-secondary btn-lg">Download Now</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">🛡️ QShield ONE</div>
+                <p class="footer-desc">The quantum-safe, AI-powered cybersecurity platform.</p>
+            </div>
+            <div>
+                <h4>Products</h4>
+                <ul class="footer-links">
+                    <li><a href="siem.html">QS-SIEM</a></li>
+                    <li><a href="soar.html">QS-SOAR</a></li>
+                    <li><a href="dlp.html">QS-DLP</a></li>
+                    <li><a href="edr.html">QS-EDR</a></li>
+                    <li><a href="xdr.html">QS-XDR</a></li>
+                    <li><a href="antivirus.html">QShield AV</a></li>
+                    <li><a href="idam.html">QS-IDAM</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Solutions</h4>
+                <ul class="footer-links">
+                    <li><a href="../enterprise.html">Enterprise</a></li>
+                    <li><a href="../pricing.html">SaaS / Cloud</a></li>
+                    <li><a href="../pricing.html">Individual</a></li>
+                    <li><a href="https://www.qsgrc.com" target="_blank">QS-GRC</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="../downloads.html">Downloads</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="../about.html">About Us</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© <span class="current-year">2026</span> QualityShield Technologies Pvt. Ltd.</span>
+            <span>Quantum Safe • AI Powered</span>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/qshield-platform.js"></script>
+</body>
+</html>

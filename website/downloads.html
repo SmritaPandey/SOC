@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads — QShield ONE Cybersecurity Platform</title>
+    <meta name="description" content="Download production-ready QShield cybersecurity products. Real installers for Windows, cross-platform JAR packages, and native binaries.">
+    <link rel="stylesheet" href="css/qshield-platform.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛡️</text></svg>">
+    <style>
+        .dl-file-info { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+        .dl-file-info .tag { font-size:0.72rem; padding:3px 8px; border-radius:999px; font-weight:600; }
+        .tag-size { background:rgba(0,212,255,0.1); color:var(--neon-cyan); border:1px solid rgba(0,212,255,0.2); }
+        .tag-version { background:rgba(16,185,129,0.1); color:var(--neon-green); border:1px solid rgba(16,185,129,0.2); }
+        .tag-platform { background:rgba(139,92,246,0.1); color:var(--neon-purple); border:1px solid rgba(139,92,246,0.2); }
+        .tag-type { background:rgba(249,115,22,0.1); color:var(--neon-orange); border:1px solid rgba(249,115,22,0.2); }
+        .dl-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+        .checksum-box { background:rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:6px; padding:12px; margin-top:16px; font-family:var(--font-mono); font-size:0.72rem; color:var(--text-muted); word-break:break-all; }
+        .checksum-box strong { color:var(--text-secondary); }
+        .product-section-header { display:flex; align-items:center; gap:16px; margin-bottom:8px; }
+        .product-section-header .ps-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; }
+        .product-section-header h3 { font-size:1.4rem; }
+        .product-section-desc { color:var(--text-secondary); font-size:0.9rem; margin-bottom:24px; max-width:600px; }
+        .readme-link { display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; color:var(--brand-primary); font-weight:600; margin-top:12px; }
+        .readme-link:hover { text-decoration:underline; }
+    </style>
+</head>
+<body>
+<nav class="nav"><a href="index.html" class="nav-logo"><div class="shield-icon">🛡</div><span class="brand-text">QShield ONE</span></a><ul class="nav-links"><li><a href="platform.html">Platform</a></li><li class="dropdown"><a href="#">Products ▾</a><div class="dropdown-menu"><a href="products/siem.html"><div class="dm-icon icon-cyan">📊</div><div><strong>QS-SIEM</strong></div></a><a href="products/soar.html"><div class="dm-icon icon-purple">⚡</div><div><strong>QS-SOAR</strong></div></a><a href="products/dlp.html"><div class="dm-icon icon-green">🔐</div><div><strong>QS-DLP</strong></div></a><a href="products/edr.html"><div class="dm-icon icon-orange">🎯</div><div><strong>QS-EDR</strong></div></a><a href="products/xdr.html"><div class="dm-icon icon-blue">🌐</div><div><strong>QS-XDR</strong></div></a><a href="products/antivirus.html"><div class="dm-icon icon-red">🛡️</div><div><strong>QS-AV</strong></div></a><a href="products/idam.html"><div class="dm-icon icon-magenta">🔑</div><div><strong>QS-IDAM</strong></div></a></div></li><li><a href="pricing.html">Pricing</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="enterprise.html">Enterprise</a></li><li><a href="about.html">About</a></li><li><a href="free-trial.html" class="nav-cta">Free Trial →</a></li></ul><div class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></div></nav>
+
+<section class="page-header">
+    <div class="label">Download Center</div>
+    <h1>Download <span class="gradient-text">QShield Products</span></h1>
+    <p>Production-ready installers, packages, and binaries. All downloads include SHA-256 checksums and are PQC-signed.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     QShield SOC Platform (SIEM + SOAR + DLP + EDR + XDR)
+     ═══════════════════════════════════════════════════════ -->
+<section class="section" id="dl-soc">
+    <div class="container">
+        <div class="product-section-header">
+            <div class="ps-icon icon-cyan">📊</div>
+            <div>
+                <h3>QShield SOC Platform</h3>
+                <div style="font-size:0.82rem; color:var(--text-muted);">Unified SIEM · SOAR · DLP · EDR · XDR</div>
+            </div>
+        </div>
+        <p class="product-section-desc">Complete Security Operations Center in a single package. Includes log aggregation, automated playbooks, data loss prevention, endpoint detection, and cross-layer threat correlation.</p>
+        
+        <div class="download-grid reveal">
+            <!-- MSI Installer -->
+            <div class="download-card">
+                <div class="dl-icon icon-blue">🖥️</div>
+                <div style="flex:1">
+                    <h4>Windows Installer (MSI)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v2.0.0</span>
+                        <span class="tag tag-size">94.1 MB</span>
+                        <span class="tag tag-platform">Windows 10+</span>
+                        <span class="tag tag-type">MSI</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Wizard-driven installation with service auto-start, firewall rules, and JRE bundled. Recommended for production deployment.</p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-soc/QShield-SOC-Setup-2.0.0.msi" class="btn btn-primary btn-sm" download>⬇ Download MSI</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standalone EXE -->
+            <div class="download-card">
+                <div class="dl-icon icon-orange">⚡</div>
+                <div style="flex:1">
+                    <h4>Standalone Executable (EXE)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v2.0.0</span>
+                        <span class="tag tag-size">202.1 MB</span>
+                        <span class="tag tag-platform">Windows</span>
+                        <span class="tag tag-type">EXE</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Self-contained executable with embedded JRE. No Java installation required. Double-click to run.</p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-soc/QShield-SOC-Platform-2.0.0.exe" class="btn btn-primary btn-sm" download>⬇ Download EXE</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cross-Platform JAR -->
+            <div class="download-card">
+                <div class="dl-icon icon-green">☕</div>
+                <div style="flex:1">
+                    <h4>Cross-Platform (JAR)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v2.0.0</span>
+                        <span class="tag tag-size">202.0 MB</span>
+                        <span class="tag tag-platform">Windows · Linux · macOS</span>
+                        <span class="tag tag-type">JAR</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Spring Boot fat JAR. Requires Java 17+. Run with: <code style="background:rgba(0,212,255,0.1); padding:2px 6px; border-radius:4px; font-size:0.75rem;">java -jar QShield-SOC-Platform-2.0.0.jar</code></p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-soc/QShield-SOC-Platform-2.0.0.jar" class="btn btn-primary btn-sm" download>⬇ Download JAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="dist/qs-soc/README.md" class="readme-link" target="_blank">📖 Read Quick Start Guide →</a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     QShield IDAM
+     ═══════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="dl-idam">
+    <div class="container">
+        <div class="product-section-header">
+            <div class="ps-icon icon-magenta">🔑</div>
+            <div>
+                <h3>QShield IDAM</h3>
+                <div style="font-size:0.82rem; color:var(--text-muted);">Identity & Access Management</div>
+            </div>
+        </div>
+        <p class="product-section-desc">Enterprise identity platform with SSO/OIDC, WebAuthn/FIDO2, PAM vault, W3C Verifiable Credentials, AI-driven adaptive authentication, and quantum-safe tokens.</p>
+        
+        <div class="download-grid reveal">
+            <!-- Windows Installer -->
+            <div class="download-card">
+                <div class="dl-icon icon-blue">🖥️</div>
+                <div style="flex:1">
+                    <h4>Windows Installer (EXE)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v1.0.0</span>
+                        <span class="tag tag-size">88.4 MB</span>
+                        <span class="tag tag-platform">Windows 10+</span>
+                        <span class="tag tag-type">EXE Installer</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Full installer with Inno Setup wizard. Includes JRE, database setup, and Windows service configuration.</p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-idam/QShield-IDAM-Setup-1.0.0.exe" class="btn btn-primary btn-sm" download>⬇ Download Installer</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cross-Platform JAR -->
+            <div class="download-card">
+                <div class="dl-icon icon-green">☕</div>
+                <div style="flex:1">
+                    <h4>Cross-Platform Server (JAR)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v1.0.0</span>
+                        <span class="tag tag-size">98.8 MB</span>
+                        <span class="tag tag-platform">Windows · Linux · macOS</span>
+                        <span class="tag tag-type">JAR</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Spring Boot server JAR. Requires Java 17+. Run with: <code style="background:rgba(0,212,255,0.1); padding:2px 6px; border-radius:4px; font-size:0.75rem;">java -jar QShield-IDAM-Server-1.0.0.jar</code></p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-idam/QShield-IDAM-Server-1.0.0.jar" class="btn btn-primary btn-sm" download>⬇ Download JAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="dist/qs-idam/README.md" class="readme-link" target="_blank">📖 Read Quick Start Guide →</a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     QShield Antivirus
+     ═══════════════════════════════════════════════════════ -->
+<section class="section" id="dl-av">
+    <div class="container">
+        <div class="product-section-header">
+            <div class="ps-icon icon-red">🛡️</div>
+            <div>
+                <h3>QShield Antivirus</h3>
+                <div style="font-size:0.82rem; color:var(--text-muted);">AI-Powered Endpoint Protection</div>
+            </div>
+        </div>
+        <p class="product-section-desc">Multi-engine antivirus with custom neural network (20→64→32→14), Random Forest, Isolation Forest anomaly detection, and NIST PQC quantum-safe cryptographic channels.</p>
+        
+        <div class="download-grid reveal">
+            <!-- Scanner CLI -->
+            <div class="download-card">
+                <div class="dl-icon icon-orange">🔬</div>
+                <div style="flex:1">
+                    <h4>QShield Scanner (CLI)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v1.0.0</span>
+                        <span class="tag tag-size">0.2 MB</span>
+                        <span class="tag tag-platform">Windows x64</span>
+                        <span class="tag tag-type">Native EXE</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Command-line scanner with multi-engine detection (signature, heuristic, AI neural network). Usage: <code style="background:rgba(0,212,255,0.1); padding:2px 6px; border-radius:4px; font-size:0.75rem;">qshield_scan.exe --scan C:\path</code></p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-av/qshield_scan.exe" class="btn btn-primary btn-sm" download>⬇ Download Scanner</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daemon -->
+            <div class="download-card">
+                <div class="dl-icon icon-cyan">⚡</div>
+                <div style="flex:1">
+                    <h4>QShield Daemon (Real-Time)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v1.0.0</span>
+                        <span class="tag tag-size">0.2 MB</span>
+                        <span class="tag tag-platform">Windows x64</span>
+                        <span class="tag tag-type">Native EXE</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Background service for real-time file system monitoring, process behavior analysis, and automatic threat quarantine.</p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-av/qshield_daemon.exe" class="btn btn-primary btn-sm" download>⬇ Download Daemon</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Java Installer -->
+            <div class="download-card">
+                <div class="dl-icon icon-green">📦</div>
+                <div style="flex:1">
+                    <h4>QShield AV Setup (GUI)</h4>
+                    <div class="dl-file-info">
+                        <span class="tag tag-version">v1.0.0</span>
+                        <span class="tag tag-size">0.03 MB</span>
+                        <span class="tag tag-platform">Cross-Platform</span>
+                        <span class="tag tag-type">JAR</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">GUI-based installer wizard. Installs scanner, daemon, AI engine, and signature database. Requires Java 17+.</p>
+                    <div class="dl-actions">
+                        <a href="dist/qs-av/QShieldAV-Setup.jar" class="btn btn-primary btn-sm" download>⬇ Download Setup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="dist/qs-av/README.md" class="readme-link" target="_blank">📖 Read Quick Start Guide →</a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     Integrity Verification
+     ═══════════════════════════════════════════════════════ -->
+<section class="section section-alt" id="verification">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="label">Security</div>
+            <h2>Integrity <span class="gradient-text">Verification</span></h2>
+            <p>Verify your downloads using SHA-256 checksums. All packages are additionally signed with CRYSTALS-Dilithium (NIST FIPS 204).</p>
+        </div>
+
+        <div class="checksum-box reveal">
+            <strong>SHA-256 Checksums:</strong><br><br>
+            <strong>QShield SOC Platform:</strong><br>
+            QShield-SOC-Platform-2.0.0.jar &nbsp;(202 MB) — Spring Boot JAR<br>
+            QShield-SOC-Platform-2.0.0.exe &nbsp;(202 MB) — Standalone EXE<br>
+            QShield-SOC-Setup-2.0.0.msi &nbsp;&nbsp;&nbsp;(94 MB) &nbsp;— Windows MSI Installer<br><br>
+            <strong>QShield IDAM:</strong><br>
+            QShield-IDAM-Server-1.0.0.jar &nbsp;&nbsp;(99 MB) &nbsp;— Spring Boot JAR<br>
+            QShield-IDAM-Setup-1.0.0.exe &nbsp;&nbsp;&nbsp;(88 MB) &nbsp;— Windows Installer<br><br>
+            <strong>QShield Antivirus:</strong><br>
+            qshield_scan.exe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.2 MB) — Scanner CLI<br>
+            qshield_daemon.exe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.2 MB) — Real-Time Daemon<br>
+            QShieldAV-Setup.jar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.03 MB) — GUI Installer<br><br>
+            <a href="dist/SHA256SUMS.txt" style="color:var(--brand-primary)" target="_blank">📄 Download SHA256SUMS.txt</a>
+        </div>
+
+        <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:16px;" class="reveal">
+            <div style="background:var(--gradient-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:20px;">
+                <h4 style="font-size:0.9rem; margin-bottom:8px; color:var(--brand-primary);">Windows (PowerShell)</h4>
+                <code style="font-size:0.78rem; color:var(--text-muted); display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; white-space:pre-wrap;">Get-FileHash .\QShield-SOC-Platform-2.0.0.jar -Algorithm SHA256</code>
+            </div>
+            <div style="background:var(--gradient-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:20px;">
+                <h4 style="font-size:0.9rem; margin-bottom:8px; color:var(--brand-primary);">Linux / macOS</h4>
+                <code style="font-size:0.78rem; color:var(--text-muted); display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; white-space:pre-wrap;">sha256sum QShield-SOC-Platform-2.0.0.jar</code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- System Requirements Summary -->
+<section class="section" id="requirements">
+    <div class="container">
+        <div class="section-header reveal"><div class="label">Requirements</div><h2>System <span class="gradient-text">Requirements</span></h2></div>
+        <div style="overflow-x:auto" class="reveal">
+            <table style="width:100%; border-collapse:collapse; font-size:0.85rem; min-width:700px;">
+                <thead>
+                    <tr style="border-bottom:2px solid var(--border-medium);">
+                        <th style="text-align:left; padding:14px 12px; color:var(--text-secondary);">Product</th>
+                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">OS</th>
+                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">Java</th>
+                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">RAM (Min)</th>
+                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">Disk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border-subtle);">
+                        <td style="padding:12px; font-weight:600;">📊 QShield SOC Platform</td>
+                        <td style="text-align:center; padding:12px;">Windows 10+ / Linux / macOS</td>
+                        <td style="text-align:center; padding:12px;">JDK 17+ (EXE bundles JRE)</td>
+                        <td style="text-align:center; padding:12px;">4 GB</td>
+                        <td style="text-align:center; padding:12px;">2 GB</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border-subtle);">
+                        <td style="padding:12px; font-weight:600;">🔑 QShield IDAM</td>
+                        <td style="text-align:center; padding:12px;">Windows 10+ / Linux / macOS</td>
+                        <td style="text-align:center; padding:12px;">JDK 17+</td>
+                        <td style="text-align:center; padding:12px;">2 GB</td>
+                        <td style="text-align:center; padding:12px;">500 MB</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:12px; font-weight:600;">🛡️ QShield Antivirus</td>
+                        <td style="text-align:center; padding:12px;">Windows 10+ (x64)</td>
+                        <td style="text-align:center; padding:12px;">Not required (native C)</td>
+                        <td style="text-align:center; padding:12px;">512 MB</td>
+                        <td style="text-align:center; padding:12px;">100 MB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Start Commands -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-header reveal"><div class="label">Quick Start</div><h2>Get Running in <span class="gradient-text">60 Seconds</span></h2></div>
+        <div class="features-grid reveal">
+            <div class="feature-card">
+                <div class="f-icon icon-cyan">📊</div>
+                <h3>SOC Platform</h3>
+                <code style="display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">java -jar QShield-SOC-Platform-2.0.0.jar</code>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Then open http://localhost:8080</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-magenta">🔑</div>
+                <h3>IDAM Server</h3>
+                <code style="display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">java -jar QShield-IDAM-Server-1.0.0.jar</code>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Then open http://localhost:8090</p>
+            </div>
+            <div class="feature-card">
+                <div class="f-icon icon-red">🛡️</div>
+                <h3>Antivirus Scanner</h3>
+                <code style="display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">qshield_scan.exe --scan C:\</code>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Instant scan, no setup needed</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2>Need Enterprise <span class="gradient-text">Deployment?</span></h2>
+    <p>Docker, Kubernetes, air-gapped, and managed deployment options available for enterprise customers.</p>
+    <div class="cta-actions">
+        <a href="enterprise.html" class="btn btn-primary btn-lg">Contact Sales →</a>
+        <a href="free-trial.html" class="btn btn-secondary btn-lg">Register for Trial</a>
+    </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div><div class="footer-brand">🛡️ QShield ONE</div><p class="footer-desc">The quantum-safe, AI-powered cybersecurity platform.</p></div><div><h4>Products</h4><ul class="footer-links"><li><a href="products/siem.html">QS-SIEM</a></li><li><a href="products/soar.html">QS-SOAR</a></li><li><a href="products/dlp.html">QS-DLP</a></li><li><a href="products/edr.html">QS-EDR</a></li><li><a href="products/xdr.html">QS-XDR</a></li><li><a href="products/antivirus.html">QShield AV</a></li><li><a href="products/idam.html">QS-IDAM</a></li></ul></div><div><h4>Resources</h4><ul class="footer-links"><li><a href="downloads.html">Downloads</a></li><li><a href="#">Documentation</a></li><li><a href="#">API Reference</a></li></ul></div><div><h4>Company</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="enterprise.html">Enterprise</a></li></ul></div></div><div class="footer-bottom"><span>© <span class="current-year">2026</span> QualityShield Technologies Pvt. Ltd.</span><span>Quantum Safe • AI Powered</span></div></div></footer>
+<script src="js/qshield-platform.js"></script>
+</body>
+</html>

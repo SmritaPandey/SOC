@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield IDAM — Product Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--brand:#d946ef;--cyan:#00f0ff;--accent:#06ffa5;--bg:#0a0e1a;--card:#111827;--text:#f0f4ff;--muted:#94a3b8;--border:rgba(255,255,255,.06)}
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh}
+        .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;opacity:0;transform:translateX(60px);transition:all .8s cubic-bezier(.4,0,.2,1);pointer-events:none;text-align:center}
+        .slide.active{opacity:1;transform:translateX(0);pointer-events:auto}.slide.exit{opacity:0;transform:translateX(-60px)}
+        .slide h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.1;margin-bottom:20px}
+        .slide h2{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:700;margin-bottom:16px}
+        .slide p{color:var(--muted);font-size:clamp(.9rem,1.5vw,1.15rem);max-width:700px;line-height:1.7}
+        .gradient-text{background:linear-gradient(135deg,var(--brand),var(--cyan),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .narration{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);padding:20px 40px;color:var(--text);font-size:1rem;line-height:1.6;border-top:1px solid var(--border);z-index:100;min-height:80px;display:flex;align-items:center;justify-content:center;text-align:center}
+        .narration .speaker{color:var(--brand);font-weight:700;margin-right:8px}
+        .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--cyan));transition:width .5s;z-index:200}
+        .controls{position:fixed;top:20px;right:20px;z-index:200;display:flex;gap:8px}
+        .controls button{background:rgba(255,255,255,.1);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:.8rem;transition:all .3s}
+        .controls button:hover{background:rgba(217,70,239,.15);border-color:var(--brand)}
+        .slide-counter{position:fixed;top:20px;left:20px;color:var(--muted);font-size:.8rem;z-index:200}
+        .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:28px;max-width:750px;width:100%}
+        .feature-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;opacity:0;transform:translateY(20px);transition:all .5s}
+        .slide.active .feature-item{opacity:1;transform:translateY(0)}
+        .feature-item:nth-child(1){transition-delay:.1s}.feature-item:nth-child(2){transition-delay:.2s}.feature-item:nth-child(3){transition-delay:.3s}.feature-item:nth-child(4){transition-delay:.4s}.feature-item:nth-child(5){transition-delay:.5s}.feature-item:nth-child(6){transition-delay:.6s}
+        .feature-icon{font-size:1.8rem;margin-bottom:6px}
+        .feature-name{font-weight:600;font-size:.82rem}
+        .feature-desc{font-size:.72rem;color:var(--muted);margin-top:4px}
+        .risk-bar{display:flex;gap:8px;margin-top:28px;max-width:600px;width:100%}
+        .risk-segment{flex:1;border-radius:8px;padding:16px 12px;text-align:center;opacity:0;transform:scaleX(.5);transition:all .6s}
+        .slide.active .risk-segment{opacity:1;transform:scaleX(1)}
+        .risk-segment:nth-child(1){background:rgba(6,255,165,.1);border:1px solid rgba(6,255,165,.3);transition-delay:.2s}
+        .risk-segment:nth-child(2){background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);transition-delay:.4s}
+        .risk-segment:nth-child(3){background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);transition-delay:.6s}
+        .risk-segment:nth-child(4){background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);transition-delay:.8s}
+        .risk-label{font-weight:700;font-size:.8rem}.risk-score{font-size:.7rem;color:var(--muted);margin-top:4px}.risk-action{font-size:.65rem;color:var(--muted);margin-top:2px}
+        .crypto-list{list-style:none;margin-top:24px;text-align:left;max-width:600px}
+        .crypto-list li{padding:10px 16px;margin:8px 0;border-radius:8px;background:var(--card);border-left:3px solid var(--brand);opacity:0;transform:translateX(-20px);transition:all .5s;font-size:.9rem}
+        .slide.active .crypto-list li{opacity:1;transform:translateX(0)}
+        .crypto-list li:nth-child(1){transition-delay:.2s}.crypto-list li:nth-child(2){transition-delay:.4s}.crypto-list li:nth-child(3){transition-delay:.6s}.crypto-list li:nth-child(4){transition-delay:.8s}
+        .badge-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+        .badge{padding:8px 16px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:.8rem;opacity:0;transition:all .5s}
+        .slide.active .badge{opacity:1}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.float{animation:float 3s ease-in-out infinite}
+    </style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="slide-counter" id="counter">1 / 8</div>
+<div class="controls">
+    <button onclick="prevSlide()">← Prev</button>
+    <button onclick="toggleAuto()" id="autoBtn">⏸ Pause</button>
+    <button onclick="nextSlide()">Next →</button>
+</div>
+
+<!-- SLIDE 1: Title -->
+<div class="slide active" id="s1">
+    <div style="font-size:4rem;margin-bottom:16px" class="float">🔑</div>
+    <h1>QShield <span class="gradient-text">IDAM</span></h1>
+    <p>Quantum-Safe Identity & Access Management — SSO, WebAuthn, PAM Vault, AI Risk Engine, and Verifiable Credentials in one unified platform.</p>
+    <div class="badge-row" style="margin-top:24px">
+        <div class="badge" style="transition-delay:.3s">9 Auth Methods</div>
+        <div class="badge" style="transition-delay:.5s">Passwordless-First</div>
+        <div class="badge" style="transition-delay:.7s">Multi-Tenant</div>
+        <div class="badge" style="transition-delay:.9s">39 Security Tests</div>
+    </div>
+</div>
+
+<!-- SLIDE 2: Auth Methods -->
+<div class="slide" id="s2">
+    <h2>9 Authentication Methods. <span class="gradient-text">One Platform.</span></h2>
+    <p>From passwords to passkeys — every modern authentication standard, built-in.</p>
+    <div class="feature-grid">
+        <div class="feature-item"><div class="feature-icon">🔐</div><div class="feature-name">Email + Password</div><div class="feature-desc">Argon2id hashing</div></div>
+        <div class="feature-item"><div class="feature-icon">🌐</div><div class="feature-name">SSO / OIDC</div><div class="feature-desc">OAuth2 + PKCE</div></div>
+        <div class="feature-item"><div class="feature-icon">👆</div><div class="feature-name">WebAuthn / FIDO2</div><div class="feature-desc">Touch ID, Windows Hello</div></div>
+        <div class="feature-item"><div class="feature-icon">✨</div><div class="feature-name">Magic Link</div><div class="feature-desc">Passwordless email</div></div>
+        <div class="feature-item"><div class="feature-icon">📱</div><div class="feature-name">OTP / TOTP</div><div class="feature-desc">Multi-factor auth</div></div>
+        <div class="feature-item"><div class="feature-icon">🆔</div><div class="feature-name">W3C VCs</div><div class="feature-desc">Verifiable Credentials</div></div>
+    </div>
+</div>
+
+<!-- SLIDE 3: AI Risk Engine -->
+<div class="slide" id="s3">
+    <div style="font-size:3rem;margin-bottom:16px">🧠</div>
+    <h2>AI-Powered <span class="gradient-text">Risk Engine</span></h2>
+    <p>Every login attempt is scored by 5 risk factors in real-time. Adaptive authentication responds to threats automatically.</p>
+    <div class="risk-bar">
+        <div class="risk-segment"><div class="risk-label" style="color:var(--accent)">Low</div><div class="risk-score">0–30</div><div class="risk-action">Allow</div></div>
+        <div class="risk-segment"><div class="risk-label" style="color:#f59e0b">Medium</div><div class="risk-score">31–50</div><div class="risk-action">Step-up MFA</div></div>
+        <div class="risk-segment"><div class="risk-label" style="color:#f97316">High</div><div class="risk-score">51–80</div><div class="risk-action">Challenge</div></div>
+        <div class="risk-segment"><div class="risk-label" style="color:#ef4444">Critical</div><div class="risk-score">81–100</div><div class="risk-action">Block + Alert</div></div>
+    </div>
+    <div class="badge-row" style="margin-top:20px">
+        <div class="badge" style="transition-delay:.5s">Device Reputation</div>
+        <div class="badge" style="transition-delay:.6s">Geo Anomaly</div>
+        <div class="badge" style="transition-delay:.7s">Behavior Analysis</div>
+        <div class="badge" style="transition-delay:.8s">Impossible Travel</div>
+        <div class="badge" style="transition-delay:.9s">Login Velocity</div>
+    </div>
+</div>
+
+<!-- SLIDE 4: PAM Vault -->
+<div class="slide" id="s4">
+    <div style="font-size:3rem;margin-bottom:16px">🔒</div>
+    <h2>Privileged Access <span class="gradient-text">Management Vault</span></h2>
+    <p>Secure, rotate, and audit privileged credentials — from root passwords to API keys.</p>
+    <ul class="crypto-list">
+        <li><strong>Credential Vaulting</strong> — encrypted storage for admin passwords, SSH keys, and service accounts</li>
+        <li><strong>Automated Rotation</strong> — scheduled password rotation with zero-downtime credential updates</li>
+        <li><strong>Just-in-Time Access</strong> — temporary privilege grants with automatic revocation after use</li>
+        <li><strong>Session Recording</strong> — full audit trail of all privileged sessions for compliance</li>
+    </ul>
+</div>
+
+<!-- SLIDE 5: Security -->
+<div class="slide" id="s5">
+    <div style="font-size:3rem;margin-bottom:16px">🛡️</div>
+    <h2>Enterprise-Grade <span class="gradient-text">Security</span></h2>
+    <p>39 automated tests covering OWASP VAPT, NIST SP 800-53, and STQC IS 15408.</p>
+    <ul class="crypto-list">
+        <li><strong>Argon2id Password Hashing</strong> — OWASP-recommended, constant-time, GPU/ASIC resistant (m=65536, t=3)</li>
+        <li><strong>Rate Limiting</strong> — 10 auth attempts/min per IP, elastic sliding window with lockout</li>
+        <li><strong>JWT Security</strong> — HMAC-SHA256 tokens, 30-min expiry, refresh rotation, revocation support</li>
+        <li><strong>Quantum-Safe Tokens</strong> — ML-DSA-87 (Dilithium) signed JWTs immune to quantum attacks</li>
+    </ul>
+</div>
+
+<!-- SLIDE 6: Multi-Tenant -->
+<div class="slide" id="s6">
+    <h2>Multi-Tenant <span class="gradient-text">Architecture</span></h2>
+    <p>Complete data isolation per tenant — users, roles, configurations, and audit trails are fully segregated.</p>
+    <div class="feature-grid" style="max-width:640px">
+        <div class="feature-item"><div class="feature-icon">🏢</div><div class="feature-name">Tenant Isolation</div><div class="feature-desc">Complete data separation</div></div>
+        <div class="feature-item"><div class="feature-icon">👥</div><div class="feature-name">RBAC + ABAC</div><div class="feature-desc">Role + attribute control</div></div>
+        <div class="feature-item"><div class="feature-icon">🔗</div><div class="feature-name">SSO Federation</div><div class="feature-desc">Cross-tenant login</div></div>
+        <div class="feature-item"><div class="feature-icon">📊</div><div class="feature-name">Per-Tenant Analytics</div><div class="feature-desc">Usage and risk reports</div></div>
+    </div>
+</div>
+
+<!-- SLIDE 7: Compliance -->
+<div class="slide" id="s7">
+    <h2>Built for <span class="gradient-text">Compliance</span></h2>
+    <p>Automated compliance verification against international identity and security standards.</p>
+    <div class="feature-grid" style="max-width:750px">
+        <div class="feature-item"><div class="feature-icon">📋</div><div class="feature-name">NIST SP 800-53</div><div class="feature-desc">IA, AC, SC, AU controls</div></div>
+        <div class="feature-item"><div class="feature-icon">✅</div><div class="feature-name">STQC IS 15408</div><div class="feature-desc">FIA, FCS families</div></div>
+        <div class="feature-item"><div class="feature-icon">🌐</div><div class="feature-name">OWASP ASVS L2</div><div class="feature-desc">23 VAPT tests</div></div>
+        <div class="feature-item"><div class="feature-icon">🇮🇳</div><div class="feature-name">DPDP Act 2023</div><div class="feature-desc">Native compliance</div></div>
+        <div class="feature-item"><div class="feature-icon">🔬</div><div class="feature-name">NIST PQC</div><div class="feature-desc">FIPS 203/204/205</div></div>
+    </div>
+</div>
+
+<!-- SLIDE 8: CTA -->
+<div class="slide" id="s8">
+    <div style="font-size:4rem;margin-bottom:16px" class="float">🔑</div>
+    <h1>Secure Your Identities with <span class="gradient-text">QShield IDAM</span></h1>
+    <p style="margin-bottom:32px">Deploy passwordless, quantum-safe identity management in minutes. Protect your users today against tomorrow's threats.</p>
+    <div class="badge-row">
+        <div class="badge" style="transition-delay:.2s;font-size:.9rem;padding:12px 24px;background:rgba(217,70,239,.1);border-color:rgba(217,70,239,.3)">📥 Download Free Trial</div>
+        <div class="badge" style="transition-delay:.4s;font-size:.9rem;padding:12px 24px">📖 Read Docs</div>
+        <div class="badge" style="transition-delay:.6s;font-size:.9rem;padding:12px 24px">📞 Contact Sales</div>
+    </div>
+    <p style="margin-top:32px;font-size:.8rem">www.qsgrc.com &nbsp;|&nbsp; © 2026 QualityShield Technologies Pvt. Ltd.</p>
+</div>
+
+<div class="narration" id="narration">
+    <span class="speaker">🔊</span>
+    <span id="narrationText">Welcome to the QShield IDAM product demonstration — quantum-safe identity and access management for the modern enterprise.</span>
+</div>
+
+<script>
+const narrations=[
+    "Welcome to the QShield IDAM product demonstration. QShield IDAM is a quantum-safe identity and access management platform designed for enterprises that need passwordless authentication, privileged access management, and AI-driven adaptive security — all in one unified deployment.",
+    "QShield IDAM supports 9 authentication methods out of the box — from traditional passwords with Argon2id hashing to cutting-edge WebAuthn passkeys and W3C Verifiable Credentials. Unlike Okta which charges premium for passkeys, or CyberArk which focuses only on PAM, QShield gives you everything in one platform.",
+    "The AI Risk Engine evaluates every login attempt across 5 dimensions: device reputation, geographic anomaly, behavioral patterns, impossible travel detection, and login velocity. Low-risk logins proceed seamlessly, while high-risk attempts trigger step-up MFA or automatic blocking — all without manual configuration.",
+    "The built-in PAM Vault secures privileged credentials — admin passwords, SSH keys, API tokens, and service accounts. Automated rotation eliminates the risk of stale credentials, while just-in-time access grants ensure no one has standing privileges. Every privileged session is recorded for compliance.",
+    "Security is built into the foundation. Passwords are hashed with Argon2id — the OWASP-recommended algorithm. Rate limiting at 10 attempts per minute per IP blocks brute-force attacks. JWT tokens use HMAC-SHA256 with 30-minute expiry, and for quantum-safe environments, tokens can be signed with ML-DSA-87 Dilithium.",
+    "The multi-tenant architecture provides complete data isolation. Each tenant has its own users, roles, configurations, and audit trails. RBAC and ABAC policies give fine-grained access control, and SSO federation enables seamless cross-tenant authentication.",
+    "QShield IDAM includes 39 automated tests mapping to NIST SP 800-53, STQC IS 15408, OWASP ASVS Level 2, and DPDP Act 2023. Run these tests on every deployment to verify compliance continuously — no external auditor needed between formal assessments.",
+    "Thank you for watching the QShield IDAM demonstration. Download your free trial and deploy passwordless, quantum-safe identity management in minutes. Visit www.qsgrc.com to get started."
+];
+let current=0,autoPlay=true,timer;const totalSlides=8;
+function showSlide(i){document.querySelectorAll('.slide').forEach((s,j)=>{s.classList.remove('active','exit');if(j<i)s.classList.add('exit')});document.getElementById('s'+(i+1)).classList.add('active');document.getElementById('narrationText').textContent=narrations[i];document.getElementById('counter').textContent=(i+1)+' / '+totalSlides;document.getElementById('progress').style.width=((i+1)/totalSlides*100)+'%';current=i}
+function nextSlide(){if(current<totalSlides-1)showSlide(current+1);else if(autoPlay){clearInterval(timer);autoPlay=false;document.getElementById('autoBtn').textContent='▶ Play'}}
+function prevSlide(){if(current>0)showSlide(current-1)}
+function toggleAuto(){autoPlay=!autoPlay;document.getElementById('autoBtn').textContent=autoPlay?'⏸ Pause':'▶ Play';if(autoPlay)timer=setInterval(nextSlide,10000);else clearInterval(timer)}
+timer=setInterval(nextSlide,10000);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();if(e.key===' '){e.preventDefault();toggleAuto()}});
+</script>
+</body>
+</html>

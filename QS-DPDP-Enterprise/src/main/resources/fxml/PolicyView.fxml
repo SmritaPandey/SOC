@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      styleClass="module-view" spacing="15">
+    
+    <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Label text="Policy Management" styleClass="page-title" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="➕ New Policy" styleClass="action-button" />
+        <Button text="📊 Export" styleClass="secondary-button" />
+    </HBox>
+    
+    <Label text="Privacy and compliance policy management" styleClass="page-subtitle" />
+    
+    <!-- Statistics Cards -->
+    <HBox spacing="15" styleClass="stats-row">
+        <VBox styleClass="stat-card stat-blue" HBox.hgrow="ALWAYS">
+            <Label text="Total Policies" styleClass="stat-label" />
+            <Label fx:id="totalPoliciesLabel" text="--" styleClass="stat-value" />
+        </VBox>
+        <VBox styleClass="stat-card stat-green" HBox.hgrow="ALWAYS">
+            <Label text="Approved" styleClass="stat-label" />
+            <Label fx:id="approvedPoliciesLabel" text="--" styleClass="stat-value" />
+        </VBox>
+        <VBox styleClass="stat-card stat-yellow" HBox.hgrow="ALWAYS">
+            <Label text="Draft" styleClass="stat-label" />
+            <Label fx:id="draftPoliciesLabel" text="--" styleClass="stat-value" />
+        </VBox>
+        <VBox styleClass="stat-card stat-red" HBox.hgrow="ALWAYS">
+            <Label text="Review Due" styleClass="stat-label" />
+            <Label fx:id="reviewDuePoliciesLabel" text="--" styleClass="stat-value" />
+        </VBox>
+    </HBox>
+    
+    <!-- Category Breakdown -->
+    <HBox spacing="10" styleClass="category-breakdown">
+        <Label text="By Category:" styleClass="breakdown-label" />
+        <Label text="Privacy: 8" styleClass="badge badge-info" />
+        <Label text="Security: 6" styleClass="badge badge-warning" />
+        <Label text="Compliance: 5" styleClass="badge badge-success" />
+        <Label text="Operational: 4" styleClass="badge badge-info" />
+    </HBox>
+    
+    <!-- Filters -->
+    <HBox spacing="10" styleClass="filter-bar">
+        <Label text="Filter:" />
+        <ComboBox fx:id="categoryFilter" promptText="Category" prefWidth="150" />
+        <ComboBox fx:id="statusFilter" promptText="Status" prefWidth="120" />
+        <TextField fx:id="searchField" promptText="Search by title..." prefWidth="200" />
+        <Button text="🔍 Search" styleClass="secondary-button" />
+    </HBox>
+    
+    <!-- Data Table -->
+    <TableView fx:id="policiesTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+        <columns>
+            <TableColumn text="Code" prefWidth="80" />
+            <TableColumn text="Title" prefWidth="200" />
+            <TableColumn text="Category" prefWidth="100" />
+            <TableColumn text="Version" prefWidth="80" />
+            <TableColumn text="Status" prefWidth="100" />
+            <TableColumn text="Review Date" prefWidth="120" />
+            <TableColumn text="Owner" prefWidth="120" />
+            <TableColumn text="Actions" prefWidth="100" />
+        </columns>
+    </TableView>
+    
+    <!-- Pagination -->
+    <HBox alignment="CENTER" spacing="10" styleClass="pagination">
+        <Button text="◀ Previous" styleClass="nav-btn" />
+        <Label text="Page 1 of 2" />
+        <Button text="Next ▶" styleClass="nav-btn" />
+    </HBox>
+    
+</VBox>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield ONE — Product Brochure | Quantum-Safe Cybersecurity Platform</title>
+    <meta name="description" content="QShield ONE unified cybersecurity platform brochure. AI-powered SIEM, SOAR, DLP, EDR, XDR, Antivirus, and Identity Management with quantum-safe NIST PQC compliance.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #00f0ff;
+            --brand-secondary: #8b5cf6;
+            --brand-accent: #06ffa5;
+            --bg-dark: #0a0e1a;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2332;
+            --text-primary: #f0f4ff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(255,255,255,0.06);
+            --glow-cyan: 0 0 40px rgba(0,240,255,0.15);
+            --glow-purple: 0 0 40px rgba(139,92,246,0.15);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── HERO ── */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; padding: 80px 24px; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(139,92,246,0.08) 0%, transparent 50%); animation: drift 20s ease-in-out infinite alternate; }
+        @keyframes drift { 0% { transform: translateX(0) translateY(0); } 100% { transform: translateX(-5%) translateY(-3%); } }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border-radius: 100px; background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.2); color: var(--brand-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 32px; position: relative; }
+        .hero-badge .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--brand-primary); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 24px; position: relative; }
+        .gradient-text { background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary), var(--brand-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.15rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 40px; }
+        .hero-content { position: relative; z-index: 1; }
+
+        /* ── SECTION ── */
+        .section { padding: 100px 0; position: relative; }
+        .section-alt { background: rgba(17,24,39,0.5); }
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-header .label { color: var(--brand-primary); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+        .section-header h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+        .section-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+
+        /* ── PRODUCT CARDS ── */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 40px 32px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(0,240,255,0.2); box-shadow: var(--glow-cyan); }
+        .product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent, linear-gradient(90deg, var(--brand-primary), var(--brand-secondary))); }
+        .product-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+        .product-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+        .product-card .subtitle { color: var(--brand-primary); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .product-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; }
+        .feature-list { list-style: none; }
+        .feature-list li { padding: 6px 0; color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
+        .feature-list li::before { content: '✓'; color: var(--brand-accent); font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .feature-list li.highlight { color: var(--brand-primary); font-weight: 600; }
+        .feature-list li.highlight::before { content: '★'; color: var(--brand-primary); }
+
+        /* ── USP SECTION ── */
+        .usp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .usp-card { background: linear-gradient(135deg, rgba(0,240,255,0.04), rgba(139,92,246,0.04)); border: 1px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; }
+        .usp-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+        .usp-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .usp-card p { color: var(--text-secondary); font-size: 0.9rem; }
+        .usp-card .tag { display: inline-block; margin-top: 12px; padding: 4px 12px; border-radius: 100px; background: rgba(6,255,165,0.1); color: var(--brand-accent); font-size: 0.75rem; font-weight: 600; }
+
+        /* ── COMPARISON TABLE ── */
+        .comparison-container { overflow-x: auto; }
+        .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .comparison-table thead { position: sticky; top: 0; }
+        .comparison-table th { background: rgba(0,240,255,0.08); color: var(--brand-primary); padding: 14px 16px; text-align: left; font-weight: 700; border-bottom: 2px solid rgba(0,240,255,0.15); white-space: nowrap; }
+        .comparison-table th.qs { background: rgba(0,240,255,0.15); color: #fff; }
+        .comparison-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+        .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .comparison-table td.feature { color: var(--text-primary); font-weight: 500; white-space: nowrap; }
+        .check { color: var(--brand-accent); font-weight: 700; }
+        .cross { color: #ef4444; }
+        .partial { color: #f59e0b; }
+        .qs-col { background: rgba(0,240,255,0.03); }
+
+        /* ── COMPLIANCE BAR ── */
+        .compliance-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 40px; }
+        .compliance-badge { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; font-size: 0.85rem; font-weight: 500; }
+        .compliance-badge .icon { font-size: 1.2rem; }
+
+        /* ── ARCHITECTURE ── */
+        .arch-visual { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 48px; text-align: center; }
+        .arch-hub { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 32px; }
+        .arch-node { padding: 12px 20px; border-radius: 12px; background: rgba(0,240,255,0.06); border: 1px solid rgba(0,240,255,0.15); font-weight: 600; font-size: 0.85rem; transition: all 0.3s; }
+        .arch-node:hover { background: rgba(0,240,255,0.12); transform: scale(1.05); }
+        .arch-center { padding: 20px 32px; border-radius: 16px; background: linear-gradient(135deg, rgba(0,240,255,0.15), rgba(139,92,246,0.15)); border: 2px solid rgba(0,240,255,0.3); font-weight: 800; font-size: 1.2rem; margin-bottom: 24px; }
+
+        /* ── CTA ── */
+        .cta-section { padding: 100px 24px; text-align: center; background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(0,240,255,0.05) 50%, var(--bg-dark) 100%); }
+        .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 16px; }
+        .cta-section p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto 32px; }
+        .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; }
+        .btn-primary { background: linear-gradient(135deg, var(--brand-primary), #3b82f6); color: #000; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,240,255,0.3); }
+        .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid rgba(255,255,255,0.15); }
+        .btn-secondary:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+
+        /* ── FOOTER ── */
+        .footer { padding: 40px 24px; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+
+        /* ── DEPLOYMENT MODELS ── */
+        .deploy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .deploy-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: center; transition: all 0.3s; }
+        .deploy-card:hover { border-color: rgba(0,240,255,0.2); }
+        .deploy-icon { font-size: 2rem; margin-bottom: 12px; }
+        .deploy-card h4 { font-weight: 700; margin-bottom: 8px; }
+        .deploy-card p { color: var(--text-secondary); font-size: 0.85rem; }
+
+        /* ── PRINT ── */
+        @media print {
+            body { background: #fff; color: #000; }
+            .hero { min-height: auto; padding: 40px; }
+            .section { padding: 40px 0; }
+            .product-card, .usp-card, .deploy-card { border: 1px solid #ddd; }
+            .gradient-text { -webkit-text-fill-color: #0066cc; }
+            .comparison-table th { background: #f0f0f0; color: #000; }
+        }
+        @media (max-width: 768px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════ -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge"><span class="pulse"></span> Product Brochure 2026</div>
+        <h1>QShield <span class="gradient-text">ONE</span></h1>
+        <p>The Unified Quantum-Safe Cybersecurity Platform — 7 integrated products powered by RAG AI, NLP processing, and NIST PQC cryptography. From SIEM to Antivirus, one platform, complete protection.</p>
+        <div style="color:var(--text-muted); font-size:0.85rem; margin-top:16px;">
+            QualityShield Technologies Pvt. Ltd. &nbsp;|&nbsp; www.qsgrc.com
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PRODUCTS
+     ═══════════════════════════════════════ -->
+<section class="section section-alt" id="products">
+    <div class="container">
+        <div class="section-header">
+            <div class="label">Product Suite</div>
+            <h2>Three Flagship Products. <span class="gradient-text">One Mission.</span></h2>
+            <p>Each product is production-ready, individually deployable, and quantum-safe by default.</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- QS-SOC -->
+            <div class="product-card" style="--accent: linear-gradient(90deg, #00f0ff, #3b82f6)">
+                <span class="product-icon">📊</span>
+                <h3>QShield SOC Platform</h3>
+                <div class="subtitle">SIEM · SOAR · DLP · EDR · XDR</div>
+                <p>5-in-1 unified Security Operations Center with AI-driven threat correlation, automated playbooks, NLP-powered data loss prevention, and cross-layer extended detection.</p>
+                <ul class="feature-list">
+                    <li class="highlight">RAG AI-Powered Threat Analysis Engine</li>
+                    <li>Real-time SIEM with UEBA behavioral analytics</li>
+                    <li>Automated SOAR playbooks with case management</li>
+                    <li>NLP PII/PHI detection for DLP compliance</li>
+                    <li>Endpoint telemetry with behavioral EDR</li>
+                    <li>Cross-domain XDR threat correlation</li>
+                    <li>ML-KEM-1024 + ML-DSA-87 hybrid encryption</li>
+                    <li>466+ automated compliance tests (VAPT, NIST, STQC)</li>
+                    <li>DPDP Act 2023 privacy enforcement</li>
+                    <li>Docker, JAR, MSI, standalone EXE deployment</li>
+                </ul>
+            </div>
+
+            <!-- QS-IDAM -->
+            <div class="product-card" style="--accent: linear-gradient(90deg, #d946ef, #8b5cf6)">
+                <span class="product-icon">🔑</span>
+                <h3>QShield IDAM</h3>
+                <div class="subtitle">Identity & Access Management</div>
+                <p>Enterprise-grade IAM with passwordless authentication, privileged access management, adaptive risk scoring, and multi-tenant architecture — all quantum-safe.</p>
+                <ul class="feature-list">
+                    <li class="highlight">AI Risk Engine — 5-Factor Adaptive Auth</li>
+                    <li>SSO / OAuth2 / OpenID Connect (PKCE)</li>
+                    <li>WebAuthn / FIDO2 passkeys (Touch ID, Windows Hello)</li>
+                    <li>PAM Vault — privileged credential rotation</li>
+                    <li>W3C Verifiable Credentials (DID)</li>
+                    <li>Magic link & OTP passwordless login</li>
+                    <li>RBAC + ABAC fine-grained access control</li>
+                    <li>Multi-tenant with complete data isolation</li>
+                    <li>Argon2id password hashing (OWASP recommended)</li>
+                    <li>39 automated VAPT + NIST + STQC tests</li>
+                </ul>
+            </div>
+
+            <!-- QShield AV -->
+            <div class="product-card" style="--accent: linear-gradient(90deg, #ef4444, #f97316)">
+                <span class="product-icon">🛡️</span>
+                <h3>QShield Antivirus</h3>
+                <div class="subtitle">AI-Powered Endpoint Protection</div>
+                <p>Native C-engine antivirus with custom neural network scanner, multi-engine detection, real-time file system monitoring, and quantum-safe cryptographic foundations.</p>
+                <ul class="feature-list">
+                    <li class="highlight">Custom Neural Network — 14-Class Malware Classification</li>
+                    <li>SHA-256 + fuzzy hash + YARA signature scanning</li>
+                    <li>Random Forest behavioral classification (50 trees)</li>
+                    <li>Isolation Forest zero-day anomaly detection</li>
+                    <li>RAG threat intelligence retrieval engine</li>
+                    <li>Real-time file system monitoring daemon</li>
+                    <li>Automated quarantine vault with restore</li>
+                    <li>CRYSTALS-Kyber secure update channels</li>
+                    <li>CRYSTALS-Dilithium signature DB integrity</li>
+                    <li>NIST KAT validated (FIPS 180-4, SP 800-38D)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     USP — Why Choose QShield
+     ═══════════════════════════════════════ -->
+<section class="section" id="usp">
+    <div class="container">
+        <div class="section-header">
+            <div class="label">Unique Selling Propositions</div>
+            <h2>Why QShield? <span class="gradient-text">What Nobody Else Offers.</span></h2>
+            <p>QShield doesn't just match the competition — it leapfrogs them with capabilities no other vendor ships today.</p>
+        </div>
+
+        <div class="usp-grid">
+            <div class="usp-card">
+                <span class="usp-icon">🔬</span>
+                <h3>Quantum-Safe by Default</h3>
+                <p>Every product ships with NIST PQC (FIPS 203/204/205) — ML-KEM-1024, ML-DSA-87, SPHINCS+. None of the competitors (IBM, Palo Alto, Trend Micro, Okta, CyberArk) ship actual post-quantum algorithms.</p>
+                <span class="tag">Industry First</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">🧠</span>
+                <h3>RAG AI in Every Product</h3>
+                <p>Not just a chatbot — every product embeds Retrieval-Augmented Generation with TF-IDF vector search for contextual analysis, threat intelligence, and compliance guidance.</p>
+                <span class="tag">Embedded AI</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">📊</span>
+                <h3>Unified 5-in-1 SOC</h3>
+                <p>SIEM + SOAR + DLP + EDR + XDR in a single deployable JAR/EXE. Competitors sell these as 5 separate products at 5× the cost with complex integrations.</p>
+                <span class="tag">Cost Advantage</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">🇮🇳</span>
+                <h3>DPDP Act 2023 Native</h3>
+                <p>Purpose-built for India's Digital Personal Data Protection Act with consent management, data principal rights, and Data Protection Board compliance — not bolt-on compliance.</p>
+                <span class="tag">India-First</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">🔑</span>
+                <h3>Passwordless-First IAM</h3>
+                <p>WebAuthn/FIDO2, magic links, OTP, W3C Verifiable Credentials, and AI risk scoring — while Okta charges premium for passkeys and CyberArk focuses only on PAM.</p>
+                <span class="tag">Modern Auth</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">🧬</span>
+                <h3>Neural Network AV Engine</h3>
+                <p>Custom 20→64→32→14 neural network + Random Forest + Isolation Forest — native C performance. Quick Heal and Kaspersky use proprietary engines, but none offer user-deployable AI models.</p>
+                <span class="tag">Custom AI</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">✅</span>
+                <h3>516+ Automated Tests</h3>
+                <p>Built-in VAPT, NIST SP 800-53, STQC IS 15408, IEEE, DSCI, and NIST KAT test suites. Run compliance tests on every deployment — no external auditor needed for continuous compliance.</p>
+                <span class="tag">Built-In Compliance</span>
+            </div>
+            <div class="usp-card">
+                <span class="usp-icon">💰</span>
+                <h3>Zero-Dependency Deployment</h3>
+                <p>SOC Platform runs from a single EXE with bundled JRE — no Java, no Docker required. AV runs native C executables. Deploy in 60 seconds on any Windows/Linux machine.</p>
+                <span class="tag">Instant Deploy</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     COMPETITIVE COMPARISON — SOC
+     ═══════════════════════════════════════ -->
+<section class="section section-alt" id="comparison">
+    <div class="container">
+        <div class="section-header">
+            <div class="label">Competitive Analysis</div>
+            <h2>How QShield <span class="gradient-text">Compares</span></h2>
+            <p>Feature-by-feature comparison with industry leaders across all three product categories.</p>
+        </div>
+
+        <!-- SOC Comparison -->
+        <h3 style="margin-bottom:16px; font-size:1.2rem;">SOC Platform — vs Industry Leaders</h3>
+        <div class="comparison-container">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="qs">QShield SOC</th>
+                        <th>Palo Alto Cortex XSIAM</th>
+                        <th>IBM QRadar</th>
+                        <th>Trend Micro Vision One</th>
+                        <th>Splunk Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="feature">SIEM</td><td class="qs-col check">✓ Built-in</td><td class="check">✓</td><td class="check">✓ Core</td><td class="check">✓</td><td class="check">✓ Core</td></tr>
+                    <tr><td class="feature">SOAR</td><td class="qs-col check">✓ Built-in</td><td class="check">✓</td><td class="check">✓ Add-on</td><td class="partial">◐ Limited</td><td class="check">✓ Add-on</td></tr>
+                    <tr><td class="feature">DLP</td><td class="qs-col check">✓ Built-in</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">EDR</td><td class="qs-col check">✓ Built-in</td><td class="check">✓</td><td class="partial">◐ Partner</td><td class="check">✓ Core</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">XDR</td><td class="qs-col check">✓ Built-in</td><td class="check">✓ Core</td><td class="partial">◐ Limited</td><td class="check">✓ Core</td><td class="partial">◐ Limited</td></tr>
+                    <tr><td class="feature">RAG AI Analytics</td><td class="qs-col check">✓ Native</td><td class="check">✓ Agentic</td><td class="partial">◐ Watson</td><td class="check">✓ Companion</td><td class="partial">◐ SPL2</td></tr>
+                    <tr><td class="feature">NLP Processing</td><td class="qs-col check">✓ OpenNLP</td><td class="partial">◐</td><td class="partial">◐</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Quantum-Safe (PQC)</td><td class="qs-col check">✓ ML-KEM + ML-DSA</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">DPDP Act 2023</td><td class="qs-col check">✓ Native</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Self-Hosted / On-Prem</td><td class="qs-col check">✓</td><td class="cross">✗ Cloud only</td><td class="check">✓</td><td class="partial">◐ Hybrid</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">Single-File Deploy</td><td class="qs-col check">✓ JAR/EXE</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Built-in Compliance Tests</td><td class="qs-col check">✓ 466+ tests</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- IDAM Comparison -->
+        <h3 style="margin:40px 0 16px; font-size:1.2rem;">Identity & Access Management — vs Industry Leaders</h3>
+        <div class="comparison-container">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="qs">QShield IDAM</th>
+                        <th>Okta</th>
+                        <th>CyberArk</th>
+                        <th>ManageEngine AD360</th>
+                        <th>Microsoft Entra ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="feature">SSO / OIDC</td><td class="qs-col check">✓</td><td class="check">✓ Core</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓ Core</td></tr>
+                    <tr><td class="feature">WebAuthn / FIDO2</td><td class="qs-col check">✓</td><td class="check">✓ Premium</td><td class="partial">◐</td><td class="cross">✗</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">PAM Vault</td><td class="qs-col check">✓ Built-in</td><td class="cross">✗</td><td class="check">✓ Core</td><td class="partial">◐</td><td class="partial">◐ PIM</td></tr>
+                    <tr><td class="feature">W3C Verifiable Credentials</td><td class="qs-col check">✓</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">AI Risk Engine</td><td class="qs-col check">✓ 5-Factor</td><td class="check">✓ Adaptive</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">Magic Link Auth</td><td class="qs-col check">✓</td><td class="check">✓</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Quantum-Safe Tokens</td><td class="qs-col check">✓ Dilithium</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Multi-Tenant</td><td class="qs-col check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">◐</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">Self-Hosted Option</td><td class="qs-col check">✓</td><td class="cross">✗ SaaS only</td><td class="check">✓</td><td class="check">✓</td><td class="cross">✗ SaaS</td></tr>
+                    <tr><td class="feature">DPDP Compliance</td><td class="qs-col check">✓ Native</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- AV Comparison -->
+        <h3 style="margin:40px 0 16px; font-size:1.2rem;">Antivirus — vs Industry Leaders</h3>
+        <div class="comparison-container">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="qs">QShield AV</th>
+                        <th>Quick Heal (Seqrite)</th>
+                        <th>Kaspersky</th>
+                        <th>Norton 360</th>
+                        <th>CrowdStrike Falcon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="feature">Neural Network Scanner</td><td class="qs-col check">✓ Custom 14-class</td><td class="partial">◐ Proprietary</td><td class="check">✓ ML-based</td><td class="partial">◐</td><td class="check">✓ Cloud ML</td></tr>
+                    <tr><td class="feature">Signature Scanning</td><td class="qs-col check">✓ SHA-256+YARA</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">Behavioral Analysis</td><td class="qs-col check">✓ Random Forest</td><td class="check">✓</td><td class="check">✓ Advanced</td><td class="check">✓</td><td class="check">✓ Core</td></tr>
+                    <tr><td class="feature">Zero-Day Detection</td><td class="qs-col check">✓ Isolation Forest</td><td class="partial">◐</td><td class="check">✓ Sandbox</td><td class="partial">◐</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">RAG Threat Intel</td><td class="qs-col check">✓ Embedded</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="partial">◐ Cloud</td></tr>
+                    <tr><td class="feature">Real-Time Protection</td><td class="qs-col check">✓ Daemon</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+                    <tr><td class="feature">Quantum-Safe Crypto</td><td class="qs-col check">✓ Kyber+Dilithium+SPHINCS+</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Native C Performance</td><td class="qs-col check">✓ Pure C</td><td class="check">✓ C/C++</td><td class="check">✓ C++</td><td class="check">✓</td><td class="partial">◐ Kernel</td></tr>
+                    <tr><td class="feature">NIST KAT Validated</td><td class="qs-col check">✓ FIPS tested</td><td class="cross">✗</td><td class="cross">✗ (non-public)</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                    <tr><td class="feature">Indian Compliance</td><td class="qs-col check">✓ CERT-In + DPDP</td><td class="check">✓ CERT-In</td><td class="partial">◐</td><td class="cross">✗</td><td class="partial">◐</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     DEPLOYMENT MODELS
+     ═══════════════════════════════════════ -->
+<section class="section" id="deployment">
+    <div class="container">
+        <div class="section-header">
+            <div class="label">Flexible Deployment</div>
+            <h2>Deploy <span class="gradient-text">Your Way</span></h2>
+            <p>From single desktop to global enterprise — QShield scales with your infrastructure.</p>
+        </div>
+
+        <div class="deploy-grid">
+            <div class="deploy-card">
+                <div class="deploy-icon">🏢</div>
+                <h4>Enterprise On-Premises</h4>
+                <p>Full self-hosted deployment with volume licensing, custom integrations, dedicated support, and complete data sovereignty for regulated industries.</p>
+            </div>
+            <div class="deploy-card">
+                <div class="deploy-icon">☁️</div>
+                <h4>SaaS / Cloud</h4>
+                <p>Fully managed cloud security-as-a-service with automatic updates, elastic scaling, and multi-tenant isolation. Zero infrastructure overhead.</p>
+            </div>
+            <div class="deploy-card">
+                <div class="deploy-icon">💻</div>
+                <h4>Individual System</h4>
+                <p>Protect your personal computer or small office. Easy installer, affordable subscription, full AI protection with quantum-safe encryption.</p>
+            </div>
+            <div class="deploy-card">
+                <div class="deploy-icon">📱</div>
+                <h4>Mobile (MDM)</h4>
+                <p>Android and iOS endpoint agents with MDM integration, app scanning, device compliance enforcement, and secure container management.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ARCHITECTURE
+     ═══════════════════════════════════════ -->
+<section class="section section-alt" id="architecture">
+    <div class="container">
+        <div class="section-header">
+            <div class="label">Platform Architecture</div>
+            <h2>All Products. One <span class="gradient-text">Command Center.</span></h2>
+            <p>QShield ONE unifies all security products into a single pane of glass with shared AI, crypto, and compliance infrastructure.</p>
+        </div>
+        <div class="arch-visual">
+            <div class="arch-center">🛡️ QShield ONE Platform</div>
+            <div style="color:var(--text-secondary); margin-bottom:24px; font-size:0.9rem;">Shared: RAG AI Engine · NLP Processing · PQC Crypto · Compliance Framework · Audit Trail</div>
+            <div class="arch-hub">
+                <div class="arch-node">📊 QS-SIEM</div>
+                <div class="arch-node">⚡ QS-SOAR</div>
+                <div class="arch-node">🔐 QS-DLP</div>
+                <div class="arch-node">🎯 QS-EDR</div>
+                <div class="arch-node">🌐 QS-XDR</div>
+                <div class="arch-node">🛡️ QShield AV</div>
+                <div class="arch-node">🔑 QS-IDAM</div>
+                <div class="arch-node">📋 QS-GRC</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     COMPLIANCE
+     ═══════════════════════════════════════ -->
+<section class="section" id="compliance">
+    <div class="container">
+        <div class="section-header">
+            <div class="label">Standards & Certifications</div>
+            <h2>Built for <span class="gradient-text">Compliance</span></h2>
+            <p>Every product includes automated test suites mapping to international security standards.</p>
+        </div>
+        <div class="compliance-bar">
+            <div class="compliance-badge"><span class="icon">🏛️</span> ISO 27001</div>
+            <div class="compliance-badge"><span class="icon">🔒</span> ISO 27701</div>
+            <div class="compliance-badge"><span class="icon">📋</span> NIST SP 800-53</div>
+            <div class="compliance-badge"><span class="icon">🔬</span> NIST PQC (FIPS 203/204/205)</div>
+            <div class="compliance-badge"><span class="icon">🌐</span> OWASP ASVS L2</div>
+            <div class="compliance-badge"><span class="icon">✅</span> STQC IS 15408 EAL-3</div>
+            <div class="compliance-badge"><span class="icon">🏆</span> DSCI</div>
+            <div class="compliance-badge"><span class="icon">🇮🇳</span> CERT-In</div>
+            <div class="compliance-badge"><span class="icon">📜</span> DPDP Act 2023</div>
+            <div class="compliance-badge"><span class="icon">📐</span> IEEE 2807/7002/7005</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════ -->
+<section class="cta-section">
+    <h2>Ready to Secure Your <span class="gradient-text">Organization?</span></h2>
+    <p>Start with a free trial of any product — or deploy the complete QShield ONE platform for comprehensive quantum-safe protection.</p>
+    <div class="cta-actions">
+        <a href="../../free-trial.html" class="btn btn-primary">Start Free Trial →</a>
+        <a href="../../enterprise.html" class="btn btn-secondary">Contact Sales</a>
+        <a href="../../downloads.html" class="btn btn-secondary">Download Center ↓</a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════ -->
+<footer class="footer">
+    <p>© 2026 QualityShield Technologies Pvt. Ltd. All rights reserved.</p>
+    <p style="margin-top:8px; color:var(--text-muted);">Quantum Safe · AI Powered · Enterprise Ready · www.qsgrc.com</p>
+</footer>
+
+</body>
+</html>

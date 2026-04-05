@@ -1,0 +1,27 @@
+{
+    "name": "QS-DPDP Mobile",
+    "short_name": "QS-DPDP",
+    "description": "DPDP Act 2023 Compliance Platform - Mobile Dashboard",
+    "start_url": "/mobile/mobile.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#0f172a",
+    "theme_color": "#6366f1",
+    "icons": [
+        {
+            "src": "/mobile/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "/mobile/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ],
+    "categories": [
+        "business",
+        "productivity"
+    ],
+    "lang": "en-IN"
+}

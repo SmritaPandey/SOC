@@ -1,0 +1,20 @@
+{
+  "nav.dashboard": "फलकम्",
+  "nav.consent": "अनुमति प्रबन्धनम्",
+  "nav.breach": "उल्लङ्घन सूचना",
+  "nav.rights": "अधिकार निवेदनानि",
+  "nav.policy": "नीति यन्त्रम्",
+  "nav.settings": "विन्यासाः",
+  "consent.title": "अनुमति प्रबन्धनम्",
+  "consent.collect": "अनुमतिं गृह्णातु",
+  "consent.withdraw": "अनुमतिं प्रत्याहरतु",
+  "consent.status.active": "सक्रियम्",
+  "breach.title": "उल्लङ्घन सूचना",
+  "rights.title": "अधिकार निवेदनानि",
+  "common.save": "रक्षतु",
+  "common.cancel": "निरस्यतु",
+  "common.loading": "भारणं प्रचलति...",
+  "common.submit": "प्रेषयतु",
+  "common.yes": "आम्",
+  "common.no": "न"
+}

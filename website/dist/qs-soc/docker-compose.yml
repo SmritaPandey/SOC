@@ -1,0 +1,91 @@
+version: "3.9"
+
+# QS-DPDP Enterprise v3.0 — Infrastructure Services
+# Usage: docker compose up -d
+
+services:
+  # ═══════════════════════════════════════════════════════════
+  # PostgreSQL 16 — Primary Production Database
+  # ═══════════════════════════════════════════════════════════
+  postgres:
+    image: postgres:16-alpine
+    container_name: qsdpdp-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: qsdpdp
+      POSTGRES_USER: qsdpdp
+      POSTGRES_PASSWORD: qsdpdp_dev_2025
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=en_US.utf8"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qsdpdp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ═══════════════════════════════════════════════════════════
+  # Redis 7 — Caching, Sessions, Rate Limiting
+  # ═══════════════════════════════════════════════════════════
+  redis:
+    image: redis:7-alpine
+    container_name: qsdpdp-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ═══════════════════════════════════════════════════════════
+  # Elasticsearch 8 — Log Search, SIEM Analytics
+  # ═══════════════════════════════════════════════════════════
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: qsdpdp-elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.name=qsdpdp-siem
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q 'green\\|yellow'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  # ═══════════════════════════════════════════════════════════
+  # Ollama — Local LLM for DPDP Chatbot (Optional)
+  # ═══════════════════════════════════════════════════════════
+  ollama:
+    image: ollama/ollama:latest
+    container_name: qsdpdp-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    profiles:
+      - ai  # Only starts with: docker compose --profile ai up -d
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  es_data:
+    driver: local
+  ollama_data:
+    driver: local

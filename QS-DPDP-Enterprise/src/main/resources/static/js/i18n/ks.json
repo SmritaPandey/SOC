@@ -1,0 +1,20 @@
+{
+  "nav.dashboard": "डैशबोर्ड",
+  "nav.consent": "रजामंदी इंतजाम",
+  "nav.breach": "उल्लंघन सूचना",
+  "nav.rights": "हक अर्ज",
+  "nav.policy": "पालसी",
+  "nav.settings": "सेटिंग",
+  "consent.title": "रजामंदी इंतजाम",
+  "consent.collect": "रजामंदी हासिल करो",
+  "consent.withdraw": "रजामंदी वापस लो",
+  "consent.status.active": "सक्रिय",
+  "breach.title": "उल्लंघन सूचना",
+  "rights.title": "हक अर्ज",
+  "common.save": "सेव करो",
+  "common.cancel": "रद्द",
+  "common.loading": "लोड बनन रूद...",
+  "common.submit": "जमा करो",
+  "common.yes": "आव",
+  "common.no": "ना"
+}

@@ -1,0 +1,20 @@
+{
+  "nav.dashboard": "डॅशबोर्ड",
+  "nav.consent": "संमती वेवस्थापन",
+  "nav.breach": "उल्लंघन सूचोवणी",
+  "nav.rights": "हक्क विनंती",
+  "nav.policy": "धोरण इंजिन",
+  "nav.settings": "सेटिंग्ज",
+  "consent.title": "संमती वेवस्थापन",
+  "consent.collect": "संमती घेयात",
+  "consent.withdraw": "संमती मागी घेयात",
+  "consent.status.active": "सक्रिय",
+  "breach.title": "उल्लंघन सूचोवणी",
+  "rights.title": "हक्क विनंती",
+  "common.save": "जतन करात",
+  "common.cancel": "रद्द करात",
+  "common.loading": "भरता येता...",
+  "common.submit": "सादर करात",
+  "common.yes": "होय",
+  "common.no": "ना"
+}

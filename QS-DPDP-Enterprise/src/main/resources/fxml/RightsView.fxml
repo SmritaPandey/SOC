@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      styleClass="module-view" spacing="15">
+    
+    <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Label text="Rights Requests (DSR)" styleClass="page-title" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="➕ New Request" styleClass="action-button" />
+        <Button text="📊 Export" styleClass="secondary-button" />
+    </HBox>
+    
+    <Label text="Data Subject Request management under DPDP Act 2023" styleClass="page-subtitle" />
+    
+    <!-- Statistics Cards -->
+    <HBox spacing="15" styleClass="stats-row">
+        <VBox styleClass="stat-card stat-blue" HBox.hgrow="ALWAYS">
+            <Label text="Total Requests" styleClass="stat-label" />
+            <Label fx:id="totalRequestsLabel" text="--" styleClass="stat-value" />
+        </VBox>
+        <VBox styleClass="stat-card stat-yellow" HBox.hgrow="ALWAYS">
+            <Label text="Pending" styleClass="stat-label" />
+            <Label fx:id="pendingRequestsLabel" text="--" styleClass="stat-value" />
+        </VBox>
+        <VBox styleClass="stat-card stat-blue" HBox.hgrow="ALWAYS">
+            <Label text="In Progress" styleClass="stat-label" />
+            <Label fx:id="inProgressLabel" text="--" styleClass="stat-value" />
+        </VBox>
+        <VBox styleClass="stat-card stat-green" HBox.hgrow="ALWAYS">
+            <Label text="Completed" styleClass="stat-label" />
+            <Label fx:id="completedLabel" text="--" styleClass="stat-value" />
+        </VBox>
+    </HBox>
+    
+    <!-- Request Type Breakdown -->
+    <HBox spacing="10" styleClass="type-breakdown">
+        <Label text="By Type:" styleClass="breakdown-label" />
+        <Label text="Access: 45" styleClass="badge badge-info" />
+        <Label text="Erasure: 28" styleClass="badge badge-warning" />
+        <Label text="Correction: 15" styleClass="badge badge-success" />
+        <Label text="Portability: 12" styleClass="badge badge-info" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="30-Day Compliance:" styleClass="metric-label" />
+        <Label fx:id="complianceRateLabel" text="--%" styleClass="metric-value" />
+    </HBox>
+    
+    <!-- Filters -->
+    <HBox spacing="10" styleClass="filter-bar">
+        <Label text="Filter:" />
+        <ComboBox fx:id="typeFilter" promptText="Request Type" prefWidth="150" />
+        <ComboBox fx:id="statusFilter" promptText="Status" prefWidth="120" />
+        <ComboBox fx:id="priorityFilter" promptText="Priority" prefWidth="100" />
+        <TextField fx:id="searchField" promptText="Search..." prefWidth="200" />
+        <Button text="🔍 Search" styleClass="secondary-button" />
+    </HBox>
+    
+    <!-- Data Table -->
+    <TableView fx:id="requestsTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+        <columns>
+            <TableColumn text="Reference" prefWidth="100" />
+            <TableColumn text="Type" prefWidth="100" />
+            <TableColumn text="Principal" prefWidth="180" />
+            <TableColumn text="Status" prefWidth="100" />
+            <TableColumn text="Submitted" prefWidth="120" />
+            <TableColumn text="Deadline" prefWidth="120" />
+            <TableColumn text="Priority" prefWidth="80" />
+            <TableColumn text="Actions" prefWidth="120" />
+        </columns>
+    </TableView>
+    
+    <!-- Pagination -->
+    <HBox alignment="CENTER" spacing="10" styleClass="pagination">
+        <Button text="◀ Previous" styleClass="nav-btn" />
+        <Label text="Page 1 of 8" />
+        <Button text="Next ▶" styleClass="nav-btn" />
+    </HBox>
+    
+</VBox>

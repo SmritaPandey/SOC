@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield ONE — Operations Manual</title>
+    <meta name="description" content="Operations manual for QShield SOC, IDAM, and Antivirus. Day-to-day administration, monitoring, backup, and upgrade procedures.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{--brand:#00f0ff;--bg:#0a0e1a;--card:#111827;--text:#f0f4ff;--muted:#94a3b8;--border:rgba(255,255,255,.06);--accent:#06ffa5;--warn:#f59e0b;--purple:#8b5cf6;--red:#ef4444}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}.container{max-width:920px;margin:0 auto;padding:0 24px}
+        .header{padding:60px 0 40px;text-align:center;border-bottom:1px solid var(--border)}.header h1{font-size:2.2rem;font-weight:800}.header p{color:var(--muted);margin-top:12px}
+        .toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin:40px 0}.toc h2{font-size:1.1rem;color:var(--brand);margin-bottom:16px}.toc ol{padding-left:24px}.toc li{padding:4px 0}.toc a{color:var(--text);text-decoration:none;font-size:.9rem}.toc a:hover{color:var(--brand)}
+        .chapter{padding:48px 0;border-bottom:1px solid var(--border)}.chapter h2{font-size:1.5rem;font-weight:800;margin-bottom:8px;color:var(--brand)}.chapter h3{font-size:1.1rem;font-weight:700;margin:28px 0 12px}.chapter h4{font-size:.95rem;font-weight:600;margin:20px 0 8px;color:var(--accent)}.chapter p,.chapter li{color:var(--muted);font-size:.92rem}
+        pre{background:#0d1321;border:1px solid var(--border);border-radius:10px;padding:16px 20px;overflow-x:auto;margin:12px 0 20px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.7;color:#e2e8f0}
+        code{font-family:'JetBrains Mono',monospace;font-size:.85rem;background:rgba(0,240,255,.06);padding:2px 6px;border-radius:4px;color:var(--brand)}
+        table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.85rem}th{background:rgba(0,240,255,.06);color:var(--brand);padding:10px 14px;text-align:left;font-weight:600}td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--muted)}
+        .alert{padding:14px 20px;border-radius:10px;margin:16px 0;font-size:.88rem}.alert-info{background:rgba(0,240,255,.06);border-left:3px solid var(--brand);color:var(--brand)}.alert-warn{background:rgba(245,158,11,.06);border-left:3px solid var(--warn);color:var(--warn)}.alert-danger{background:rgba(239,68,68,.06);border-left:3px solid var(--red);color:var(--red)}
+        .ops-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0}.ops-card h4{color:var(--accent);margin-bottom:12px}
+        .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+        ul{padding-left:20px}ul li{margin:4px 0}
+        .footer{padding:32px 0;text-align:center;color:var(--muted);font-size:.8rem}
+        @media print{body{background:#fff;color:#000}pre{background:#f5f5f5;color:#000}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <h1>⚙️ QShield ONE — Operations Manual</h1>
+    <p>Day-to-day administration, monitoring, incident management, backup, and upgrade procedures</p>
+    <p style="color:var(--brand);font-size:.85rem;margin-top:8px">Document Version: OM-1.0.0 | April 2026</p>
+</div>
+
+<nav class="toc">
+    <h2>📋 Table of Contents</h2>
+    <ol>
+        <li><a href="#day1">Day-1 Configuration</a></li>
+        <li><a href="#soc-ops">QShield SOC — Operations</a></li>
+        <li><a href="#idam-ops">QShield IDAM — Operations</a></li>
+        <li><a href="#av-ops">QShield AV — Operations</a></li>
+        <li><a href="#monitoring">Monitoring & Health</a></li>
+        <li><a href="#incidents">Incident Management</a></li>
+        <li><a href="#backup">Backup & Recovery</a></li>
+        <li><a href="#upgrades">Upgrade Procedures</a></li>
+        <li><a href="#compliance">Compliance Operations</a></li>
+    </ol>
+</nav>
+
+<!-- ═══════ DAY-1 ═══════ -->
+<div class="chapter" id="day1">
+    <h2>1. Day-1 Configuration</h2>
+    <p>After installation, complete these steps before going operational.</p>
+
+    <h3>1.1 QShield SOC — Initial Setup</h3>
+    <div class="grid-2">
+        <div class="ops-card">
+            <h4>Step 1: Admin Account</h4>
+            <p>Navigate to <code>http://localhost:8080</code> and complete the first-run setup wizard. Create your admin account with a strong password (min 12 characters, mixed case, numbers, symbols).</p>
+        </div>
+        <div class="ops-card">
+            <h4>Step 2: Configure Data Sources</h4>
+            <p>Go to <strong>SIEM → Data Sources</strong>. Add your syslog servers, Windows Event collectors, cloud log feeds, and endpoint agents. The platform supports RFC 5424 syslog, CEF, LEEF, and JSON log formats.</p>
+        </div>
+        <div class="ops-card">
+            <h4>Step 3: Enable AI Engine</h4>
+            <p>Navigate to <strong>Settings → AI Configuration</strong>. Connect your Ollama instance (<code>http://localhost:11434</code>) or configure the embedded TF-IDF RAG engine. Enable threat correlation and NLP analysis.</p>
+        </div>
+        <div class="ops-card">
+            <h4>Step 4: Activate Modules</h4>
+            <p>Go to <strong>Settings → Modules</strong>. Enable/disable individual modules (SIEM, SOAR, DLP, EDR, XDR) based on your license and deployment needs.</p>
+        </div>
+    </div>
+
+    <h3>1.2 QShield IDAM — Initial Setup</h3>
+    <div class="grid-2">
+        <div class="ops-card">
+            <h4>Step 1: Create Tenant</h4>
+            <p>Navigate to <code>http://localhost:8090</code>. Log in with your admin credentials and create your first tenant organization.</p>
+        </div>
+        <div class="ops-card">
+            <h4>Step 2: Configure Auth Methods</h4>
+            <p>Go to <strong>Settings → Authentication</strong>. Enable desired methods: Password, OTP, Magic Link, WebAuthn/FIDO2, Social Login. Configure MFA policies per role.</p>
+        </div>
+        <div class="ops-card">
+            <h4>Step 3: Set Up RBAC</h4>
+            <p>Navigate to <strong>Access Control → Roles</strong>. Create roles (Admin, Manager, User, Auditor) with appropriate permissions. Assign default role for new users.</p>
+        </div>
+        <div class="ops-card">
+            <h4>Step 4: Federation (Optional)</h4>
+            <p>Configure SSO federation with QShield SOC and external IdPs. Set up OIDC clients with proper redirect URIs and scopes.</p>
+        </div>
+    </div>
+
+    <h3>1.3 QShield AV — Initial Setup</h3>
+    <div class="ops-card">
+        <h4>Daemon Configuration</h4>
+        <p>After installing the daemon service, configure monitoring paths and exclusions:</p>
+        <pre># Configure monitored directories
+qshield_daemon.exe --config set monitor.paths "C:\,D:\"
+qshield_daemon.exe --config set monitor.exclude "C:\Windows\Temp,*.log"
+
+# Set quarantine vault location
+qshield_daemon.exe --config set quarantine.path "C:\QShield\Quarantine"
+
+# Enable auto-update for signature database
+qshield_daemon.exe --config set update.auto true
+qshield_daemon.exe --config set update.interval 3600</pre>
+    </div>
+</div>
+
+<!-- ═══════ SOC OPERATIONS ═══════ -->
+<div class="chapter" id="soc-ops">
+    <h2>2. QShield SOC — Operations</h2>
+
+    <h3>2.1 Dashboard Overview</h3>
+    <p>The main dashboard provides real-time visibility across all modules:</p>
+    <table>
+        <thead><tr><th>Widget</th><th>Description</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr><td>Threat Summary</td><td>Total threats detected/blocked in last 24h</td><td>Click for drill-down timeline</td></tr>
+            <tr><td>Active Incidents</td><td>Open SOAR incidents requiring attention</td><td>Click to open incident queue</td></tr>
+            <tr><td>DLP Violations</td><td>PII/PHI data exposure events</td><td>Click for violation details</td></tr>
+            <tr><td>Endpoint Health</td><td>EDR agent status across endpoints</td><td>Click for device list</td></tr>
+            <tr><td>Compliance Score</td><td>Real-time compliance posture</td><td>Click for framework details</td></tr>
+            <tr><td>AI Insights</td><td>RAG-generated threat analysis</td><td>Click for full AI report</td></tr>
+        </tbody>
+    </table>
+
+    <h3>2.2 SIEM Alert Management</h3>
+    <p>Navigate to <strong>SIEM → Alerts</strong> for real-time alert triage:</p>
+    <ul>
+        <li><strong>Critical (Red):</strong> Immediate response required — ransomware, active breach, data exfiltration</li>
+        <li><strong>High (Orange):</strong> Investigate within 1 hour — failed auth bursts, privilege escalation attempts</li>
+        <li><strong>Medium (Yellow):</strong> Investigate within 4 hours — policy violations, suspicious network activity</li>
+        <li><strong>Low (Blue):</strong> Review within 24 hours — informational, compliance deviations</li>
+    </ul>
+
+    <h3>2.3 SOAR Playbook Management</h3>
+    <p>Navigate to <strong>SOAR → Playbooks</strong> to manage automated response workflows:</p>
+    <pre># Built-in playbook examples:
+# 1. Brute Force Response — blocks IP after 5 failed logins
+# 2. Ransomware Containment — isolates endpoint + snapshots disk
+# 3. DLP Escalation — alerts DPO on PII exposure
+# 4. Phishing Response — quarantines email + blocks sender domain</pre>
+
+    <h3>2.4 DLP Policy Management</h3>
+    <table>
+        <thead><tr><th>Policy Type</th><th>Detects</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr><td>PII Detection</td><td>Aadhaar, PAN, email, phone, credit card</td><td>Alert + mask + log</td></tr>
+            <tr><td>PHI Detection</td><td>Medical records, health data</td><td>Block + encrypt + alert DPO</td></tr>
+            <tr><td>Financial Data</td><td>Bank accounts, transaction records</td><td>Encrypt + restrict access</td></tr>
+            <tr><td>Intellectual Property</td><td>Source code, trade secrets, patents</td><td>Block external transfer</td></tr>
+        </tbody>
+    </table>
+
+    <h3>2.5 Useful API Endpoints</h3>
+    <pre># Get dashboard summary
+curl -H "Authorization: Bearer &lt;token&gt;" http://localhost:8080/api/v1/dashboard
+
+# Get threat feed
+curl -H "Authorization: Bearer &lt;token&gt;" http://localhost:8080/api/v1/threats
+
+# Execute AI query
+curl -X POST -H "Authorization: Bearer &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"What are the top 5 threats today?"}' \
+  http://localhost:8080/api/v1/ai/query
+
+# Get compliance status
+curl -H "Authorization: Bearer &lt;token&gt;" http://localhost:8080/api/v1/compliance/status
+
+# Get crypto capabilities
+curl -H "Authorization: Bearer &lt;token&gt;" http://localhost:8080/api/v1/platform/crypto-status</pre>
+</div>
+
+<!-- ═══════ IDAM OPERATIONS ═══════ -->
+<div class="chapter" id="idam-ops">
+    <h2>3. QShield IDAM — Operations</h2>
+
+    <h3>3.1 User Lifecycle Management</h3>
+    <table>
+        <thead><tr><th>Operation</th><th>API</th><th>Console Path</th></tr></thead>
+        <tbody>
+            <tr><td>Create User</td><td><code>POST /api/v1/users</code></td><td>Users → Add User</td></tr>
+            <tr><td>Update User</td><td><code>PUT /api/v1/users/{id}</code></td><td>Users → Edit</td></tr>
+            <tr><td>Deactivate User</td><td><code>PUT /api/v1/users/{id}/deactivate</code></td><td>Users → Deactivate</td></tr>
+            <tr><td>Reset Password</td><td><code>POST /api/v1/users/{id}/reset-password</code></td><td>Users → Reset</td></tr>
+            <tr><td>Assign Role</td><td><code>POST /api/v1/users/{id}/roles</code></td><td>Users → Roles</td></tr>
+            <tr><td>Revoke Sessions</td><td><code>DELETE /api/v1/users/{id}/sessions</code></td><td>Users → Sessions</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.2 PAM Vault Operations</h3>
+    <pre># List privileged credentials
+curl -H "Authorization: Bearer &lt;token&gt;" http://localhost:8090/api/v1/pam/credentials
+
+# Check out a credential (JIT access)
+curl -X POST -H "Authorization: Bearer &lt;token&gt;" \
+  http://localhost:8090/api/v1/pam/checkout/&lt;credential-id&gt;
+
+# Rotate a credential password
+curl -X POST -H "Authorization: Bearer &lt;token&gt;" \
+  http://localhost:8090/api/v1/pam/rotate/&lt;credential-id&gt;</pre>
+
+    <h3>3.3 Risk Engine Monitoring</h3>
+    <p>The AI Risk Engine scores each authentication attempt on a 0-100 scale:</p>
+    <table>
+        <thead><tr><th>Score</th><th>Risk Level</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr><td>0–30</td><td>Low</td><td>Allow authentication</td></tr>
+            <tr><td>31–50</td><td>Medium</td><td>Allow + require MFA step-up</td></tr>
+            <tr><td>51–80</td><td>High</td><td>Challenge with additional verification</td></tr>
+            <tr><td>81–100</td><td>Critical</td><td>Block + alert admin + lock account</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.4 Tenant Management</h3>
+    <p>Navigate to <strong>Admin → Tenants</strong> for multi-tenant operations. Each tenant has completely isolated data, users, roles, and configurations.</p>
+</div>
+
+<!-- ═══════ AV OPERATIONS ═══════ -->
+<div class="chapter" id="av-ops">
+    <h2>4. QShield AV — Operations</h2>
+
+    <h3>4.1 Daily Operations</h3>
+    <table>
+        <thead><tr><th>Task</th><th>Frequency</th><th>Command</th></tr></thead>
+        <tbody>
+            <tr><td>Full system scan</td><td>Weekly</td><td><code>qshield_scan.exe --scan C:\ --recursive</code></td></tr>
+            <tr><td>Quick scan</td><td>Daily</td><td><code>qshield_scan.exe --scan C:\Users --quick</code></td></tr>
+            <tr><td>Update signatures</td><td>Hourly (auto)</td><td><code>qshield_scan.exe --update-db</code></td></tr>
+            <tr><td>Check daemon status</td><td>Daily</td><td><code>qshield_daemon.exe --status</code></td></tr>
+            <tr><td>Review quarantine</td><td>Weekly</td><td><code>qshield_scan.exe --quarantine --list</code></td></tr>
+        </tbody>
+    </table>
+
+    <h3>4.2 Quarantine Management</h3>
+    <pre># List quarantined files
+qshield_scan.exe --quarantine --list
+
+# Restore a false positive
+qshield_scan.exe --quarantine --restore &lt;file-hash&gt;
+
+# Permanently delete quarantined files
+qshield_scan.exe --quarantine --purge --older-than 30d</pre>
+
+    <h3>4.3 Scan Report Interpretation</h3>
+    <table>
+        <thead><tr><th>Field</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td>Classification</td><td>AI-determined malware family (1 of 14 classes)</td></tr>
+            <tr><td>Confidence</td><td>Neural network confidence score (0.0–1.0)</td></tr>
+            <tr><td>Engine</td><td>Which engine detected (signature, neural, heuristic, etc.)</td></tr>
+            <tr><td>Action Taken</td><td>Quarantined, blocked, or alerted</td></tr>
+            <tr><td>Hash (SHA-256)</td><td>File hash for threat intel lookup</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ═══════ MONITORING ═══════ -->
+<div class="chapter" id="monitoring">
+    <h2>5. Monitoring & Health</h2>
+
+    <h3>5.1 Health Endpoints</h3>
+    <pre># SOC health (includes DB, Redis, Elasticsearch, AI)
+curl http://localhost:8080/actuator/health
+
+# IDAM health (includes DB, JWT service)
+curl http://localhost:8090/actuator/health
+
+# Detailed SOC metrics
+curl http://localhost:8080/actuator/metrics</pre>
+
+    <h3>5.2 Log Locations</h3>
+    <table>
+        <thead><tr><th>Product</th><th>Log Path</th><th>Monitor For</th></tr></thead>
+        <tbody>
+            <tr><td>QShield SOC</td><td><code>~/.qsdpdp-enterprise/logs/</code></td><td>ERROR, WARN, failed logins, rate limit</td></tr>
+            <tr><td>QShield IDAM</td><td><code>~/.qsidam/logs/</code></td><td>Auth failures, rate limit, risk alerts</td></tr>
+            <tr><td>QShield AV</td><td><code>%LOCALAPPDATA%\QShield\logs\</code></td><td>Detections, quarantine actions, errors</td></tr>
+        </tbody>
+    </table>
+
+    <h3>5.3 Key Metrics to Monitor</h3>
+    <ul>
+        <li><strong>CPU/Memory:</strong> SOC should stay under 70% CPU, 4GB heap in production</li>
+        <li><strong>Database connections:</strong> Monitor connection pool exhaustion</li>
+        <li><strong>Auth failures/min:</strong> Spike indicates brute-force attack (rate limiter should engage)</li>
+        <li><strong>Disk usage:</strong> Audit logs and SIEM data grow — plan for 1GB/day at 1000 events/sec</li>
+        <li><strong>AV daemon uptime:</strong> Must be 100% for real-time protection</li>
+    </ul>
+</div>
+
+<!-- ═══════ INCIDENTS ═══════ -->
+<div class="chapter" id="incidents">
+    <h2>6. Incident Management</h2>
+
+    <h3>6.1 Incident Response Workflow</h3>
+    <table>
+        <thead><tr><th>Phase</th><th>Actions</th><th>Tool</th></tr></thead>
+        <tbody>
+            <tr><td>1. Detection</td><td>Alert triggers from SIEM/EDR/XDR</td><td>QS-SIEM dashboard</td></tr>
+            <tr><td>2. Triage</td><td>AI-assisted severity classification</td><td>RAG AI engine</td></tr>
+            <tr><td>3. Containment</td><td>Isolate endpoint, block IP, revoke tokens</td><td>QS-SOAR playbooks</td></tr>
+            <tr><td>4. Investigation</td><td>Forensic timeline, kill chain analysis</td><td>QS-XDR console</td></tr>
+            <tr><td>5. Remediation</td><td>Patch, rotate credentials, update policies</td><td>QS-IDAM + QS-DLP</td></tr>
+            <tr><td>6. Recovery</td><td>Restore from backup, verify clean state</td><td>Backup procedures</td></tr>
+            <tr><td>7. Lessons Learned</td><td>Update playbooks, compliance report</td><td>Audit trail</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ═══════ BACKUP ═══════ -->
+<div class="chapter" id="backup">
+    <h2>7. Backup & Recovery</h2>
+
+    <h3>7.1 Backup Schedule</h3>
+    <table>
+        <thead><tr><th>Data</th><th>Frequency</th><th>Retention</th><th>Method</th></tr></thead>
+        <tbody>
+            <tr><td>PostgreSQL databases</td><td>Daily</td><td>30 days</td><td><code>pg_dump</code></td></tr>
+            <tr><td>Audit logs</td><td>Daily</td><td>7 years (DPDP)</td><td>File copy (immutable)</td></tr>
+            <tr><td>Configuration files</td><td>On change</td><td>90 days</td><td>Git / file copy</td></tr>
+            <tr><td>TLS certificates</td><td>On rotation</td><td>Until expiry</td><td>Secure vault</td></tr>
+            <tr><td>AV quarantine vault</td><td>Weekly</td><td>90 days</td><td>Encrypted archive</td></tr>
+        </tbody>
+    </table>
+
+    <h3>7.2 Backup Commands</h3>
+    <pre># PostgreSQL backup
+pg_dump -h localhost -U qshield_admin qshield_soc | gzip > backup_soc_$(date +%Y%m%d).sql.gz
+pg_dump -h localhost -U qshield_admin qshield_idam | gzip > backup_idam_$(date +%Y%m%d).sql.gz
+
+# Audit log backup (NEVER delete originals — compliance requirement)
+cp -r ~/.qsdpdp-enterprise/data/audit_log* /backup/audit/
+
+# Restore from backup
+gunzip -c backup_soc_20260405.sql.gz | psql -h localhost -U qshield_admin qshield_soc</pre>
+    <div class="alert alert-danger">🔴 <strong>DPDP Act 2023 Requirement:</strong> Audit logs must be retained for a minimum of 7 years. Never delete audit trails. Ensure backups are encrypted and stored in geographically redundant locations.</div>
+</div>
+
+<!-- ═══════ UPGRADES ═══════ -->
+<div class="chapter" id="upgrades">
+    <h2>8. Upgrade Procedures</h2>
+
+    <h3>8.1 Pre-Upgrade Checklist</h3>
+    <ul>
+        <li>✓ Take full database backup</li>
+        <li>✓ Export current configuration</li>
+        <li>✓ Review release notes for breaking changes</li>
+        <li>✓ Schedule maintenance window</li>
+        <li>✓ Notify stakeholders</li>
+    </ul>
+
+    <h3>8.2 Upgrade Process</h3>
+    <pre># 1. Stop the current service
+# (Windows) Stop-Service QShieldSOC
+# (Linux) sudo systemctl stop qshield-soc
+
+# 2. Backup database
+pg_dump -h localhost -U qshield_admin qshield_soc > pre_upgrade_backup.sql
+
+# 3. Replace JAR/EXE with new version
+cp QShield-SOC-Platform-2.1.0.jar /opt/qshield/soc/
+
+# 4. Start the new version (auto-migrates database schema)
+java -jar QShield-SOC-Platform-2.1.0.jar --spring.profiles.active=prod
+
+# 5. Verify health
+curl http://localhost:8080/actuator/health
+
+# 6. Run compliance tests
+mvn test -Dtest="VAPTTest,NISTComplianceTest"</pre>
+
+    <h3>8.3 Rollback</h3>
+    <pre># 1. Stop new version
+# 2. Restore database from backup
+psql -h localhost -U qshield_admin qshield_soc < pre_upgrade_backup.sql
+# 3. Restart previous version
+java -jar QShield-SOC-Platform-2.0.0.jar --spring.profiles.active=prod</pre>
+</div>
+
+<!-- ═══════ COMPLIANCE ═══════ -->
+<div class="chapter" id="compliance">
+    <h2>9. Compliance Operations</h2>
+
+    <h3>9.1 Running Compliance Tests</h3>
+    <pre># Full VAPT scan (SOC — 466+ tests)
+cd QS-DPDP-Enterprise
+mvn test -Dtest="VAPTTest,VAPTPhase2Test"
+
+# NIST SP 800-53 compliance (SOC)
+mvn test -Dtest="NISTComplianceTest"
+
+# STQC IS 15408 certification tests (SOC)
+mvn test -Dtest="STQCCertificationTest"
+
+# IDAM security tests (39 tests)
+cd QS-IDAM && ./mvnw test -pl qs-idam-server
+
+# AV NIST KAT validation
+cd QSAV/engine/build && ./test_nist_kat</pre>
+
+    <h3>9.2 Generating Audit Reports</h3>
+    <pre># HTML test report
+mvn surefire-report:report
+# Output: target/site/surefire-report.html
+
+# Crypto capabilities report
+curl http://localhost:8080/api/v1/platform/crypto-status > crypto_report.json
+
+# Key inventory for auditors
+curl http://localhost:8080/api/v1/platform/key-inventory > key_inventory.json
+
+# Audit trail integrity verification
+curl http://localhost:8080/api/v1/audit/integrity-report > audit_integrity.json</pre>
+
+    <h3>9.3 Compliance Frameworks Covered</h3>
+    <table>
+        <thead><tr><th>Framework</th><th>Coverage</th><th>Test Suite</th></tr></thead>
+        <tbody>
+            <tr><td>OWASP ASVS Level 2</td><td>~93%</td><td>VAPTTest, VAPTPhase2Test, VAPTSecurityTest</td></tr>
+            <tr><td>NIST SP 800-53</td><td>~90%</td><td>NISTComplianceTest, NISTSTQCComplianceTest</td></tr>
+            <tr><td>STQC IS 15408 EAL-3</td><td>~88%</td><td>STQCCertificationTest, NISTSTQCComplianceTest</td></tr>
+            <tr><td>ISO 27001</td><td>~85%</td><td>ISOComplianceTest</td></tr>
+            <tr><td>IEEE 2807/7002/7005</td><td>~80%</td><td>IEEEComplianceTest</td></tr>
+            <tr><td>DSCI</td><td>~82%</td><td>DSCIComplianceTest</td></tr>
+            <tr><td>NIST PQC (FIPS 203/204/205)</td><td>~95%</td><td>test_nist_kat</td></tr>
+            <tr><td>DPDP Act 2023</td><td>Native</td><td>Integrated across all tests</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <p>© 2026 QualityShield Technologies Pvt. Ltd. | www.qsgrc.com</p>
+    <p style="margin-top:8px">Operations Manual v1.0.0 | Classification: Confidential — Customer Use Only</p>
+</div>
+
+</div>
+</body>
+</html>

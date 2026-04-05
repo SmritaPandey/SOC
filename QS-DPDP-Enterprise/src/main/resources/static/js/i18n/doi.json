@@ -1,0 +1,20 @@
+{
+  "nav.dashboard": "डैशबोर्ड",
+  "nav.consent": "सहमति प्रबंधन",
+  "nav.breach": "उल्लंघन सूचना",
+  "nav.rights": "अधिकार बेनती",
+  "nav.policy": "नीति इंजन",
+  "nav.settings": "सेटिंग",
+  "consent.title": "सहमति प्रबंधन",
+  "consent.collect": "सहमति लेओ",
+  "consent.withdraw": "सहमति वापस लेओ",
+  "consent.status.active": "सक्रिय",
+  "breach.title": "उल्लंघन सूचना",
+  "rights.title": "अधिकार बेनती",
+  "common.save": "सेव करो",
+  "common.cancel": "रद्द",
+  "common.loading": "लोड हो रिया ऐ...",
+  "common.submit": "जमा करो",
+  "common.yes": "हां",
+  "common.no": "निय्यां"
+}

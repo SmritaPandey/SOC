@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield Antivirus — Product Data Sheet</title>
+    <meta name="description" content="QShield Antivirus technical data sheet. AI-powered endpoint protection with neural network scanner and NIST PQC quantum-safe cryptography.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --brand: #ef4444; --bg: #0a0e1a; --card: #111827; --text: #f0f4ff; --muted: #94a3b8; --border: rgba(255,255,255,0.06); --accent: #06ffa5; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .header { padding: 60px 0 40px; text-align: center; border-bottom: 1px solid var(--border); }
+        .header .badge { display: inline-block; padding: 6px 16px; border-radius: 100px; background: rgba(239,68,68,0.1); color: var(--brand); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; }
+        .header .sub { font-size: 1.2rem; color: var(--brand); font-weight: 600; }
+        .header .desc { color: var(--muted); margin-top: 16px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+        .section h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; color: var(--brand); }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+        th { background: rgba(239,68,68,0.06); color: var(--brand); padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid rgba(239,68,68,0.15); }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); }
+        td:first-child { color: var(--text); font-weight: 500; }
+        .kpi-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 20px 0; }
+        .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        .kpi .value { font-size: 1.8rem; font-weight: 800; color: var(--brand); }
+        .kpi .label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .spec-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+        .spec-card h4 { font-size: 0.9rem; color: var(--brand); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .spec-list { list-style: none; }
+        .spec-list li { padding: 4px 0; font-size: 0.88rem; color: var(--muted); display: flex; gap: 8px; }
+        .spec-list li::before { content: '▸'; color: var(--accent); flex-shrink: 0; }
+        .footer { padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.8rem; }
+        @media print { body { background: #fff; color: #000; } th { background: #f0f0f0; color: #000; } td { color: #333; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="badge">Product Data Sheet</div>
+    <h1>🛡️ QShield Antivirus</h1>
+    <div class="sub">AI-Powered Quantum-Safe Endpoint Protection</div>
+    <p class="desc">Native C-engine antivirus with custom neural network, multi-engine detection, real-time file monitoring, and NIST PQC cryptographic foundations. Version 1.0.0.</p>
+</div>
+
+<div class="section">
+    <h2>Key Performance Indicators</h2>
+    <div class="kpi-bar">
+        <div class="kpi"><div class="value">6</div><div class="label">Detection Engines</div></div>
+        <div class="kpi"><div class="value">14</div><div class="label">Malware Classes</div></div>
+        <div class="kpi"><div class="value">&lt;100MB</div><div class="label">Install Size</div></div>
+        <div class="kpi"><div class="value">11</div><div class="label">NIST KAT Tests</div></div>
+        <div class="kpi"><div class="value">3</div><div class="label">PQC Algorithms</div></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Detection Engine Specifications</h2>
+    <div class="specs-grid">
+        <div class="spec-card">
+            <h4>🧠 Neural Network Engine</h4>
+            <ul class="spec-list">
+                <li>Architecture: 20 → 64 → 32 → 14 neurons</li>
+                <li>Activation: ReLU + Softmax output</li>
+                <li>14-class malware classification</li>
+                <li>Feature extraction: PE header, entropy, imports</li>
+                <li>Inference time: &lt;5ms per file</li>
+            </ul>
+        </div>
+        <div class="spec-card">
+            <h4>🌲 Random Forest Classifier</h4>
+            <ul class="spec-list">
+                <li>50 decision trees, max depth 10</li>
+                <li>Behavioral feature extraction</li>
+                <li>Secondary classification confidence</li>
+                <li>Ensemble voting for accuracy</li>
+            </ul>
+        </div>
+        <div class="spec-card">
+            <h4>🔍 Signature Scanner</h4>
+            <ul class="spec-list">
+                <li>SHA-256 exact match database</li>
+                <li>Fuzzy hashing (ssdeep-compatible)</li>
+                <li>YARA rule pattern matching</li>
+                <li>Incremental signature DB updates</li>
+            </ul>
+        </div>
+        <div class="spec-card">
+            <h4>🎯 Other Engines</h4>
+            <ul class="spec-list">
+                <li>Isolation Forest: 100-tree anomaly detection</li>
+                <li>Heuristic Engine: behavioral rule matching</li>
+                <li>RAG Engine: TF-IDF threat intel retrieval</li>
+                <li>PE Parser: executable structure analysis</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Malware Classification Categories</h2>
+    <table>
+        <thead><tr><th>#</th><th>Category</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td>1</td><td>Clean/Benign</td><td>Safe file, no threats detected</td></tr>
+            <tr><td>2</td><td>Trojan</td><td>Disguised malicious program</td></tr>
+            <tr><td>3</td><td>Ransomware</td><td>File encryption and extortion</td></tr>
+            <tr><td>4</td><td>Spyware</td><td>Data exfiltration and surveillance</td></tr>
+            <tr><td>5</td><td>Adware</td><td>Unwanted advertising injection</td></tr>
+            <tr><td>6</td><td>Worm</td><td>Self-replicating network propagation</td></tr>
+            <tr><td>7</td><td>Rootkit</td><td>Kernel-level persistence</td></tr>
+            <tr><td>8</td><td>Keylogger</td><td>Keystroke capture</td></tr>
+            <tr><td>9</td><td>Backdoor</td><td>Remote access establishment</td></tr>
+            <tr><td>10</td><td>Cryptominer</td><td>Unauthorized cryptocurrency mining</td></tr>
+            <tr><td>11</td><td>Botnet</td><td>Command-and-control participation</td></tr>
+            <tr><td>12</td><td>Fileless</td><td>Memory-resident attack</td></tr>
+            <tr><td>13</td><td>PUP</td><td>Potentially Unwanted Program</td></tr>
+            <tr><td>14</td><td>Unknown/Suspicious</td><td>Flagged for manual review</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Quantum-Safe Cryptography</h2>
+    <table>
+        <thead><tr><th>Algorithm</th><th>NIST Standard</th><th>Use Case</th><th>Security Level</th></tr></thead>
+        <tbody>
+            <tr><td>CRYSTALS-Kyber (ML-KEM-1024)</td><td>FIPS 203</td><td>Secure update channels</td><td>NIST Level 5</td></tr>
+            <tr><td>CRYSTALS-Dilithium (ML-DSA-87)</td><td>FIPS 204</td><td>Signature DB integrity</td><td>NIST Level 5</td></tr>
+            <tr><td>SPHINCS+ (SLH-DSA)</td><td>FIPS 205</td><td>Firmware/code signing</td><td>NIST Level 5</td></tr>
+            <tr><td>AES-256-GCM</td><td>SP 800-38D</td><td>Quarantine vault encryption</td><td>256-bit</td></tr>
+            <tr><td>SHA-256</td><td>FIPS 180-4</td><td>File hashing, integrity</td><td>256-bit</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>System Requirements</h2>
+    <table>
+        <thead><tr><th>Component</th><th>Minimum</th><th>Recommended</th></tr></thead>
+        <tbody>
+            <tr><td>Operating System</td><td>Windows 10+ (x64)</td><td>Windows 11</td></tr>
+            <tr><td>Memory</td><td>512 MB</td><td>4 GB</td></tr>
+            <tr><td>Storage</td><td>100 MB</td><td>1 GB</td></tr>
+            <tr><td>CPU</td><td>x86_64 (SSE2)</td><td>Multi-core x86_64</td></tr>
+            <tr><td>Java (optional)</td><td>— (native C)</td><td>OpenJDK 17+ (for GUI installer)</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Deployment Options</h2>
+    <table>
+        <thead><tr><th>Component</th><th>File</th><th>Size</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr><td>CLI Scanner</td><td>qshield_scan.exe</td><td>195 KB</td><td>Command-line scanner. No dependencies.</td></tr>
+            <tr><td>Real-Time Daemon</td><td>qshield_daemon.exe</td><td>174 KB</td><td>Windows service with file system monitor.</td></tr>
+            <tr><td>GUI Installer</td><td>QShieldAV-Setup.jar</td><td>28 KB</td><td>Java-based GUI wizard.</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <p>© 2026 QualityShield Technologies Pvt. Ltd. | www.qsgrc.com | support@qsgrc.com</p>
+    <p style="margin-top:8px;">Document Version: DS-AV-1.0.0 | Classification: Public</p>
+</div>
+
+</div>
+</body>
+</html>

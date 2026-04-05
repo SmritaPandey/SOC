@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Trial — QShield ONE Cybersecurity Platform</title>
+    <meta name="description" content="Start a 30-day free trial of any QShield cybersecurity product. No credit card required. Full features included.">
+    <link rel="stylesheet" href="css/qshield-platform.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛡️</text></svg>">
+</head>
+<body>
+<nav class="nav"><a href="index.html" class="nav-logo"><div class="shield-icon">🛡</div><span class="brand-text">QShield ONE</span></a><ul class="nav-links"><li><a href="platform.html">Platform</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="enterprise.html">Enterprise</a></li><li><a href="about.html">About</a></li><li><a href="free-trial.html" class="nav-cta">Free Trial →</a></li></ul><div class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></div></nav>
+
+<section class="page-header"><div class="label">Get Started</div><h1>Start Your <span class="gradient-text">Free Trial</span></h1><p>30 days of full-featured access to any QShield product. No credit card required. No commitment.</p></section>
+
+<section class="section"><div class="container">
+    <div style="max-width:560px; margin:0 auto;">
+        <div style="background:var(--gradient-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:40px;" class="reveal">
+            <h2 style="text-align:center; margin-bottom:8px; font-size:1.4rem;">Create Your Account</h2>
+            <p style="text-align:center; color:var(--text-secondary); font-size:0.9rem; margin-bottom:32px;">Get instant access to your chosen products.</p>
+            
+            <form id="trialForm" onsubmit="event.preventDefault(); document.getElementById('successMsg').style.display='block'; this.style.display='none';">
+                <div class="form-group"><label>Full Name *</label><input type="text" class="form-input" placeholder="John Doe" required></div>
+                <div class="form-group"><label>Work Email *</label><input type="email" class="form-input" placeholder="john@company.com" required></div>
+                <div class="form-group"><label>Organization *</label><input type="text" class="form-input" placeholder="Acme Corp"></div>
+                <div class="form-group"><label>Phone</label><input type="tel" class="form-input" placeholder="+91 98765 43210"></div>
+                <div class="form-group">
+                    <label>Products to Trial *</label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked> 📊 QS-SIEM</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox"> ⚡ QS-SOAR</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox"> 🔐 QS-DLP</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox"> 🎯 QS-EDR</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox"> 🌐 QS-XDR</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked> 🛡️ QS-AV</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox"> 🔑 QS-IDAM</label>
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox"> 🌟 All Products</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Deployment Model *</label>
+                    <select class="form-input">
+                        <option>Cloud / SaaS (Recommended)</option>
+                        <option>On-Premises / Enterprise</option>
+                        <option>Individual / Home</option>
+                        <option>Mobile</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center; margin-top:16px;">Start Free Trial →</button>
+                <p style="text-align:center; color:var(--text-muted); font-size:0.78rem; margin-top:16px;">By signing up, you agree to our Terms of Service and Privacy Policy. No credit card required.</p>
+            </form>
+
+            <div id="successMsg" style="display:none; text-align:center; padding:40px 0;">
+                <div style="font-size:3rem; margin-bottom:16px;">✅</div>
+                <h3 style="margin-bottom:8px;">Trial Activated!</h3>
+                <p style="color:var(--text-secondary); margin-bottom:24px;">Check your email for login credentials and getting started guide.</p>
+                <a href="downloads.html" class="btn btn-primary">Go to Downloads →</a>
+            </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:32px; margin-top:40px; flex-wrap:wrap;" class="reveal">
+            <div style="text-align:center;"><div style="font-size:1.5rem; font-weight:800; color:var(--brand-primary);">30</div><div style="font-size:0.78rem; color:var(--text-muted);">Day Free Trial</div></div>
+            <div style="text-align:center;"><div style="font-size:1.5rem; font-weight:800; color:var(--brand-primary);">$0</div><div style="font-size:0.78rem; color:var(--text-muted);">No Credit Card</div></div>
+            <div style="text-align:center;"><div style="font-size:1.5rem; font-weight:800; color:var(--brand-primary);">100%</div><div style="font-size:0.78rem; color:var(--text-muted);">Full Features</div></div>
+        </div>
+    </div>
+</div></section>
+
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© <span class="current-year">2026</span> QualityShield Technologies Pvt. Ltd.</span><span>Quantum Safe • AI Powered</span></div></div></footer>
+<script src="js/qshield-platform.js"></script>
+</body>
+</html>

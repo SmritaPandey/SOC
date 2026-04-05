@@ -1,0 +1,20 @@
+{
+  "nav.dashboard": "डैशबोर्ड",
+  "nav.consent": "मनजुरि थाखोनाय",
+  "nav.breach": "गोरोन्थिनाय सोंनाय",
+  "nav.rights": "हग बिनंथि",
+  "nav.policy": "नियम इंजिन",
+  "nav.settings": "सेटिंग",
+  "consent.title": "मनजुरि थाखोनाय",
+  "consent.collect": "मनजुरि लानाय",
+  "consent.withdraw": "मनजुरि फिन लानाय",
+  "consent.status.active": "गोहो",
+  "breach.title": "गोरोन्थिनाय सोंनाय",
+  "rights.title": "हग बिनंथि",
+  "common.save": "थानाय",
+  "common.cancel": "बेखेबनाय",
+  "common.loading": "लोड जादो...",
+  "common.submit": "होनाय",
+  "common.yes": "मा",
+  "common.no": "नामा"
+}

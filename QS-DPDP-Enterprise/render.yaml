@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: qs-dpdp-enterprise
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/dashboard
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: SPRING_PROFILES_ACTIVE
+        value: sqlite
+      - key: JAVA_OPTS
+        value: -Xms256m -Xmx512m

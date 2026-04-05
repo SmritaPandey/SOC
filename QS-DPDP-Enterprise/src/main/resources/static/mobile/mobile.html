@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>QS-DPDP | My Data Privacy</title>
+    <meta name="description" content="Manage your personal data, consents, and privacy rights under DPDP Act 2023">
+    <meta name="theme-color" content="#1B998B">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MyPrivacy">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        /* Login & DP-specific overrides */
+        .login-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            background: linear-gradient(135deg, #0D1B2A 0%, #1B998B 50%, #3A86FF 100%)
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            padding: 36px 28px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px)
+        }
+
+        .login-card h1 {
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            margin: 0 0 4px;
+            color: #1a1a2e
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin: 0 0 24px
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border .2s;
+            box-sizing: border-box
+        }
+
+        .login-card input:focus {
+            border-color: #1B998B
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform .15s
+        }
+
+        .login-btn.primary {
+            background: linear-gradient(135deg, #1B998B, #3A86FF);
+            color: #fff
+        }
+
+        .login-btn.secondary {
+            background: #f3f4f6;
+            color: #374151;
+            margin-top: 8px
+        }
+
+        .login-error {
+            color: #dc2626;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 12px;
+            display: none
+        }
+
+        .consent-toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: #ccc;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .consent-toggle.active {
+            background: #1B998B
+        }
+
+        .consent-toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            transition: .3s
+        }
+
+        .consent-toggle.active::after {
+            left: 25px
+        }
+
+        .dp-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)
+        }
+
+        .dp-card h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            font-weight: 600
+        }
+
+        .dp-card p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.5
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform .15s
+        }
+
+        .action-btn:active {
+            transform: scale(0.96)
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #1B998B, #3A86FF);
+            color: #fff
+        }
+
+        .action-btn.danger {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: #fff
+        }
+
+        .action-btn.outline {
+            background: transparent;
+            border: 2px solid #1B998B;
+            color: #1B998B
+        }
+
+        .form-group {
+            margin-bottom: 14px
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px
+        }
+
+        .form-group select,
+        .form-group textarea,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e7ff;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus,
+        .form-group input:focus {
+            border-color: #1B998B
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase
+        }
+
+        .status-pill.active {
+            background: #d1fae5;
+            color: #065f46
+        }
+
+        .status-pill.pending {
+            background: #fef3c7;
+            color: #92400e
+        }
+
+        .status-pill.withdrawn {
+            background: #fee2e2;
+            color: #991b1b
+        }
+
+        .status-pill.completed {
+            background: #dbeafe;
+            color: #1e40af
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.3
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ═══ LOGIN PAGE ═══ -->
+    <div class="login-page" id="loginPage">
+        <div class="login-card">
+            <div style="text-align:center;margin-bottom:20px">
+                <i class="fas fa-shield-halved" style="font-size:40px;color:#1B998B"></i>
+            </div>
+            <h1>My Data Privacy</h1>
+            <p class="subtitle">DPDP Act 2023 — Data Principal Portal</p>
+            <div class="login-error" id="loginError"></div>
+            <div id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username or Email" autocomplete="username">
+                <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+                <button class="login-btn primary" onclick="DPApp.login()"><i class="fas fa-sign-in-alt"></i> Sign
+                    In</button>
+                <div style="display:flex;justify-content:space-between;margin:8px 0;font-size:12px">
+                    <a href="javascript:void(0)" onclick="alert('Password reset: Contact your administrator or NeurQ AI Labs support.')" style="color:#1B998B;text-decoration:none;font-weight:500"><i class="fas fa-key"></i> Forgot Password</a>
+                    <a href="javascript:void(0)" onclick="alert('To change your password, please login to the Enterprise Dashboard.')" style="color:#3A86FF;text-decoration:none;font-weight:500"><i class="fas fa-lock"></i> Change Password</a>
+                </div>
+                <div style="margin:10px 0;padding:12px;background:linear-gradient(135deg,#f0fdf4,#eff6ff);border-radius:12px;border:1px solid #bbf7d0">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                        <span style="font-size:11px;font-weight:700;color:#166534"><i class="fas fa-flask"></i> FREE TRIAL</span>
+                        <span style="font-size:10px;color:#1B998B;font-weight:600">15 days • No registration</span>
+                    </div>
+                    <button class="login-btn primary" onclick="DPApp.demoLogin()" style="background:linear-gradient(135deg,#6d28d9,#8b5cf6);margin:0;padding:12px"><i class="fas fa-play-circle"></i> Try Demo Access</button>
+                    <p style="font-size:10px;color:#6b7280;margin:6px 0 0;text-align:center">Managed by NeurQ AI Labs</p>
+                </div>
+                <button class="login-btn secondary" onclick="DPApp.showRegister()">New User? Register</button>
+            </div>
+            <div id="registerForm" style="display:none">
+                <input type="text" id="regName" placeholder="Full Name">
+                <input type="text" id="regUsername" placeholder="Username">
+                <input type="email" id="regEmail" placeholder="Email">
+                <input type="tel" id="regPhone" placeholder="Phone Number">
+                <input type="password" id="regPassword" placeholder="Password (min 8 chars)">
+                <button class="login-btn primary" onclick="DPApp.register()"><i class="fas fa-user-plus"></i>
+                    Register</button>
+                <button class="login-btn secondary" onclick="DPApp.showLogin()">Back to Login</button>
+            </div>
+            <p style="text-align:center;margin-top:16px;font-size:11px;color:#999">Protected under DPDP Act 2023 |
+                Quantum-Safe Encryption</p>
+        </div>
+    </div>
+
+    <!-- ═══ MAIN APP (hidden until login) ═══ -->
+    <div id="mainApp" style="display:none">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <h1><i class="fas fa-shield-halved"></i> My Privacy</h1>
+            <span class="badge" onclick="DPApp.logout()" style="cursor:pointer"><i class="fas fa-sign-out-alt"></i>
+                Logout</span>
+        </div>
+
+        <!-- Pull to Refresh -->
+        <div class="pull-indicator" id="pullIndicator">↓ Pull to refresh</div>
+
+        <!-- ═══ PAGE: Home ═══ -->
+        <div class="page active" id="page-home">
+            <div style="padding:0 4px">
+                <h2 style="font-size:18px;margin:12px 0 4px" id="greetUser">Welcome</h2>
+                <p style="color:var(--text-secondary);font-size:13px;margin:0 0 16px">Your data privacy dashboard</p>
+            </div>
+
+            <!-- Summary KPIs -->
+            <div class="kpi-scroll" id="kpiScroll">
+                <div class="kpi-card green">
+                    <div class="kpi-icon">🤝</div>
+                    <span class="kpi-value" id="kpi-active">-</span>
+                    <span class="kpi-label">Active Consents</span>
+                </div>
+                <div class="kpi-card red">
+                    <div class="kpi-icon">🚫</div>
+                    <span class="kpi-value" id="kpi-withdrawn">-</span>
+                    <span class="kpi-label">Withdrawn</span>
+                </div>
+                <div class="kpi-card amber">
+                    <div class="kpi-icon">📋</div>
+                    <span class="kpi-value" id="kpi-requests">-</span>
+                    <span class="kpi-label">My Requests</span>
+                </div>
+                <div class="kpi-card purple">
+                    <div class="kpi-icon">⚠️</div>
+                    <span class="kpi-value" id="kpi-breaches">-</span>
+                    <span class="kpi-label">Breach Alerts</span>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section">
+                <div class="section-title"><span>Quick Actions</span></div>
+            </div>
+            <div class="module-grid">
+                <div class="module-card" onclick="DPApp.switchTab('consents')">
+                    <div class="mod-icon">🤝</div>
+                    <div class="mod-name">My Consents</div>
+                </div>
+                <div class="module-card" onclick="DPApp.switchTab('rights')">
+                    <div class="mod-icon">🔒</div>
+                    <div class="mod-name">My Rights</div>
+                </div>
+                <div class="module-card" onclick="DPApp.switchTab('notifications')">
+                    <div class="mod-icon">🔔</div>
+                    <div class="mod-name">Alerts</div>
+                </div>
+                <div class="module-card" onclick="DPApp.switchTab('grievance')">
+                    <div class="mod-icon">📝</div>
+                    <div class="mod-name">Grievance</div>
+                </div>
+            </div>
+
+            <!-- Your Rights under DPDP -->
+            <div class="section">
+                <div class="section-title"><span>Your Rights under DPDP Act</span></div>
+            </div>
+            <div class="dp-card">
+                <h3>📖 Right to Information (S.11)</h3>
+                <p>Access a summary of your personal data and how it is processed.</p>
+            </div>
+            <div class="dp-card">
+                <h3>✏️ Right to Correction & Erasure (S.12)</h3>
+                <p>Request correction of inaccurate data or erasure of unnecessary data.</p>
+            </div>
+            <div class="dp-card">
+                <h3>📩 Right to Grievance Redressal (S.13)</h3>
+                <p>File a complaint with the DPO. Escalate to DPBI if unresolved within 30 days.</p>
+            </div>
+            <div class="dp-card">
+                <h3>👤 Right to Nominate (S.14)</h3>
+                <p>Nominate a person to exercise your rights in case of death or incapacity.</p>
+            </div>
+        </div>
+
+        <!-- ═══ PAGE: My Consents ═══ -->
+        <div class="page" id="page-consents">
+            <div class="section">
+                <div class="section-title">
+                    <span>🤝 My Consents</span>
+                    <span class="see-all" onclick="DPApp.switchTab('home')">← Back</span>
+                </div>
+            </div>
+            <div id="consentsList" class="data-list">
+                <div class="data-item skeleton" style="height:56px;margin-bottom:8px"></div>
+            </div>
+        </div>
+
+        <!-- ═══ PAGE: My Rights ═══ -->
+        <div class="page" id="page-rights">
+            <div class="section">
+                <div class="section-title">
+                    <span>🔒 My Rights Requests</span>
+                    <span class="see-all" onclick="DPApp.switchTab('home')">← Back</span>
+                </div>
+            </div>
+            <div style="padding:0 4px;margin-bottom:16px">
+                <button class="action-btn primary" onclick="DPApp.showRightsForm()" style="width:100%">
+                    <i class="fas fa-plus"></i> Submit New Rights Request
+                </button>
+            </div>
+            <div id="rightsForm" style="display:none;padding:0 4px;margin-bottom:16px">
+                <div class="dp-card">
+                    <div class="form-group">
+                        <label>Request Type</label>
+                        <select id="rightsType">
+                            <option value="ACCESS">Right to Access (S.11)</option>
+                            <option value="CORRECTION">Right to Correction (S.12)</option>
+                            <option value="ERASURE">Right to Erasure (S.12)</option>
+                            <option value="NOMINATION">Right to Nominate (S.14)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="rightsDesc" rows="3" placeholder="Describe your request..."></textarea>
+                    </div>
+                    <button class="action-btn primary" onclick="DPApp.submitRightsRequest()" style="width:100%"><i
+                            class="fas fa-paper-plane"></i> Submit</button>
+                </div>
+            </div>
+            <div id="rightsList" class="data-list">
+                <div class="data-item skeleton" style="height:56px;margin-bottom:8px"></div>
+            </div>
+        </div>
+
+        <!-- ═══ PAGE: Notifications ═══ -->
+        <div class="page" id="page-notifications">
+            <div class="section">
+                <div class="section-title">
+                    <span>🔔 Breach & Notice Alerts</span>
+                    <span class="see-all" onclick="DPApp.switchTab('home')">← Back</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title"><span>Breach Notifications</span></div>
+            </div>
+            <div id="breachesList" class="data-list">
+                <div class="data-item skeleton" style="height:56px;margin-bottom:8px"></div>
+            </div>
+            <div class="section">
+                <div class="section-title"><span>Privacy Notices</span></div>
+            </div>
+            <div id="noticesList" class="data-list">
+                <div class="data-item skeleton" style="height:56px;margin-bottom:8px"></div>
+            </div>
+        </div>
+
+        <!-- ═══ PAGE: Grievance ═══ -->
+        <div class="page" id="page-grievance">
+            <div class="section">
+                <div class="section-title">
+                    <span>📝 File Grievance</span>
+                    <span class="see-all" onclick="DPApp.switchTab('home')">← Back</span>
+                </div>
+            </div>
+            <div style="padding:0 4px">
+                <div class="dp-card">
+                    <p style="margin-bottom:16px">Under DPDP Act S.13, you have the right to file a grievance with the
+                        Data Protection Officer. If not resolved within 30 days, you may escalate to the Data Protection
+                        Board of India (DPBI).</p>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="grvCategory">
+                            <option value="UNAUTHORIZED_PROCESSING">Unauthorized Data Processing</option>
+                            <option value="CONSENT_VIOLATION">Consent Not Honored</option>
+                            <option value="RIGHTS_DELAYED">Delayed Response to Rights Request</option>
+                            <option value="BREACH_CONCERN">Data Breach Concern</option>
+                            <option value="CROSS_BORDER">Cross-Border Transfer Objection</option>
+                            <option value="OTHER">Other DPDP Violation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="grvSubject" placeholder="Brief subject of your grievance">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="grvDescription" rows="4"
+                            placeholder="Describe your grievance in detail..."></textarea>
+                    </div>
+                    <button class="action-btn primary" onclick="DPApp.submitGrievance()" style="width:100%"><i
+                            class="fas fa-paper-plane"></i> Submit Grievance</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Bottom Navigation ═══ -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="home" onclick="DPApp.switchTab('home')">
+                <i class="fas fa-home"></i><span>Home</span>
+            </button>
+            <button class="nav-item" data-tab="consents" onclick="DPApp.switchTab('consents')">
+                <i class="fas fa-handshake"></i><span>Consents</span>
+            </button>
+            <button class="nav-item" data-tab="rights" onclick="DPApp.switchTab('rights')">
+                <i class="fas fa-lock"></i><span>Rights</span>
+            </button>
+            <button class="nav-item" data-tab="notifications" onclick="DPApp.switchTab('notifications')">
+                <i class="fas fa-bell"></i><span>Alerts</span>
+            </button>
+            <button class="nav-item" data-tab="grievance" onclick="DPApp.switchTab('grievance')">
+                <i class="fas fa-edit"></i><span>Grievance</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════
+        // QS-DPDP Mobile — Data Principal App
+        // ═══════════════════════════════════════════════════════
+        const API = '/api';
+        const DPApp = {
+            token: localStorage.getItem('dp-token'),
+            role: localStorage.getItem('dp-role'),
+            userName: localStorage.getItem('dp-name'),
+
+            headers() { return { 'Content-Type': 'application/json', 'X-Auth-Token': this.token || '' }; },
+
+            async init() {
+                if (this.token && this.role === 'DATA_PRINCIPAL') {
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('mainApp').style.display = 'block';
+                    document.getElementById('greetUser').textContent = 'Welcome, ' + (this.userName || 'User');
+                    this.loadSummary(); this.loadConsents(); this.loadRights();
+                    this.loadBreaches(); this.loadNotices();
+                }
+            },
+
+            showLogin() {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+            },
+            showRegister() {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'block';
+            },
+
+            async login() {
+                const u = document.getElementById('loginUsername').value.trim();
+                const p = document.getElementById('loginPassword').value;
+                if (!u || !p) return this.showError('Please enter username and password');
+                try {
+                    const res = await fetch(API + '/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, password: p }) });
+                    const data = await res.json();
+                    if (data.status === 'SUCCESS') {
+                        this.token = data.token; this.role = data.role;
+                        localStorage.setItem('dp-token', data.token);
+                        localStorage.setItem('dp-role', data.role);
+                        localStorage.setItem('dp-name', u);
+                        this.userName = u;
+                        this.init();
+                    } else { this.showError(data.error || 'Login failed'); }
+                } catch (e) { this.showError('Server not reachable'); }
+            },
+
+            demoLogin() {
+                document.getElementById('loginUsername').value = 'demo';
+                document.getElementById('loginPassword').value = 'Demo@2026';
+                this.login();
+            },
+
+            async register() {
+                const name = document.getElementById('regName').value.trim();
+                const username = document.getElementById('regUsername').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const phone = document.getElementById('regPhone').value.trim();
+                const password = document.getElementById('regPassword').value;
+                if (!username || !password) return this.showError('Username and password required');
+                if (password.length < 8) return this.showError('Password must be 8+ characters');
+                try {
+                    const res = await fetch(API + '/auth/register', {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password, email, phone, name })
+                    });
+                    const data = await res.json();
+                    if (data.status === 'SUCCESS') {
+                        this.token = data.token; this.role = data.role;
+                        localStorage.setItem('dp-token', data.token);
+                        localStorage.setItem('dp-role', data.role);
+                        localStorage.setItem('dp-name', name || username);
+                        this.userName = name || username;
+                        this.init();
+                    } else { this.showError(data.error || 'Registration failed'); }
+                } catch (e) { this.showError('Server not reachable'); }
+            },
+
+            logout() {
+                localStorage.removeItem('dp-token'); localStorage.removeItem('dp-role'); localStorage.removeItem('dp-name');
+                this.token = null; this.role = null;
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('mainApp').style.display = 'none';
+            },
+
+            showError(msg) {
+                const el = document.getElementById('loginError');
+                el.textContent = msg; el.style.display = 'block';
+                setTimeout(() => el.style.display = 'none', 4000);
+            },
+
+            switchTab(tab) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.getElementById('page-' + tab)?.classList.add('active');
+                document.querySelectorAll('.nav-item').forEach(n => {
+                    n.classList.toggle('active', n.dataset.tab === tab);
+                });
+                if (tab === 'home') this.loadSummary();
+                if (tab === 'consents') this.loadConsents();
+                if (tab === 'rights') this.loadRights();
+                if (tab === 'notifications') { this.loadBreaches(); this.loadNotices(); }
+            },
+
+            async loadSummary() {
+                try {
+                    const res = await fetch(API + '/dp/summary', { headers: this.headers() });
+                    const d = await res.json();
+                    document.getElementById('kpi-active').textContent = d.activeConsents || 0;
+                    document.getElementById('kpi-withdrawn').textContent = d.withdrawnConsents || 0;
+                    document.getElementById('kpi-requests').textContent = d.totalRequests || 0;
+                    document.getElementById('kpi-breaches').textContent = d.breachAlerts || 0;
+                } catch (e) { }
+            },
+
+            async loadConsents() {
+                try {
+                    const res = await fetch(API + '/dp/my-consents', { headers: this.headers() });
+                    const d = await res.json();
+                    const el = document.getElementById('consentsList');
+                    if (!d.data || d.data.length === 0) {
+                        el.innerHTML = '<div class="empty-state"><i class="fas fa-handshake"></i><p>No consents yet</p></div>';
+                        return;
+                    }
+                    el.innerHTML = d.data.map(c => `
+                    <div class="data-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px 12px;margin-bottom:8px;background:var(--bg-card);border-radius:12px">
+                        <div>
+                            <div style="font-weight:600;font-size:14px">${c.purpose || 'General Purpose'}</div>
+                            <div style="font-size:12px;color:var(--text-secondary)">${c.method || ''} · ${c.collectedAt ? new Date(c.collectedAt).toLocaleDateString() : ''}</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <span class="status-pill ${c.status === 'ACTIVE' ? 'active' : c.status === 'WITHDRAWN' ? 'withdrawn' : 'pending'}">${c.status}</span>
+                            ${c.status === 'ACTIVE' ? `<button class="action-btn danger" style="padding:6px 12px;font-size:12px" onclick="DPApp.withdrawConsent('${c.id}')">Withdraw</button>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+                } catch (e) { document.getElementById('consentsList').innerHTML = '<div class="empty-state"><p>Unable to load consents</p></div>'; }
+            },
+
+            async withdrawConsent(id) {
+                if (!confirm('Are you sure you want to withdraw this consent? This action is per DPDP Act S.6(6).')) return;
+                try {
+                    const res = await fetch(API + '/dp/withdraw-consent', { method: 'POST', headers: this.headers(), body: JSON.stringify({ consentId: id }) });
+                    const d = await res.json();
+                    alert(d.message || d.error);
+                    this.loadConsents(); this.loadSummary();
+                } catch (e) { alert('Failed to withdraw consent'); }
+            },
+
+            showRightsForm() {
+                const f = document.getElementById('rightsForm');
+                f.style.display = f.style.display === 'none' ? 'block' : 'none';
+            },
+
+            async submitRightsRequest() {
+                const type = document.getElementById('rightsType').value;
+                const desc = document.getElementById('rightsDesc').value.trim();
+                try {
+                    const res = await fetch(API + '/dp/submit-rights-request', { method: 'POST', headers: this.headers(), body: JSON.stringify({ type, description: desc }) });
+                    const d = await res.json();
+                    alert(d.message || d.error);
+                    document.getElementById('rightsForm').style.display = 'none';
+                    document.getElementById('rightsDesc').value = '';
+                    this.loadRights();
+                } catch (e) { alert('Failed to submit request'); }
+            },
+
+            async loadRights() {
+                try {
+                    const res = await fetch(API + '/dp/my-rights', { headers: this.headers() });
+                    const d = await res.json();
+                    const el = document.getElementById('rightsList');
+                    if (!d.data || d.data.length === 0) {
+                        el.innerHTML = '<div class="empty-state"><i class="fas fa-lock"></i><p>No rights requests yet</p></div>';
+                        return;
+                    }
+                    el.innerHTML = d.data.map(r => `
+                    <div class="data-item" style="padding:14px 12px;margin-bottom:8px;background:var(--bg-card);border-radius:12px">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="font-weight:600;font-size:14px">${r.type || 'Request'}</div>
+                                <div style="font-size:12px;color:var(--text-secondary)">${r.refNo || ''} · ${r.receivedAt ? new Date(r.receivedAt).toLocaleDateString() : ''}</div>
+                            </div>
+                            <span class="status-pill ${r.status === 'COMPLETED' ? 'completed' : r.status === 'PENDING' ? 'pending' : 'active'}">${r.status}</span>
+                        </div>
+                    </div>
+                `).join('');
+                } catch (e) { }
+            },
+
+            async loadBreaches() {
+                try {
+                    const res = await fetch(API + '/dp/my-breaches', { headers: this.headers() });
+                    const d = await res.json();
+                    const el = document.getElementById('breachesList');
+                    if (!d.data || d.data.length === 0) {
+                        el.innerHTML = '<div class="empty-state"><p>No breach notifications</p></div>';
+                        return;
+                    }
+                    el.innerHTML = d.data.map(b => `
+                    <div class="data-item" style="padding:14px 12px;margin-bottom:8px;background:var(--bg-card);border-radius:12px;border-left:4px solid ${b.severity === 'CRITICAL' ? '#dc2626' : b.severity === 'HIGH' ? '#f59e0b' : '#3b82f6'}">
+                        <div style="font-weight:600;font-size:14px">${b.title || 'Breach Notification'}</div>
+                        <div style="font-size:12px;color:var(--text-secondary)">${b.refNo || ''} · ${b.severity} · ${b.detectedAt ? new Date(b.detectedAt).toLocaleDateString() : ''}</div>
+                    </div>
+                `).join('');
+                } catch (e) { }
+            },
+
+            async loadNotices() {
+                try {
+                    const res = await fetch(API + '/dp/my-notices', { headers: this.headers() });
+                    const d = await res.json();
+                    const el = document.getElementById('noticesList');
+                    if (!d.data || d.data.length === 0) {
+                        el.innerHTML = '<div class="empty-state"><p>No privacy notices</p></div>';
+                        return;
+                    }
+                    el.innerHTML = d.data.map(n => `
+                    <div class="data-item" style="padding:14px 12px;margin-bottom:8px;background:var(--bg-card);border-radius:12px">
+                        <div style="font-weight:600;font-size:14px">${n.title || 'Notice'}</div>
+                        <div style="font-size:12px;color:var(--text-secondary)">${n.code || ''} · v${n.version || 1} · ${n.effectiveDate || ''}</div>
+                    </div>
+                `).join('');
+                } catch (e) { }
+            },
+
+            async submitGrievance() {
+                const category = document.getElementById('grvCategory').value;
+                const subject = document.getElementById('grvSubject').value.trim();
+                const description = document.getElementById('grvDescription').value.trim();
+                if (!subject) return alert('Please enter a subject');
+                try {
+                    const res = await fetch(API + '/dp/submit-grievance', { method: 'POST', headers: this.headers(), body: JSON.stringify({ category, subject, description }) });
+                    const d = await res.json();
+                    alert(d.message || d.error);
+                    document.getElementById('grvSubject').value = '';
+                    document.getElementById('grvDescription').value = '';
+                } catch (e) { alert('Failed to submit grievance'); }
+            }
+        };
+
+        // Auto-init
+        DPApp.init();
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/mobile/sw.js')
+                .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+                .catch(err => console.warn('[PWA] SW registration failed:', err));
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Show install banner
+            const banner = document.createElement('div');
+            banner.id = 'pwa-install-banner';
+            banner.style.cssText = 'position:fixed;bottom:70px;left:12px;right:12px;background:linear-gradient(135deg,#1B998B,#3A86FF);color:#fff;padding:16px 20px;border-radius:16px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,0.25);z-index:9999;animation:slideUp .3s ease';
+            banner.innerHTML = `
+                <i class="fas fa-download" style="font-size:24px"></i>
+                <div style="flex:1"><strong>Install QS-DPDP App</strong><br><span style="font-size:12px;opacity:.8">Quick access from your home screen</span></div>
+                <button onclick="installPWA()" style="padding:8px 16px;background:#fff;color:#1B998B;border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer">Install</button>
+                <button onclick="this.parentElement.remove()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer">&times;</button>`;
+            document.body.appendChild(banner);
+        });
+
+        async function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const result = await deferredPrompt.userChoice;
+                console.log('[PWA] Install result:', result.outcome);
+                deferredPrompt = null;
+                document.getElementById('pwa-install-banner')?.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>

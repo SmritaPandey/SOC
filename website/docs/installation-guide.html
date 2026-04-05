@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield ONE — Installation Guide</title>
+    <meta name="description" content="Complete installation guide for QShield SOC, IDAM, and Antivirus products across Windows, Linux, and Docker.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --brand: #00f0ff; --bg: #0a0e1a; --card: #111827; --text: #f0f4ff; --muted: #94a3b8; --border: rgba(255,255,255,0.06); --accent: #06ffa5; --warn: #f59e0b; --err: #ef4444; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .header { padding: 60px 0 40px; text-align: center; border-bottom: 1px solid var(--border); }
+        .header h1 { font-size: 2.2rem; font-weight: 800; }
+        .header p { color: var(--muted); margin-top: 12px; }
+        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin: 40px 0; }
+        .toc h2 { font-size: 1.1rem; color: var(--brand); margin-bottom: 16px; }
+        .toc ol { padding-left: 24px; }
+        .toc li { padding: 4px 0; }
+        .toc a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .toc a:hover { color: var(--brand); }
+        .chapter { padding: 48px 0; border-bottom: 1px solid var(--border); }
+        .chapter h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; color: var(--brand); }
+        .chapter h3 { font-size: 1.15rem; font-weight: 700; margin: 28px 0 12px; }
+        .chapter h4 { font-size: 0.95rem; font-weight: 600; margin: 20px 0 8px; color: var(--accent); }
+        .chapter p { color: var(--muted); margin-bottom: 12px; }
+        pre { background: #0d1321; border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; overflow-x: auto; margin: 12px 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.7; color: #e2e8f0; }
+        code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: rgba(0,240,255,0.06); padding: 2px 6px; border-radius: 4px; color: var(--brand); }
+        .step { display: flex; gap: 16px; margin: 16px 0; align-items: flex-start; }
+        .step-num { width: 32px; height: 32px; border-radius: 50%; background: rgba(0,240,255,0.1); color: var(--brand); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; margin-top: 2px; }
+        .step-content { flex: 1; }
+        .step-content strong { color: var(--text); }
+        .alert { padding: 14px 20px; border-radius: 10px; margin: 16px 0; font-size: 0.88rem; }
+        .alert-info { background: rgba(0,240,255,0.06); border-left: 3px solid var(--brand); color: var(--brand); }
+        .alert-warn { background: rgba(245,158,11,0.06); border-left: 3px solid var(--warn); color: var(--warn); }
+        .alert-danger { background: rgba(239,68,68,0.06); border-left: 3px solid var(--err); color: var(--err); }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.85rem; }
+        th { background: rgba(0,240,255,0.06); color: var(--brand); padding: 10px 14px; text-align: left; font-weight: 600; }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--muted); }
+        .footer { padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.8rem; }
+        .product-tab { display: inline-block; padding: 8px 20px; border-radius: 8px 8px 0 0; background: rgba(0,240,255,0.06); color: var(--brand); font-weight: 600; font-size: 0.85rem; margin-right: 4px; cursor: default; }
+        .product-tab.active { background: var(--card); border: 1px solid var(--border); border-bottom: none; }
+        @media print { body { background: #fff; color: #000; } pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <h1>📖 QShield ONE — Installation Guide</h1>
+    <p>Complete installation instructions for QShield SOC Platform, QShield IDAM, and QShield Antivirus</p>
+    <p style="color:var(--brand); font-size:0.85rem; margin-top:8px;">Document Version: IG-1.0.0 | April 2026</p>
+</div>
+
+<nav class="toc">
+    <h2>📋 Table of Contents</h2>
+    <ol>
+        <li><a href="#prereq">Prerequisites & System Requirements</a></li>
+        <li><a href="#soc">QShield SOC Platform Installation</a></li>
+        <li><a href="#idam">QShield IDAM Installation</a></li>
+        <li><a href="#av">QShield Antivirus Installation</a></li>
+        <li><a href="#docker">Docker Deployment (All Products)</a></li>
+        <li><a href="#production">Production Hardening</a></li>
+        <li><a href="#verify">Post-Installation Verification</a></li>
+        <li><a href="#troubleshoot">Troubleshooting FAQ</a></li>
+    </ol>
+</nav>
+
+<!-- ═══════════ PREREQUISITES ═══════════ -->
+<div class="chapter" id="prereq">
+    <h2>1. Prerequisites & System Requirements</h2>
+
+    <h3>Software Prerequisites</h3>
+    <table>
+        <thead><tr><th>Software</th><th>Required For</th><th>Download</th></tr></thead>
+        <tbody>
+            <tr><td>OpenJDK 21</td><td>QS-SOC (JAR), QS-IDAM</td><td>adoptium.net</td></tr>
+            <tr><td>PostgreSQL 14+</td><td>Production databases</td><td>postgresql.org</td></tr>
+            <tr><td>Docker Desktop</td><td>Container deployment</td><td>docker.com</td></tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">💡 <strong>Tip:</strong> QShield SOC standalone EXE bundles its own JRE — no Java installation needed. QShield AV is native C — no dependencies at all.</div>
+
+    <h3>Hardware Requirements</h3>
+    <table>
+        <thead><tr><th>Product</th><th>Min RAM</th><th>Min Disk</th><th>CPU</th><th>Rec. RAM</th></tr></thead>
+        <tbody>
+            <tr><td>QShield SOC</td><td>4 GB</td><td>2 GB</td><td>Any x86_64</td><td>16 GB</td></tr>
+            <tr><td>QShield IDAM</td><td>2 GB</td><td>500 MB</td><td>Any x86_64</td><td>8 GB</td></tr>
+            <tr><td>QShield AV</td><td>512 MB</td><td>100 MB</td><td>x86_64 SSE2</td><td>4 GB</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Network Ports</h3>
+    <table>
+        <thead><tr><th>Service</th><th>Default Port</th><th>Protocol</th></tr></thead>
+        <tbody>
+            <tr><td>QShield SOC (dev)</td><td>8080</td><td>HTTP</td></tr>
+            <tr><td>QShield SOC (prod)</td><td>8443</td><td>HTTPS/TLS 1.3</td></tr>
+            <tr><td>QShield IDAM (dev)</td><td>8090</td><td>HTTP</td></tr>
+            <tr><td>QShield IDAM (prod)</td><td>8444</td><td>HTTPS/TLS 1.3</td></tr>
+            <tr><td>PostgreSQL</td><td>5432</td><td>TCP</td></tr>
+            <tr><td>Redis</td><td>6379</td><td>TCP</td></tr>
+            <tr><td>Elasticsearch</td><td>9200</td><td>TCP</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ═══════════ SOC INSTALLATION ═══════════ -->
+<div class="chapter" id="soc">
+    <h2>2. QShield SOC Platform Installation</h2>
+
+    <h3>Option A — Standalone EXE (Recommended for Windows)</h3>
+    <p>No Java required. Includes bundled JRE.</p>
+
+    <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Download</strong> <code>QShield-SOC-Platform-2.0.0.exe</code> from the Downloads page.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Run the executable:</strong></div></div>
+    <pre>QShield-SOC-Platform-2.0.0.exe</pre>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Access the dashboard</strong> at <code>http://localhost:8080</code></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Complete First-Run Setup</strong> — create your admin account when prompted.</div></div>
+
+    <h3>Option B — JAR Deployment (Cross-Platform)</h3>
+    <p>Requires OpenJDK 17+ installed.</p>
+    <pre># Linux / macOS
+java -jar QShield-SOC-Platform-2.0.0.jar
+
+# Windows PowerShell
+java -jar QShield-SOC-Platform-2.0.0.jar
+
+# With custom port
+java -jar QShield-SOC-Platform-2.0.0.jar --server.port=9090</pre>
+
+    <h3>Option C — Windows MSI Installer</h3>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Download</strong> <code>QShield-SOC-Setup-2.0.0.msi</code></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Double-click</strong> the MSI and follow the wizard</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Select modules:</strong> SIEM, SOAR, DLP, EDR, XDR (all selected by default)</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Configure database</strong> — choose embedded H2 (dev) or PostgreSQL (production)</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Set admin credentials</strong> — choose your own admin email and password</div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Click Install</strong> — service starts automatically</div></div>
+
+    <div class="alert alert-warn">⚠️ <strong>Security:</strong> Never use default credentials in production. Always set strong passwords during installation.</div>
+
+    <h3>Production Configuration</h3>
+    <pre># Launch with production profile (TLS 1.3, PostgreSQL, rate limiting)
+java -Xms512m -Xmx2048m \
+  -Dspring.profiles.active=prod \
+  -Dserver.ssl.key-store=/path/to/keystore.p12 \
+  -Dserver.ssl.key-store-password=YOUR_PASSWORD \
+  -jar QShield-SOC-Platform-2.0.0.jar</pre>
+</div>
+
+<!-- ═══════════ IDAM INSTALLATION ═══════════ -->
+<div class="chapter" id="idam">
+    <h2>3. QShield IDAM Installation</h2>
+
+    <h3>Option A — Standalone JAR</h3>
+    <pre>java -jar QShield-IDAM-Server-1.0.0.jar</pre>
+    <p>Access the admin console at <code>http://localhost:8090</code></p>
+
+    <h3>Option B — Windows Installer</h3>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Download</strong> <code>QShield-IDAM-Setup-1.0.0.exe</code></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Run the installer</strong> and follow the wizard</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Configure</strong> database, admin credentials, and tenant settings</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Service starts automatically</strong> — access at http://localhost:8090</div></div>
+
+    <h3>Production Configuration</h3>
+    <pre>java -Xms256m -Xmx1024m \
+  -Dspring.profiles.active=prod \
+  -Dserver.port=8444 \
+  -jar QShield-IDAM-Server-1.0.0.jar</pre>
+
+    <h3>API Verification</h3>
+    <pre># Health check
+curl http://localhost:8090/actuator/health
+# Expected: {"status":"UP"}
+
+# Authenticate
+curl -X POST http://localhost:8090/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"your-admin@company.com","password":"YOUR_PASSWORD"}'</pre>
+</div>
+
+<!-- ═══════════ AV INSTALLATION ═══════════ -->
+<div class="chapter" id="av">
+    <h2>4. QShield Antivirus Installation</h2>
+
+    <h3>CLI Scanner (Portable, No Install)</h3>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Download</strong> <code>qshield_scan.exe</code> — place anywhere on disk</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Scan a file or directory:</strong></div></div>
+    <pre># Scan a single file
+qshield_scan.exe --scan C:\Downloads\suspicious_file.exe
+
+# Scan entire directory recursively
+qshield_scan.exe --scan C:\Users --recursive
+
+# Scan with auto-quarantine
+qshield_scan.exe --scan C:\ --recursive --quarantine
+
+# Save JSON report
+qshield_scan.exe --scan D:\Projects --json --report scan_report.json</pre>
+
+    <h3>Real-Time Protection Daemon</h3>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Download</strong> <code>qshield_daemon.exe</code></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Install as Windows service</strong> (requires Administrator):</div></div>
+    <pre># Install service
+qshield_daemon.exe --install
+
+# Start real-time protection
+qshield_daemon.exe --start
+
+# Check status
+qshield_daemon.exe --status
+
+# Stop service
+qshield_daemon.exe --stop</pre>
+
+    <div class="alert alert-info">💡 <strong>Note:</strong> The daemon monitors all file system changes in real-time. Detected threats are automatically quarantined to a secure vault.</div>
+
+    <h3>GUI Installer (Optional)</h3>
+    <pre># Requires Java 17+ installed
+java -jar QShieldAV-Setup.jar</pre>
+    <p>Follow the GUI wizard to select components (Scanner, Daemon, AI Engine) and configure auto-start options.</p>
+</div>
+
+<!-- ═══════════ DOCKER ═══════════ -->
+<div class="chapter" id="docker">
+    <h2>5. Docker Deployment</h2>
+
+    <h3>QShield SOC — Full Stack</h3>
+    <pre># Quick start (single container)
+docker pull qshield/soc-platform:2.0.0
+docker run -d -p 8080:8080 --name qshield-soc qshield/soc-platform:2.0.0
+
+# Full infrastructure (PostgreSQL, Redis, Elasticsearch, Ollama)
+cd /path/to/qs-soc/
+docker-compose up -d</pre>
+
+    <h3>QShield IDAM — Docker</h3>
+    <pre>docker build -t qshield-idam:1.0.0 .
+docker run -d -p 8090:8090 --name qshield-idam qshield-idam:1.0.0</pre>
+
+    <h3>Full Platform Stack</h3>
+    <pre># docker-compose.yml for entire QShield ONE
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: qshield
+      POSTGRES_USER: qshield
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+
+  qshield-soc:
+    image: qshield/soc-platform:2.0.0
+    ports: ["8080:8080"]
+    depends_on: [postgres]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/qshield
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+
+  qshield-idam:
+    image: qshield-idam:1.0.0
+    ports: ["8090:8090"]
+    depends_on: [postgres]
+
+volumes:
+  pgdata:</pre>
+</div>
+
+<!-- ═══════════ PRODUCTION HARDENING ═══════════ -->
+<div class="chapter" id="production">
+    <h2>6. Production Hardening</h2>
+
+    <h3>TLS Certificate Generation</h3>
+    <pre># Generate PKCS12 keystore with 4096-bit RSA
+keytool -genkeypair -alias qshield \
+  -keyalg RSA -keysize 4096 \
+  -validity 365 -storetype PKCS12 \
+  -keystore qshield.p12 \
+  -dname "CN=soc.yourdomain.com, O=Your Organization, C=IN"</pre>
+
+    <h3>JWT Secret</h3>
+    <pre># Generate 256-bit secret (use different secrets per service!)
+openssl rand -base64 32</pre>
+
+    <h3>Environment Variables</h3>
+    <pre>export SSL_KEYSTORE_PASSWORD="your-keystore-password"
+export JWT_SECRET="$(openssl rand -base64 32)"
+export DB_HOST="postgres.internal"
+export DB_USERNAME="qshield_app"
+export DB_PASSWORD="strong-db-password"</pre>
+
+    <div class="alert alert-danger">🔴 <strong>Critical:</strong> Use different JWT secrets for SOC and IDAM. Never reuse secrets across services. Never commit secrets to version control.</div>
+</div>
+
+<!-- ═══════════ VERIFICATION ═══════════ -->
+<div class="chapter" id="verify">
+    <h2>7. Post-Installation Verification</h2>
+
+    <h3>Health Checks</h3>
+    <pre># SOC Platform
+curl http://localhost:8080/actuator/health
+# Expected: {"status":"UP"}
+
+# IDAM Server
+curl http://localhost:8090/actuator/health
+# Expected: {"status":"UP"}
+
+# AV Scanner
+qshield_scan.exe --help
+# Expected: Usage info displayed</pre>
+
+    <h3>Security Verification (Production)</h3>
+    <pre># Verify TLS 1.3
+openssl s_client -connect localhost:8443 -tls1_3
+
+# Verify security headers
+curl -I https://localhost:8443/
+# Check for: X-Frame-Options, Content-Security-Policy, HSTS
+
+# Verify rate limiting (should get 429 after threshold)
+for i in $(seq 1 12); do
+  curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8090/api/v1/auth/login
+done
+
+# Verify unauthenticated API access blocked
+curl http://localhost:8080/api/v1/dashboard
+# Expected: 401 Unauthorized</pre>
+
+    <h3>Run Compliance Tests</h3>
+    <pre># SOC — 466+ tests
+cd QS-DPDP-Enterprise &amp;&amp; mvn test
+
+# IDAM — 39 tests
+cd QS-IDAM &amp;&amp; ./mvnw test -pl qs-idam-server
+
+# AV — NIST KAT
+cd QSAV/engine/build &amp;&amp; ./test_nist_kat</pre>
+</div>
+
+<!-- ═══════════ TROUBLESHOOTING ═══════════ -->
+<div class="chapter" id="troubleshoot">
+    <h2>8. Troubleshooting FAQ</h2>
+
+    <h3>Port already in use</h3>
+    <pre># Use a different port
+java -jar QShield-SOC-Platform-2.0.0.jar --server.port=9090</pre>
+
+    <h3>Java not found (JAR deployment)</h3>
+    <p>Use the standalone EXE instead — it bundles its own JRE. Or install OpenJDK 21 from <code>adoptium.net</code>.</p>
+
+    <h3>Database connection failed (production)</h3>
+    <pre># Verify PostgreSQL is running
+pg_isready -h localhost -p 5432
+
+# Check connection credentials match application-prod.properties
+psql -h localhost -U qshield_app -d qshield_soc -c "SELECT 1"</pre>
+
+    <h3>TLS certificate errors</h3>
+    <pre># Verify keystore is valid
+keytool -list -keystore qshield.p12 -storetype PKCS12
+
+# Check certificate CN matches your domain
+keytool -list -v -keystore qshield.p12 -storetype PKCS12 | grep "CN="</pre>
+
+    <h3>AV scanner not detecting threats</h3>
+    <p>Ensure the signature database is up to date. Run <code>qshield_scan.exe --update-db</code> to download latest signatures.</p>
+
+    <h3>Need Help?</h3>
+    <table>
+        <thead><tr><th>Channel</th><th>Contact</th></tr></thead>
+        <tbody>
+            <tr><td>Email Support</td><td>support@qsgrc.com</td></tr>
+            <tr><td>Enterprise</td><td>enterprise@qsgrc.com</td></tr>
+            <tr><td>Documentation</td><td>docs.qshield.io</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <p>© 2026 QualityShield Technologies Pvt. Ltd. | www.qsgrc.com</p>
+    <p style="margin-top:8px;">Installation Guide v1.0.0 | Classification: Public</p>
+</div>
+
+</div>
+</body>
+</html>
