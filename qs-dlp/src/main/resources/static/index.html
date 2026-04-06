@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QS-DLP — Data Loss Prevention</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--brand:#ef4444;--bg:#080c14;--surface:#0f1629;--card:#141d30;--border:rgba(255,255,255,.06);--text:#e8ecf4;--muted:#6b7a99;--red:#ef4444;--green:#06ffa5}
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+        .app{display:grid;grid-template-columns:220px 1fr;grid-template-rows:52px 1fr;min-height:100vh}
+        .sidebar{grid-row:1/-1;background:var(--surface);border-right:1px solid var(--border);padding:16px 0;display:flex;flex-direction:column}
+        .sidebar-logo{padding:0 16px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);margin-bottom:12px}
+        .sidebar-logo .icon{width:34px;height:34px;background:linear-gradient(135deg,var(--brand),#1e293b);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+        .sidebar-logo h1{font-size:.9rem;font-weight:700}.sidebar-logo span{color:var(--brand);font-size:.6rem;text-transform:uppercase;letter-spacing:1px}
+        .nav-item{padding:9px 16px;color:var(--muted);font-size:.8rem;cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+        .nav-item:hover,.nav-item.active{color:var(--text);background:rgba(255,255,255,.03);border-left-color:var(--brand)}.nav-item.active{font-weight:600}
+        .header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+        .header-title{font-size:.85rem;font-weight:600}
+        .status-badge{padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;background:rgba(6,255,165,.1);color:var(--green);border:1px solid rgba(6,255,165,.2)}
+        .status-badge::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-right:5px;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .main{padding:16px;overflow-y:auto}
+        .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+        .kpi-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+        .kpi-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+        .kpi-value{font-size:1.6rem;font-weight:800;color:var(--brand)}
+        .info-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+        .info-card h3{font-size:.8rem;font-weight:600;margin-bottom:12px;color:var(--brand)}
+        .info-card p{font-size:.78rem;color:var(--muted);line-height:1.6}
+        .btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:.72rem;cursor:pointer}
+        .btn:hover{background:rgba(255,255,255,.05)}
+        .btn-primary{background:rgba(255,255,255,.05);border-color:var(--brand);color:var(--brand)}
+        @media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+    </style>
+</head>
+<body>
+<div class="app">
+    <nav class="sidebar">
+        <div class="sidebar-logo">
+            <div class="icon">🔐</div>
+            <div><h1>QS-DLP</h1><span>v1.0.0</span></div>
+        </div>
+        <div class="nav-item active">📊 Dashboard</div>
+        <div class="nav-item">🚨 Incidents</div>
+        <div class="nav-item">📜 Policies</div>
+        <div class="nav-item">🔍 Scanner</div>
+        <div class="nav-item">⚙️ Settings</div>
+    </nav>
+    <header class="header">
+        <div class="header-title">Data Loss Prevention</div>
+        <span class="status-badge">ACTIVE</span>
+    </header>
+    <main class="main">
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Total Incidents</div><div class="kpi-value" id="kpi-totalIncidents">—</div></div>
+            <div class="kpi-card"><div class="kpi-label">Blocked</div><div class="kpi-value" id="kpi-blockedIncidents">—</div></div>
+            <div class="kpi-card"><div class="kpi-label">Active</div><div class="kpi-value" id="kpi-activeIncidents">—</div></div>
+            <div class="kpi-card"><div class="kpi-label">Patterns</div><div class="kpi-value" id="kpi-patternsLoaded">—</div></div>
+        </div>
+        <div class="info-card">
+            <h3>QS-DLP — Product Overview</h3>
+            <p>Data Loss Prevention module of the QShield CSOC Platform. This product provides enterprise-grade security operations with AI-powered analytics, MITRE ATT&CK framework mapping, and compliance with NIST SP 800-53, ISO 27001, and IS 15408 standards. All operations are recorded in an immutable, hash-chained audit trail.</p>
+            <p style="margin-top:12px">API Base: <code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.75rem">http://localhost:9005/api/v1/dlp</code></p>
+        </div>
+        <div class="info-card">
+            <h3>Quick Actions</h3>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                <button class="btn btn-primary" onclick="refreshDashboard()">↻ Refresh Dashboard</button>
+                <button class="btn" onclick="fetch('/api/v1/dlp/health').then(r=>r.json()).then(d=>alert(JSON.stringify(d,null,2)))">🩺 Health Check</button>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+async function refreshDashboard() {
+    try {
+        const resp = await fetch('/api/v1/dlp/dashboard');
+        const data = await resp.json();
+            if(data.totalIncidents !== undefined) document.getElementById('kpi-totalIncidents').textContent = data.totalIncidents;
+            if(data.blockedIncidents !== undefined) document.getElementById('kpi-blockedIncidents').textContent = data.blockedIncidents;
+            if(data.activeIncidents !== undefined) document.getElementById('kpi-activeIncidents').textContent = data.activeIncidents;
+            if(data.patternsLoaded !== undefined) document.getElementById('kpi-patternsLoaded').textContent = data.patternsLoaded;
+    } catch(e) { console.log('Dashboard:', e.message); }
+}
+document.addEventListener('DOMContentLoaded', () => { refreshDashboard(); setInterval(refreshDashboard, 30000); });
+</script>
+</body>
+</html>

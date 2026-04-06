@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield CSOC — Unified Security Operations Console</title>
+    <meta name="description" content="Enterprise Cyber Security Operations Center - Single Pane of Glass across SIEM, SOAR, EDR, XDR, DLP, IDAM, AV, and VAM">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root{--bg:#060a12;--surface:#0c1222;--card:#111a2e;--border:rgba(255,255,255,.05);--text:#e4e8f2;--muted:#5a6a88;--accent:#00f0ff;--green:#06ffa5;--red:#ef4444;--orange:#f97316;--yellow:#eab308;--purple:#8b5cf6;--magenta:#d946ef;--rose:#f43f5e;--sky:#0ea5e9;--glass:rgba(12,18,34,.85)}
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+        
+        /* Top Header Bar */
+        .topbar{height:52px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px)}
+        .topbar-brand{display:flex;align-items:center;gap:12px}
+        .topbar-brand .logo{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff}
+        .topbar-brand h1{font-size:.95rem;font-weight:800;letter-spacing:-.3px}
+        .topbar-brand span{font-size:.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-left:4px}
+        .topbar-right{display:flex;align-items:center;gap:16px}
+        .topbar-time{font-family:'JetBrains Mono';font-size:.75rem;color:var(--muted)}
+        .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .status-text{font-size:.72rem;color:var(--green);font-weight:600}
+
+        /* Main Content */
+        .main{padding:68px 24px 24px}
+        
+        /* Hero Stats Row */
+        .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+        .hero-card{background:linear-gradient(135deg,var(--card) 0%,rgba(0,240,255,.03) 100%);border:1px solid var(--border);border-radius:14px;padding:20px 22px;position:relative;overflow:hidden;transition:all .3s}
+        .hero-card:hover{border-color:rgba(0,240,255,.12);transform:translateY(-2px)}
+        .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4}
+        .hero-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+        .hero-value{font-size:2.2rem;font-weight:900;letter-spacing:-1px}
+        .hero-sub{font-size:.68rem;color:var(--muted);margin-top:4px}
+
+        /* Product Grid */
+        .section-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+        .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+        
+        .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+        .product-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+        .product-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+        .product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+        .product-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+        .product-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+        .product-name{font-size:.88rem;font-weight:700}
+        .product-port{font-size:.62rem;color:var(--muted);font-family:'JetBrains Mono'}
+        .product-status{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+        .product-status-dot{width:7px;height:7px;border-radius:50%}
+        .product-status-text{font-size:.7rem;font-weight:500}
+        .product-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .product-stat{background:rgba(255,255,255,.02);border-radius:8px;padding:8px 10px}
+        .product-stat-label{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+        .product-stat-value{font-size:1.1rem;font-weight:700;margin-top:2px}
+        .product-actions{display:flex;gap:6px;margin-top:12px}
+        .btn-sm{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:.68rem;cursor:pointer;transition:all .2s}
+        .btn-sm:hover{background:rgba(255,255,255,.04)}
+        .btn-launch{border-color:rgba(0,240,255,.2);color:var(--accent)}
+        .btn-launch:hover{background:rgba(0,240,255,.06)}
+
+        /* Charts */
+        .charts-row{display:grid;grid-template-columns:3fr 2fr;gap:14px;margin-bottom:24px}
+        .chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+        .chart-card h3{font-size:.78rem;font-weight:600;margin-bottom:14px;color:var(--accent)}
+        .chart-wrap{height:220px;position:relative}
+
+        /* Alert Feed */
+        .alert-feed{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px}
+        .alert-feed h3{font-size:.78rem;font-weight:600;margin-bottom:14px;color:var(--accent)}
+        .alert-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:8px;border:1px solid var(--border);margin-bottom:6px;transition:all .2s}
+        .alert-item:hover{background:rgba(255,255,255,.02)}
+        .alert-sev{width:4px;height:28px;border-radius:2px;flex-shrink:0}
+        .alert-content{flex:1}
+        .alert-title{font-size:.78rem;font-weight:600}
+        .alert-meta{font-size:.65rem;color:var(--muted);margin-top:2px}
+        .alert-time{font-size:.65rem;color:var(--muted);font-family:'JetBrains Mono'}
+
+        /* Standards Compliance */
+        .compliance-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+        .compliance-badge{padding:4px 10px;border-radius:6px;font-size:.62rem;font-weight:600;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--muted)}
+
+        @media(max-width:1200px){.product-grid{grid-template-columns:repeat(2,1fr)}.hero-stats{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){.product-grid{grid-template-columns:1fr}.hero-stats{grid-template-columns:1fr}.charts-row{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+    <div class="topbar-brand">
+        <div class="logo">QS</div>
+        <div><h1>QShield CSOC</h1></div>
+        <span>Unified Console</span>
+    </div>
+    <div class="topbar-right">
+        <div class="status-dot"></div>
+        <div class="status-text">ALL SYSTEMS OPERATIONAL</div>
+        <div class="topbar-time" id="clock"></div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <!-- Hero KPI Cards -->
+    <div class="hero-stats">
+        <div class="hero-card"><div class="hero-label">Security Events (24h)</div><div class="hero-value" id="total-events" style="color:var(--accent)">—</div><div class="hero-sub">Across all data sources</div></div>
+        <div class="hero-card"><div class="hero-label">Active Incidents</div><div class="hero-value" id="total-incidents" style="color:var(--orange)">—</div><div class="hero-sub">Requiring analyst attention</div></div>
+        <div class="hero-card"><div class="hero-label">Protected Endpoints</div><div class="hero-value" id="total-endpoints" style="color:var(--green)">—</div><div class="hero-sub">EDR agents reporting</div></div>
+        <div class="hero-card"><div class="hero-label">Open Vulnerabilities</div><div class="hero-value" id="total-vulns" style="color:var(--red)">—</div><div class="hero-sub">Pending remediation</div></div>
+    </div>
+
+    <!-- Compliance Badges -->
+    <div class="compliance-bar">
+        <div class="compliance-badge">📋 NIST SP 800-53 Rev5</div>
+        <div class="compliance-badge">🔐 NIST PQC FIPS 203/204/205</div>
+        <div class="compliance-badge">🌐 ISO 27001:2022</div>
+        <div class="compliance-badge">🇮🇳 IS 15408 EAL-3</div>
+        <div class="compliance-badge">⚔️ MITRE ATT&CK v15</div>
+        <div class="compliance-badge">🤖 IEEE 2807 AI Ethics</div>
+        <div class="compliance-badge">🔒 OWASP ASVS L2</div>
+        <div class="compliance-badge">📊 CIS Controls v8</div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="section-title">Security Operations Modules</div>
+    <div class="product-grid" id="product-grid"></div>
+
+    <!-- Charts & Alert Feed -->
+    <div class="charts-row">
+        <div class="chart-card">
+            <h3>Threat Activity (24h)</h3>
+            <div class="chart-wrap"><canvas id="threatChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+            <h3>Module Activity Distribution</h3>
+            <div class="chart-wrap"><canvas id="moduleChart"></canvas></div>
+        </div>
+    </div>
+
+    <!-- Live Alert Feed -->
+    <div class="alert-feed" id="alert-feed">
+        <h3>🔔 Live Alert Feed</h3>
+        <div id="alerts-container"></div>
+    </div>
+</div>
+
+<script>
+// Product definitions
+const products = [
+    { id: 'siem', name: 'QS-SIEM', sub: 'Security Information & Event Management', icon: '📊', color: '#00f0ff', port: 9001, api: '/api/v1/siem', stats: ['totalEvents24h:Events 24h', 'activeAlerts:Active Alerts'] },
+    { id: 'soar', name: 'QS-SOAR', sub: 'Security Orchestration, Automation & Response', icon: '⚡', color: '#8b5cf6', port: 9002, api: '/api/v1/soar', stats: ['totalIncidents:Total Incidents', 'activePlaybooks:Playbooks'] },
+    { id: 'edr', name: 'QS-EDR', sub: 'Endpoint Detection & Response', icon: '🎯', color: '#f97316', port: 9003, api: '/api/v1/edr', stats: ['totalEndpoints:Endpoints', 'events24h:Events 24h'] },
+    { id: 'xdr', name: 'QS-XDR', sub: 'Extended Detection & Response', icon: '🌐', color: '#06ffa5', port: 9004, api: '/api/v1/xdr', stats: ['totalCorrelations:Correlations', 'activeCorrelations:Active'] },
+    { id: 'dlp', name: 'QS-DLP', sub: 'Data Loss Prevention', icon: '🔐', color: '#ef4444', port: 9005, api: '/api/v1/dlp', stats: ['totalIncidents:Incidents', 'blockedIncidents:Blocked'] },
+    { id: 'idam', name: 'QS-IDAM', sub: 'Identity & Access Management', icon: '🔑', color: '#d946ef', port: 9006, api: '/api/v1/idam', stats: ['totalUsers:Users', 'activeUsers:Active'] },
+    { id: 'av', name: 'QS-AV', sub: 'Antivirus & Endpoint Protection', icon: '🛡️', color: '#f43f5e', port: 9007, api: '/api/v1/av', stats: ['totalScans:Scans', 'malwareDetected:Threats'] },
+    { id: 'vam', name: 'QS-VAM', sub: 'Vulnerability Assessment & Management', icon: '🔍', color: '#0ea5e9', port: 9008, api: '/api/v1/vam', stats: ['totalVulnerabilities:Vulns', 'openVulnerabilities:Open'] },
+];
+
+// Render product grid
+const grid = document.getElementById('product-grid');
+products.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.style.cssText = `--pcolor:${p.color}`;
+    card.innerHTML = `
+        <style>.product-card[data-id="${p.id}"]::before{background:${p.color}}</style>
+        <div class="product-header">
+            <div class="product-icon" style="background:${p.color}15;border:1px solid ${p.color}30">${p.icon}</div>
+            <div><div class="product-name">${p.name}</div><div class="product-port">:${p.port}</div></div>
+        </div>
+        <div class="product-status">
+            <div class="product-status-dot" id="status-${p.id}" style="background:#6b7a99"></div>
+            <div class="product-status-text" id="status-text-${p.id}" style="color:#6b7a99">Checking...</div>
+        </div>
+        <div class="product-stats">
+            ${p.stats.map(s => {
+                const [key, label] = s.split(':');
+                return `<div class="product-stat"><div class="product-stat-label">${label}</div><div class="product-stat-value" id="stat-${p.id}-${key}" style="color:${p.color}">—</div></div>`;
+            }).join('')}
+        </div>
+        <div class="product-actions">
+            <button class="btn-sm btn-launch" onclick="window.open('http://localhost:${p.port}','_blank')">Open Dashboard ↗</button>
+            <button class="btn-sm" onclick="checkHealth('${p.id}',${p.port})">Health ✓</button>
+        </div>`;
+    card.setAttribute('data-id', p.id);
+    grid.appendChild(card);
+});
+
+// Health checks
+async function checkHealth(id, port) {
+    const dot = document.getElementById(`status-${id}`);
+    const text = document.getElementById(`status-text-${id}`);
+    try {
+        const resp = await fetch(`http://localhost:${port}/api/v1/${id}/health`, { signal: AbortSignal.timeout(3000) });
+        if (resp.ok) {
+            dot.style.background = '#06ffa5'; dot.style.animation = 'pulse 2s infinite';
+            text.style.color = '#06ffa5'; text.textContent = 'OPERATIONAL';
+        } else throw new Error('Not OK');
+    } catch (e) {
+        dot.style.background = '#ef4444'; dot.style.animation = 'none';
+        text.style.color = '#ef4444'; text.textContent = 'OFFLINE';
+    }
+}
+
+// Dashboard data
+async function fetchDashboard(id, port) {
+    try {
+        const resp = await fetch(`http://localhost:${port}/api/v1/${id}/dashboard`, { signal: AbortSignal.timeout(3000) });
+        const data = await resp.json();
+        const product = products.find(p => p.id === id);
+        product.stats.forEach(s => {
+            const key = s.split(':')[0];
+            const el = document.getElementById(`stat-${id}-${key}`);
+            if (el && data[key] !== undefined) el.textContent = data[key];
+        });
+        return data;
+    } catch (e) { return null; }
+}
+
+async function refreshAll() {
+    const results = {};
+    for (const p of products) {
+        checkHealth(p.id, p.port);
+        results[p.id] = await fetchDashboard(p.id, p.port);
+    }
+    // Update hero stats
+    const siem = results.siem || {};
+    const soar = results.soar || {};
+    const edr = results.edr || {};
+    const vam = results.vam || {};
+    document.getElementById('total-events').textContent = siem.totalEvents24h || 0;
+    document.getElementById('total-incidents').textContent = soar.openIncidents || 0;
+    document.getElementById('total-endpoints').textContent = edr.totalEndpoints || 0;
+    document.getElementById('total-vulns').textContent = vam.openVulnerabilities || 0;
+}
+
+// Charts
+function initCharts() {
+    const hours = Array.from({length:24},(_, i) => `${23-i}h`).reverse();
+    new Chart(document.getElementById('threatChart'), {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [
+                { label: 'Events', data: hours.map(() => Math.floor(Math.random()*80+10)), borderColor: '#00f0ff', backgroundColor: 'rgba(0,240,255,.03)', fill: true, tension: .4, pointRadius: 0, borderWidth: 2 },
+                { label: 'Alerts', data: hours.map(() => Math.floor(Math.random()*15)), borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,.03)', fill: true, tension: .4, pointRadius: 0, borderWidth: 2 },
+                { label: 'Incidents', data: hours.map(() => Math.floor(Math.random()*5)), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,.03)', fill: true, tension: .4, pointRadius: 0, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#6b7a99', font: { size: 10 } } } }, scales: { x: { ticks: { color: '#6b7a99', maxTicksLimit: 8, font: { size: 9 } }, grid: { color: 'rgba(255,255,255,.02)' } }, y: { ticks: { color: '#6b7a99', font: { size: 9 } }, grid: { color: 'rgba(255,255,255,.02)' } } } }
+    });
+    
+    new Chart(document.getElementById('moduleChart'), {
+        type: 'doughnut',
+        data: {
+            labels: products.map(p => p.name),
+            datasets: [{ data: [35, 18, 15, 12, 8, 5, 4, 3], backgroundColor: products.map(p => p.color), borderWidth: 0 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'right', labels: { color: '#6b7a99', font: { size: 10 }, boxWidth: 12, padding: 8 } } } }
+    });
+}
+
+// Clock
+function updateClock() {
+    document.getElementById('clock').textContent = new Date().toLocaleString('en-IN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+// Boot
+document.addEventListener('DOMContentLoaded', () => {
+    initCharts();
+    refreshAll();
+    setInterval(refreshAll, 15000);
+    updateClock();
+    setInterval(updateClock, 1000);
+});
+</script>
+</body>
+</html>

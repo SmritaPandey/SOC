@@ -1,12 +1,10 @@
 # ═══════════════════════════════════════
-# QShield ONE — .gitignore
+# QShield CSOC Platform — .gitignore
 # ═══════════════════════════════════════
 
 # Java Build Output
 target/
 *.class
-*.jar
-!**/src/**/*.jar
 
 # IDE
 .idea/
@@ -18,8 +16,8 @@ target/
 *.swp
 *.swo
 
-# Maven
-.mvn/wrapper/maven-wrapper.jar
+# Maven wrapper (kept in repo)
+!.mvn/wrapper/maven-wrapper.jar
 
 # OS
 .DS_Store
@@ -32,28 +30,22 @@ desktop.ini
 *.keystore
 *.jks
 
-# Large Binaries (exceed GitHub 100MB limit)
+# Large Binaries
 *.exe
 *.msi
 *.dmg
 *.pkg
-website/dist/qs-soc/*.jar
-website/dist/qs-idam/*.jar
-website/dist/qs-av/*.jar
+*.jar
+!.mvn/**/*.jar
 
-# Build intermediates
-v2-build-input/
-v2-output/
-v2-installer/
-installer/*.msi
+# H2 Database files
+data/
+*.db
+*.trace.db
 
 # Logs
 *.log
 logs/
 
-# H2 Database files
-*.db
-*.trace.db
-
-# Node modules (if any)
+# Node modules
 node_modules/

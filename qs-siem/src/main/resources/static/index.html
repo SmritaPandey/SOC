@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QS-SIEM — Security Information & Event Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root{--brand:#00f0ff;--bg:#080c14;--surface:#0f1629;--card:#141d30;--border:rgba(0,240,255,.08);--text:#e8ecf4;--muted:#6b7a99;--accent:#06ffa5;--red:#ef4444;--orange:#f97316;--yellow:#eab308;--purple:#8b5cf6}
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+        .app{display:grid;grid-template-columns:240px 1fr;grid-template-rows:56px 1fr;min-height:100vh}
+
+        /* Sidebar */
+        .sidebar{grid-row:1/-1;background:var(--surface);border-right:1px solid var(--border);padding:16px 0;display:flex;flex-direction:column}
+        .sidebar-logo{padding:0 20px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);margin-bottom:16px}
+        .sidebar-logo .icon{width:36px;height:36px;background:linear-gradient(135deg,var(--brand),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+        .sidebar-logo h1{font-size:1rem;font-weight:700}.sidebar-logo span{color:var(--brand);font-size:.65rem;text-transform:uppercase;letter-spacing:1px}
+        .nav-item{padding:10px 20px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.85rem;cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+        .nav-item:hover,.nav-item.active{color:var(--text);background:rgba(0,240,255,.04);border-left-color:var(--brand)}
+        .nav-item.active{font-weight:600}
+        .nav-section{padding:12px 20px 6px;font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
+
+        /* Header */
+        .header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+        .header-title{font-size:.9rem;font-weight:600}.header-right{display:flex;gap:12px;align-items:center}
+        .status-badge{padding:4px 12px;border-radius:100px;font-size:.7rem;font-weight:600}
+        .status-live{background:rgba(6,255,165,.1);color:var(--accent);border:1px solid rgba(6,255,165,.2)}
+        .status-live::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:6px;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+        /* Main Content */
+        .main{padding:20px;overflow-y:auto}
+
+        /* KPI Cards */
+        .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+        .kpi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+        .kpi-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+        .kpi-value{font-size:1.8rem;font-weight:800}.kpi-change{font-size:.7rem;margin-top:4px}
+        .kpi-up{color:var(--red)}.kpi-down{color:var(--accent)}
+
+        /* Chart containers */
+        .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
+        .chart-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+        .chart-card h3{font-size:.82rem;font-weight:600;margin-bottom:16px;color:var(--brand)}
+        .chart-wrapper{height:240px;position:relative}
+
+        /* Events Table */
+        .table-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+        .table-card h3{font-size:.82rem;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+        table{width:100%;border-collapse:collapse;font-size:.78rem}
+        th{background:rgba(0,240,255,.03);color:var(--brand);padding:8px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+        td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted)}
+        tr:hover td{background:rgba(0,240,255,.02)}
+        .sev{padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:600}
+        .sev-critical{background:rgba(239,68,68,.1);color:var(--red)}.sev-high{background:rgba(249,115,22,.1);color:var(--orange)}
+        .sev-medium{background:rgba(234,179,8,.1);color:var(--yellow)}.sev-low{background:rgba(6,255,165,.1);color:var(--accent)}
+
+        /* Alerts Panel */
+        .alert-item{padding:12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);margin-bottom:8px;cursor:pointer;transition:all .2s}
+        .alert-item:hover{border-color:rgba(0,240,255,.15)}
+        .alert-title{font-size:.8rem;font-weight:600;margin-bottom:4px}
+        .alert-meta{font-size:.68rem;color:var(--muted);display:flex;gap:12px}
+
+        .btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:.75rem;cursor:pointer;transition:all .2s}
+        .btn:hover{background:rgba(0,240,255,.06);border-color:var(--brand)}
+        .btn-primary{background:rgba(0,240,255,.1);border-color:rgba(0,240,255,.2);color:var(--brand)}
+
+        @media(max-width:1024px){.app{grid-template-columns:1fr}.sidebar{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}.charts-row{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<div class="app">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-logo">
+            <div class="icon">📊</div>
+            <div><h1>QS-SIEM</h1><span>v1.0.0</span></div>
+        </div>
+        <div class="nav-section">Main</div>
+        <div class="nav-item active" onclick="showSection('dashboard')">📊 Dashboard</div>
+        <div class="nav-item" onclick="showSection('events')">📋 Events</div>
+        <div class="nav-item" onclick="showSection('alerts')">🔔 Alerts</div>
+        <div class="nav-section">Analytics</div>
+        <div class="nav-item" onclick="showSection('correlation')">🔗 Correlation Rules</div>
+        <div class="nav-item" onclick="showSection('ueba')">👤 UEBA</div>
+        <div class="nav-item" onclick="showSection('threat-intel')">🌐 Threat Intelligence</div>
+        <div class="nav-section">Settings</div>
+        <div class="nav-item" onclick="showSection('datasources')">📡 Data Sources</div>
+        <div class="nav-item" onclick="showSection('settings')">⚙️ Settings</div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">Security Operations Dashboard</div>
+        <div class="header-right">
+            <span class="status-badge status-live">MONITORING</span>
+            <button class="btn btn-primary" onclick="ingestSample()">+ Ingest Sample</button>
+            <button class="btn" onclick="refreshDashboard()">↻ Refresh</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Events (24h)</div><div class="kpi-value" id="kpi-events">—</div><div class="kpi-change kpi-up" id="kpi-events-change"></div></div>
+            <div class="kpi-card"><div class="kpi-label">Critical Alerts</div><div class="kpi-value" id="kpi-critical" style="color:var(--red)">—</div></div>
+            <div class="kpi-card"><div class="kpi-label">Active Alerts</div><div class="kpi-value" id="kpi-active" style="color:var(--orange)">—</div></div>
+            <div class="kpi-card"><div class="kpi-label">High Alerts</div><div class="kpi-value" id="kpi-high" style="color:var(--yellow)">—</div></div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>Event Timeline (Last 24h)</h3>
+                <div class="chart-wrapper"><canvas id="timelineChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>Severity Distribution</h3>
+                <div class="chart-wrapper"><canvas id="severityChart"></canvas></div>
+            </div>
+        </div>
+
+        <!-- Recent Alerts -->
+        <div class="table-card">
+            <h3>Recent Alerts <button class="btn" onclick="loadAlerts()">View All</button></h3>
+            <div id="alerts-list"></div>
+        </div>
+
+        <!-- Events Table -->
+        <div class="table-card">
+            <h3>Recent Events <button class="btn" onclick="loadEvents()">View All</button></h3>
+            <table>
+                <thead><tr><th>Time</th><th>Severity</th><th>Category</th><th>Source IP</th><th>Message</th><th>MITRE</th><th>Score</th></tr></thead>
+                <tbody id="events-tbody"></tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<script>
+const API = '/api/v1/siem';
+let timelineChart, severityChart;
+
+async function refreshDashboard() {
+    try {
+        const resp = await fetch(API + '/dashboard');
+        const data = await resp.json();
+        document.getElementById('kpi-events').textContent = data.totalEvents24h || 0;
+        document.getElementById('kpi-critical').textContent = data.criticalAlerts || 0;
+        document.getElementById('kpi-active').textContent = data.activeAlerts || 0;
+        document.getElementById('kpi-high').textContent = data.highAlerts || 0;
+
+        // Update severity chart
+        if (data.severityBreakdown && data.severityBreakdown.length > 0) {
+            updateSeverityChart(data.severityBreakdown);
+        }
+    } catch (e) {
+        console.log('Dashboard refresh:', e.message);
+    }
+    loadEvents();
+    loadAlerts();
+}
+
+async function loadEvents() {
+    try {
+        const resp = await fetch(API + '/events?size=15');
+        const data = await resp.json();
+        const tbody = document.getElementById('events-tbody');
+        tbody.innerHTML = (data.content || []).map(e => `<tr>
+            <td>${new Date(e.timestamp).toLocaleTimeString()}</td>
+            <td><span class="sev sev-${(e.severity||'low').toLowerCase()}">${e.severity}</span></td>
+            <td>${e.category || '—'}</td>
+            <td style="color:var(--brand)">${e.sourceIp || '—'}</td>
+            <td>${(e.normalizedMessage || e.rawLog || '').substring(0, 80)}</td>
+            <td style="font-family:'JetBrains Mono';font-size:.7rem">${e.mitreTechnique || '—'}</td>
+            <td style="font-weight:700;color:${(e.threatScore||0) > 70 ? 'var(--red)' : (e.threatScore||0) > 40 ? 'var(--orange)' : 'var(--accent)'}">${e.threatScore || '—'}</td>
+        </tr>`).join('');
+    } catch (e) { console.log('Events load:', e.message); }
+}
+
+async function loadAlerts() {
+    try {
+        const resp = await fetch(API + '/alerts?size=5');
+        const data = await resp.json();
+        const list = document.getElementById('alerts-list');
+        list.innerHTML = (data.content || []).map(a => `<div class="alert-item">
+            <div class="alert-title"><span class="sev sev-${(a.severity||'low').toLowerCase()}">${a.severity}</span> ${a.title}</div>
+            <div class="alert-meta"><span>⏰ ${new Date(a.createdAt).toLocaleString()}</span><span>🎯 ${a.mitreTechnique || '—'}</span><span>📊 Score: ${a.threatScore || '—'}</span><span>📌 ${a.status}</span></div>
+        </div>`).join('') || '<div style="color:var(--muted);text-align:center;padding:24px">No alerts yet. Ingest security events to trigger correlation.</div>';
+    } catch (e) { console.log('Alerts load:', e.message); }
+}
+
+function updateSeverityChart(data) {
+    const labels = data.map(d => d[0]);
+    const values = data.map(d => d[1]);
+    const colors = { CRITICAL: '#ef4444', HIGH: '#f97316', MEDIUM: '#eab308', LOW: '#06ffa5', INFO: '#6b7a99' };
+    if (severityChart) severityChart.destroy();
+    severityChart = new Chart(document.getElementById('severityChart'), {
+        type: 'doughnut',
+        data: { labels, datasets: [{ data: values, backgroundColor: labels.map(l => colors[l] || '#6b7a99'), borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#6b7a99', font: { size: 11 } } } }, cutout: '65%' }
+    });
+}
+
+async function ingestSample() {
+    const categories = ['AUTH', 'NETWORK', 'MALWARE', 'POLICY', 'SYSTEM'];
+    const severities = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
+    const actions = ['ALLOW', 'DENY', 'DROP', 'ALERT'];
+    const ips = ['192.168.1.' + Math.floor(Math.random()*254+1), '10.0.0.' + Math.floor(Math.random()*254+1),
+                 '172.16.0.' + Math.floor(Math.random()*254+1), '203.0.113.' + Math.floor(Math.random()*100+1)];
+    const msgs = [
+        'Failed SSH login attempt from external host',
+        'Firewall denied outbound connection to suspicious domain',
+        'Malware signature detected in downloaded file',
+        'User privilege escalation detected',
+        'Unusual data transfer volume to external IP',
+        'Failed authentication: invalid credentials provided',
+        'DNS query to known C2 domain blocked',
+        'Port scan activity from single source detected',
+        'Unauthorized file access attempt on restricted directory',
+        'SSL certificate validation failure on outbound connection'
+    ];
+
+    for (let i = 0; i < 5; i++) {
+        const event = {
+            severity: severities[Math.floor(Math.random() * severities.length)],
+            category: categories[Math.floor(Math.random() * categories.length)],
+            sourceIp: ips[Math.floor(Math.random() * ips.length)],
+            destinationIp: ips[Math.floor(Math.random() * ips.length)],
+            action: actions[Math.floor(Math.random() * actions.length)],
+            rawLog: msgs[Math.floor(Math.random() * msgs.length)] + ' [' + new Date().toISOString() + ']',
+            sourceName: 'endpoint-' + Math.floor(Math.random() * 100)
+        };
+        await fetch(API + '/events', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(event) });
+    }
+    setTimeout(refreshDashboard, 500);
+}
+
+// Initialize timeline chart
+function initCharts() {
+    const hours = Array.from({length:24}, (_, i) => `${(23-i)}h ago`).reverse();
+    const data = Array.from({length:24}, () => Math.floor(Math.random()*50));
+    timelineChart = new Chart(document.getElementById('timelineChart'), {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'Events',
+                data: data,
+                borderColor: '#00f0ff',
+                backgroundColor: 'rgba(0,240,255,0.05)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 0,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { ticks: { color: '#6b7a99', maxTicksLimit: 8, font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.03)' } },
+                y: { ticks: { color: '#6b7a99', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.03)' } }
+            }
+        }
+    });
+}
+
+function showSection(section) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    // Future: load section-specific content
+}
+
+// Boot
+document.addEventListener('DOMContentLoaded', () => { initCharts(); refreshDashboard(); setInterval(refreshDashboard, 30000); });
+</script>
+</body>
+</html>
