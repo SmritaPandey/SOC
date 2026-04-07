@@ -3,358 +3,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downloads — QShield ONE Cybersecurity Platform</title>
-    <meta name="description" content="Download production-ready QShield cybersecurity products. Real installers for Windows, cross-platform JAR packages, and native binaries.">
+    <title>Download Center — QShield CSOC by NeurQAI</title>
+    <meta name="description" content="Download individual QShield cybersecurity products or the unified CSOC platform. SIEM, SOAR, EDR, XDR, DLP, IDAM, AV, VAM — all available for standalone deployment.">
     <link rel="stylesheet" href="css/qshield-platform.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🛡️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        .dl-file-info { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-        .dl-file-info .tag { font-size:0.72rem; padding:3px 8px; border-radius:999px; font-weight:600; }
-        .tag-size { background:rgba(0,212,255,0.1); color:var(--neon-cyan); border:1px solid rgba(0,212,255,0.2); }
-        .tag-version { background:rgba(16,185,129,0.1); color:var(--neon-green); border:1px solid rgba(16,185,129,0.2); }
-        .tag-platform { background:rgba(139,92,246,0.1); color:var(--neon-purple); border:1px solid rgba(139,92,246,0.2); }
-        .tag-type { background:rgba(249,115,22,0.1); color:var(--neon-orange); border:1px solid rgba(249,115,22,0.2); }
-        .dl-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
-        .checksum-box { background:rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:6px; padding:12px; margin-top:16px; font-family:var(--font-mono); font-size:0.72rem; color:var(--text-muted); word-break:break-all; }
-        .checksum-box strong { color:var(--text-secondary); }
-        .product-section-header { display:flex; align-items:center; gap:16px; margin-bottom:8px; }
-        .product-section-header .ps-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; }
-        .product-section-header h3 { font-size:1.4rem; }
-        .product-section-desc { color:var(--text-secondary); font-size:0.9rem; margin-bottom:24px; max-width:600px; }
-        .readme-link { display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; color:var(--brand-primary); font-weight:600; margin-top:12px; }
-        .readme-link:hover { text-decoration:underline; }
+        :root{--bg:#060a12;--surface:#0c1222;--card:#111a2e;--border:rgba(255,255,255,.06);--text:#e0e6f0;--muted:#5a6a88;--accent:#00f0ff;--green:#06ffa5;--red:#ef4444;--orange:#f97316;--purple:#8b5cf6;--magenta:#d946ef;--blue:#0ea5e9;--rose:#f43f5e}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);margin:0}
+        
+        /* Nav */
+        .nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(6,10,18,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:100}
+        .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+        .nav-brand .logo{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff}
+        .nav-brand span{font-size:1rem;font-weight:800;letter-spacing:-.3px}
+        .nav-links{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+        .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s}
+        .nav-links a:hover{color:#fff}
+        .nav-cta{padding:8px 18px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:8px;color:#fff!important;font-weight:600}
+        
+        /* Hero */
+        .dl-hero{padding:120px 40px 40px;text-align:center;background:linear-gradient(180deg,rgba(0,240,255,.03) 0%,transparent 50%)}
+        .dl-hero h1{font-size:2.8rem;font-weight:900;letter-spacing:-1.5px;margin-bottom:12px}
+        .dl-hero h1 span{background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .dl-hero p{font-size:1.05rem;color:var(--muted);max-width:700px;margin:0 auto 24px;line-height:1.6}
+        
+        /* Tabs */
+        .tabs{display:flex;gap:4px;justify-content:center;margin-bottom:40px;background:var(--surface);border-radius:12px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto}
+        .tab{padding:10px 24px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s}
+        .tab.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff}
+        .tab:hover:not(.active){color:#fff;background:rgba(255,255,255,.04)}
+        
+        /* Product Cards */
+        .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:1200px;margin:0 auto;padding:0 40px 60px}
+        .product-dl-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden;transition:all .3s}
+        .product-dl-card:hover{border-color:rgba(0,240,255,.15);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+        .product-dl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+        .card-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
+        .card-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+        .card-title h3{font-size:1.15rem;font-weight:800;margin:0 0 4px}
+        .card-title p{font-size:.78rem;color:var(--muted);margin:0;line-height:1.4}
+        .card-badge{position:absolute;top:16px;right:16px;padding:3px 10px;border-radius:20px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+        .badge-ga{background:rgba(6,255,165,.1);color:var(--green);border:1px solid rgba(6,255,165,.2)}
+        
+        /* Features */
+        .card-features{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px}
+        .feat{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--muted)}
+        .feat::before{content:'✓';color:var(--green);font-weight:700;font-size:.7rem}
+        
+        /* Specs */
+        .card-specs{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+        .spec{padding:4px 10px;border-radius:6px;font-size:.65rem;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--muted)}
+        
+        /* Comparable */
+        .card-compare{font-size:.68rem;color:var(--muted);margin-bottom:20px;padding:10px;border-radius:8px;background:rgba(255,255,255,.015);border:1px solid var(--border)}
+        .card-compare strong{color:var(--text)}
+        
+        /* Buttons */
+        .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+        .btn-dl{padding:10px 20px;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+        .btn-primary{background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff}
+        .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+        .btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
+        .btn-secondary:hover{background:rgba(255,255,255,.04)}
+        .btn-docker{background:rgba(0,120,212,.1);border:1px solid rgba(0,120,212,.2);color:#0ea5e9}
+        .btn-docker:hover{background:rgba(0,120,212,.15)}
+        
+        /* Platform Bundle */
+        .bundle-card{grid-column:1/-1;background:linear-gradient(135deg,var(--card) 0%,rgba(0,240,255,.04) 100%);border:2px solid rgba(0,240,255,.12);border-radius:20px;padding:40px;position:relative}
+        .bundle-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--green))}
+        .bundle-header{display:flex;align-items:center;gap:20px;margin-bottom:24px}
+        .bundle-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:28px}
+        .bundle-title h2{font-size:1.8rem;font-weight:900;margin:0 0 4px}
+        .bundle-title p{font-size:.88rem;color:var(--muted);margin:0}
+        .bundle-features{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+        .bundle-feat{padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--border);text-align:center}
+        .bundle-feat .bf-icon{font-size:20px;margin-bottom:4px}
+        .bundle-feat .bf-name{font-size:.72rem;font-weight:600}
+        .bundle-feat .bf-port{font-size:.6rem;color:var(--muted);font-family:'JetBrains Mono'}
+        .bundle-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+        
+        /* Docs Section */
+        .docs-section{max-width:1200px;margin:0 auto;padding:0 40px 60px}
+        .docs-title{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:30px}
+        .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .doc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all .2s}
+        .doc-card:hover{border-color:rgba(0,240,255,.12)}
+        .doc-card h4{font-size:.85rem;font-weight:700;margin:0 0 6px}
+        .doc-card p{font-size:.72rem;color:var(--muted);margin:0 0 12px;line-height:1.5}
+        .doc-link{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;color:var(--accent);text-decoration:none;font-weight:600}
+        .doc-link:hover{text-decoration:underline}
+        
+        /* Footer */
+        .dl-footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--muted);font-size:.72rem}
+        
+        @media(max-width:1024px){.products-grid{grid-template-columns:1fr}.bundle-features{grid-template-columns:repeat(2,1fr)}.docs-grid{grid-template-columns:1fr}}
+        @media(max-width:768px){.dl-hero h1{font-size:1.8rem}.nav-links{display:none}}
     </style>
 </head>
 <body>
-<nav class="nav"><a href="index.html" class="nav-logo"><div class="shield-icon">🛡</div><span class="brand-text">QShield ONE</span></a><ul class="nav-links"><li><a href="platform.html">Platform</a></li><li class="dropdown"><a href="#">Products ▾</a><div class="dropdown-menu"><a href="products/siem.html"><div class="dm-icon icon-cyan">📊</div><div><strong>QS-SIEM</strong></div></a><a href="products/soar.html"><div class="dm-icon icon-purple">⚡</div><div><strong>QS-SOAR</strong></div></a><a href="products/dlp.html"><div class="dm-icon icon-green">🔐</div><div><strong>QS-DLP</strong></div></a><a href="products/edr.html"><div class="dm-icon icon-orange">🎯</div><div><strong>QS-EDR</strong></div></a><a href="products/xdr.html"><div class="dm-icon icon-blue">🌐</div><div><strong>QS-XDR</strong></div></a><a href="products/antivirus.html"><div class="dm-icon icon-red">🛡️</div><div><strong>QS-AV</strong></div></a><a href="products/idam.html"><div class="dm-icon icon-magenta">🔑</div><div><strong>QS-IDAM</strong></div></a></div></li><li><a href="pricing.html">Pricing</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="enterprise.html">Enterprise</a></li><li><a href="about.html">About</a></li><li><a href="free-trial.html" class="nav-cta">Free Trial →</a></li></ul><div class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></div></nav>
 
-<section class="page-header">
-    <div class="label">Download Center</div>
-    <h1>Download <span class="gradient-text">QShield Products</span></h1>
-    <p>Production-ready installers, packages, and binaries. All downloads include SHA-256 checksums and are PQC-signed.</p>
-</section>
+<!-- Navigation -->
+<nav class="nav">
+    <a href="index.html" class="nav-brand"><div class="logo">QS</div><span>QShield CSOC</span></a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="platform.html">Platform</a></li>
+        <li><a href="downloads.html" style="color:#fff">Downloads</a></li>
+        <li><a href="enterprise.html">Enterprise</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="free-trial.html" class="nav-cta">Free Trial →</a></li>
+    </ul>
+</nav>
 
-<!-- ═══════════════════════════════════════════════════════
-     QShield SOC Platform (SIEM + SOAR + DLP + EDR + XDR)
-     ═══════════════════════════════════════════════════════ -->
-<section class="section" id="dl-soc">
-    <div class="container">
-        <div class="product-section-header">
-            <div class="ps-icon icon-cyan">📊</div>
-            <div>
-                <h3>QShield SOC Platform</h3>
-                <div style="font-size:0.82rem; color:var(--text-muted);">Unified SIEM · SOAR · DLP · EDR · XDR</div>
-            </div>
-        </div>
-        <p class="product-section-desc">Complete Security Operations Center in a single package. Includes log aggregation, automated playbooks, data loss prevention, endpoint detection, and cross-layer threat correlation.</p>
-        
-        <div class="download-grid reveal">
-            <!-- MSI Installer -->
-            <div class="download-card">
-                <div class="dl-icon icon-blue">🖥️</div>
-                <div style="flex:1">
-                    <h4>Windows Installer (MSI)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v2.0.0</span>
-                        <span class="tag tag-size">94.1 MB</span>
-                        <span class="tag tag-platform">Windows 10+</span>
-                        <span class="tag tag-type">MSI</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Wizard-driven installation with service auto-start, firewall rules, and JRE bundled. Recommended for production deployment.</p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-soc/QShield-SOC-Setup-2.0.0.msi" class="btn btn-primary btn-sm" download>⬇ Download MSI</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Standalone EXE -->
-            <div class="download-card">
-                <div class="dl-icon icon-orange">⚡</div>
-                <div style="flex:1">
-                    <h4>Standalone Executable (EXE)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v2.0.0</span>
-                        <span class="tag tag-size">202.1 MB</span>
-                        <span class="tag tag-platform">Windows</span>
-                        <span class="tag tag-type">EXE</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Self-contained executable with embedded JRE. No Java installation required. Double-click to run.</p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-soc/QShield-SOC-Platform-2.0.0.exe" class="btn btn-primary btn-sm" download>⬇ Download EXE</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cross-Platform JAR -->
-            <div class="download-card">
-                <div class="dl-icon icon-green">☕</div>
-                <div style="flex:1">
-                    <h4>Cross-Platform (JAR)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v2.0.0</span>
-                        <span class="tag tag-size">202.0 MB</span>
-                        <span class="tag tag-platform">Windows · Linux · macOS</span>
-                        <span class="tag tag-type">JAR</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Spring Boot fat JAR. Requires Java 17+. Run with: <code style="background:rgba(0,212,255,0.1); padding:2px 6px; border-radius:4px; font-size:0.75rem;">java -jar QShield-SOC-Platform-2.0.0.jar</code></p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-soc/QShield-SOC-Platform-2.0.0.jar" class="btn btn-primary btn-sm" download>⬇ Download JAR</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="dist/qs-soc/README.md" class="readme-link" target="_blank">📖 Read Quick Start Guide →</a>
+<!-- Hero -->
+<section class="dl-hero">
+    <h1>Download <span>QShield CSOC</span></h1>
+    <p>Choose the complete unified SOC platform or download individual security products. Every product runs independently — just like IBM QRadar, CrowdStrike, or Palo Alto solutions.</p>
+    
+    <div class="tabs">
+        <button class="tab active" onclick="showAll()">All Products</button>
+        <button class="tab" onclick="filterBy('detection')">Detection</button>
+        <button class="tab" onclick="filterBy('response')">Response</button>
+        <button class="tab" onclick="filterBy('protection')">Protection</button>
+        <button class="tab" onclick="filterBy('governance')">Governance</button>
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     QShield IDAM
-     ═══════════════════════════════════════════════════════ -->
-<section class="section section-alt" id="dl-idam">
-    <div class="container">
-        <div class="product-section-header">
-            <div class="ps-icon icon-magenta">🔑</div>
-            <div>
-                <h3>QShield IDAM</h3>
-                <div style="font-size:0.82rem; color:var(--text-muted);">Identity & Access Management</div>
-            </div>
-        </div>
-        <p class="product-section-desc">Enterprise identity platform with SSO/OIDC, WebAuthn/FIDO2, PAM vault, W3C Verifiable Credentials, AI-driven adaptive authentication, and quantum-safe tokens.</p>
-        
-        <div class="download-grid reveal">
-            <!-- Windows Installer -->
-            <div class="download-card">
-                <div class="dl-icon icon-blue">🖥️</div>
-                <div style="flex:1">
-                    <h4>Windows Installer (EXE)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v1.0.0</span>
-                        <span class="tag tag-size">88.4 MB</span>
-                        <span class="tag tag-platform">Windows 10+</span>
-                        <span class="tag tag-type">EXE Installer</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Full installer with Inno Setup wizard. Includes JRE, database setup, and Windows service configuration.</p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-idam/QShield-IDAM-Setup-1.0.0.exe" class="btn btn-primary btn-sm" download>⬇ Download Installer</a>
-                    </div>
-                </div>
-            </div>
+<!-- Products Grid -->
+<div class="products-grid" id="products-grid">
 
-            <!-- Cross-Platform JAR -->
-            <div class="download-card">
-                <div class="dl-icon icon-green">☕</div>
-                <div style="flex:1">
-                    <h4>Cross-Platform Server (JAR)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v1.0.0</span>
-                        <span class="tag tag-size">98.8 MB</span>
-                        <span class="tag tag-platform">Windows · Linux · macOS</span>
-                        <span class="tag tag-type">JAR</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Spring Boot server JAR. Requires Java 17+. Run with: <code style="background:rgba(0,212,255,0.1); padding:2px 6px; border-radius:4px; font-size:0.75rem;">java -jar QShield-IDAM-Server-1.0.0.jar</code></p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-idam/QShield-IDAM-Server-1.0.0.jar" class="btn btn-primary btn-sm" download>⬇ Download JAR</a>
-                    </div>
-                </div>
+    <!-- ═══ UNIFIED PLATFORM BUNDLE ═══ -->
+    <div class="bundle-card" data-cat="all">
+        <div class="bundle-header">
+            <div class="bundle-icon">🛡️</div>
+            <div class="bundle-title">
+                <h2>QShield CSOC — Unified Platform</h2>
+                <p>Complete Cyber Security Operations Center — 8 products, one deployment</p>
             </div>
         </div>
-        <a href="dist/qs-idam/README.md" class="readme-link" target="_blank">📖 Read Quick Start Guide →</a>
+        <div class="bundle-features">
+            <div class="bundle-feat"><div class="bf-icon">📊</div><div class="bf-name">QS-SIEM</div><div class="bf-port">:9001</div></div>
+            <div class="bundle-feat"><div class="bf-icon">⚡</div><div class="bf-name">QS-SOAR</div><div class="bf-port">:9002</div></div>
+            <div class="bundle-feat"><div class="bf-icon">🎯</div><div class="bf-name">QS-EDR</div><div class="bf-port">:9003</div></div>
+            <div class="bundle-feat"><div class="bf-icon">🌐</div><div class="bf-name">QS-XDR</div><div class="bf-port">:9004</div></div>
+            <div class="bundle-feat"><div class="bf-icon">🔐</div><div class="bf-name">QS-DLP</div><div class="bf-port">:9005</div></div>
+            <div class="bundle-feat"><div class="bf-icon">🔑</div><div class="bf-name">QS-IDAM</div><div class="bf-port">:9006</div></div>
+            <div class="bundle-feat"><div class="bf-icon">🛡️</div><div class="bf-name">QS-AV</div><div class="bf-port">:9007</div></div>
+            <div class="bundle-feat"><div class="bf-icon">🔍</div><div class="bf-name">QS-VAM</div><div class="bf-port">:9008</div></div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Java 21 + Spring Boot 3.3</div>
+            <div class="spec">PostgreSQL 16</div>
+            <div class="spec">AI-Powered Analytics</div>
+            <div class="spec">NIST SP 800-53</div>
+            <div class="spec">MITRE ATT&CK v15</div>
+            <div class="spec">Docker Ready</div>
+        </div>
+        <div class="card-compare"><strong>Replaces:</strong> IBM QRadar Suite + CrowdStrike Falcon + Splunk Enterprise Security + Palo Alto Cortex — at a fraction of the cost with full source access.</div>
+        <div class="bundle-actions">
+            <a href="https://github.com/SmritaPandey/SOC/archive/refs/heads/master.zip" class="btn-dl btn-primary">⬇ Download Full Platform (ZIP)</a>
+            <a href="https://github.com/SmritaPandey/SOC" target="_blank" class="btn-dl btn-secondary">📂 View Source on GitHub</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('all')">🐳 Docker Compose</a>
+            <a href="docs/manuals/QShield-CSOC-Unified-Operations-Manual.md" class="btn-dl btn-secondary">📖 Operations Manual</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-SIEM ═══ -->
+    <div class="product-dl-card" data-cat="detection" style="--pcolor:#00f0ff">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00f0ff"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.2)">📊</div>
+            <div class="card-title">
+                <h3>QS-SIEM</h3>
+                <p>Security Information & Event Management — Real-time log collection, correlation, UEBA, and AI threat analysis</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">Multi-format log ingestion</div>
+            <div class="feat">5 correlation rules</div>
+            <div class="feat">UEBA behavioral analysis</div>
+            <div class="feat">MITRE ATT&CK mapping</div>
+            <div class="feat">AI threat narratives</div>
+            <div class="feat">Real-time dashboard</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9001</div>
+            <div class="spec">2 CPU / 4 GB RAM</div>
+            <div class="spec">20 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> IBM QRadar, Splunk Enterprise Security, LogRhythm, RSA NetWitness</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-siem" target="_blank" class="btn-dl btn-primary">⬇ Download QS-SIEM</a>
+            <a href="docs/manuals/QS-SIEM-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('siem')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-SOAR ═══ -->
+    <div class="product-dl-card" data-cat="response" style="--pcolor:#8b5cf6">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#8b5cf6"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">⚡</div>
+            <div class="card-title">
+                <h3>QS-SOAR</h3>
+                <p>Security Orchestration, Automation & Response — Automated incident handling with playbook-driven workflows</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">Incident lifecycle management</div>
+            <div class="feat">4 pre-built playbooks</div>
+            <div class="feat">AI response recommendations</div>
+            <div class="feat">Auto-triage for CRITICAL</div>
+            <div class="feat">Custom playbook builder</div>
+            <div class="feat">ISO 27035 compliant</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9002</div>
+            <div class="spec">2 CPU / 2 GB RAM</div>
+            <div class="spec">10 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> Palo Alto Cortex XSOAR, Splunk SOAR, IBM Resilient, Swimlane</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-soar" target="_blank" class="btn-dl btn-primary">⬇ Download QS-SOAR</a>
+            <a href="docs/manuals/QS-SOAR-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('soar')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-EDR ═══ -->
+    <div class="product-dl-card" data-cat="detection" style="--pcolor:#f97316">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#f97316"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2)">🎯</div>
+            <div class="card-title">
+                <h3>QS-EDR</h3>
+                <p>Endpoint Detection & Response — Continuous endpoint monitoring with one-click isolation</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">Process/File/Network telemetry</div>
+            <div class="feat">One-click endpoint isolation</div>
+            <div class="feat">MITRE technique mapping</div>
+            <div class="feat">Real-time endpoint status</div>
+            <div class="feat">Driver/Registry monitoring</div>
+            <div class="feat">Threat containment</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9003</div>
+            <div class="spec">4 CPU / 4 GB RAM</div>
+            <div class="spec">50 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> CrowdStrike Falcon, VMware Carbon Black, SentinelOne, Microsoft Defender for Endpoint</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-edr" target="_blank" class="btn-dl btn-primary">⬇ Download QS-EDR</a>
+            <a href="docs/manuals/QS-EDR-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('edr')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-XDR ═══ -->
+    <div class="product-dl-card" data-cat="detection" style="--pcolor:#06ffa5">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#06ffa5"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(6,255,165,.08);border:1px solid rgba(6,255,165,.2)">🌐</div>
+            <div class="card-title">
+                <h3>QS-XDR</h3>
+                <p>Extended Detection & Response — Cross-layer attack chain analysis with AI narratives</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">Cross-layer correlation</div>
+            <div class="feat">Attack chain visualization</div>
+            <div class="feat">AI threat narratives</div>
+            <div class="feat">Composite risk scoring</div>
+            <div class="feat">Multi-source ingestion</div>
+            <div class="feat">Kill chain mapping</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9004</div>
+            <div class="spec">4 CPU / 4 GB RAM</div>
+            <div class="spec">20 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> Palo Alto Cortex XDR, Trend Micro Vision One, Microsoft Sentinel XDR</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-xdr" target="_blank" class="btn-dl btn-primary">⬇ Download QS-XDR</a>
+            <a href="docs/manuals/QS-XDR-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('xdr')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-DLP ═══ -->
+    <div class="product-dl-card" data-cat="protection" style="--pcolor:#ef4444">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#ef4444"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)">🔐</div>
+            <div class="card-title">
+                <h3>QS-DLP</h3>
+                <p>Data Loss Prevention — Real-time PII/PHI/PCI detection across email, USB, cloud, printer, clipboard</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">Aadhaar/PAN detection (India)</div>
+            <div class="feat">Credit card/SSN patterns</div>
+            <div class="feat">5-channel monitoring</div>
+            <div class="feat">Block/Encrypt/Mask actions</div>
+            <div class="feat">Policy-based enforcement</div>
+            <div class="feat">Content inspection engine</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9005</div>
+            <div class="spec">2 CPU / 2 GB RAM</div>
+            <div class="spec">10 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> Symantec DLP, Forcepoint DLP, Digital Guardian, McAfee Total Protection DLP</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-dlp" target="_blank" class="btn-dl btn-primary">⬇ Download QS-DLP</a>
+            <a href="docs/manuals/QS-DLP-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('dlp')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-IDAM ═══ -->
+    <div class="product-dl-card" data-cat="governance" style="--pcolor:#d946ef">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#d946ef"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(217,70,239,.08);border:1px solid rgba(217,70,239,.2)">🔑</div>
+            <div class="card-title">
+                <h3>QS-IDAM</h3>
+                <p>Identity & Access Management — JWT authentication, MFA, RBAC, account lockout, user risk scoring</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">JWT stateless auth</div>
+            <div class="feat">MFA (TOTP) support</div>
+            <div class="feat">4-tier RBAC</div>
+            <div class="feat">Account lockout protection</div>
+            <div class="feat">User risk scoring</div>
+            <div class="feat">Centralized SSO</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9006</div>
+            <div class="spec">2 CPU / 2 GB RAM</div>
+            <div class="spec">10 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> Okta, CyberArk, ForgeRock, Ping Identity, Auth0</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-idam" target="_blank" class="btn-dl btn-primary">⬇ Download QS-IDAM</a>
+            <a href="docs/manuals/QS-IDAM-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('idam')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-AV ═══ -->
+    <div class="product-dl-card" data-cat="protection" style="--pcolor:#f43f5e">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#f43f5e"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.2)">🛡️</div>
+            <div class="card-title">
+                <h3>QS-AV</h3>
+                <p>Antivirus & Endpoint Protection — 5-engine detection: Signature, Neural Net, Heuristic, Random Forest, YARA</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">5 detection engines</div>
+            <div class="feat">Zero-day neural net detection</div>
+            <div class="feat">YARA rule support</div>
+            <div class="feat">Confidence scoring (0-100)</div>
+            <div class="feat">Quarantine management</div>
+            <div class="feat">Real-time on-access scan</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9007</div>
+            <div class="spec">2 CPU / 2 GB RAM</div>
+            <div class="spec">10 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> Trend Micro Apex One, Kaspersky Endpoint Security, Bitdefender GravityZone, ClamAV</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-av" target="_blank" class="btn-dl btn-primary">⬇ Download QS-AV</a>
+            <a href="docs/manuals/QS-AV-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('av')">🐳 Docker</a>
+        </div>
+    </div>
+
+    <!-- ═══ QS-VAM ═══ -->
+    <div class="product-dl-card" data-cat="governance" style="--pcolor:#0ea5e9">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#0ea5e9"></div>
+        <span class="card-badge badge-ga">GA v1.0.0</span>
+        <div class="card-header">
+            <div class="card-icon" style="background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.2)">🔍</div>
+            <div class="card-title">
+                <h3>QS-VAM</h3>
+                <p>Vulnerability Assessment & Management — CVE tracking, CVSS scoring, SLA-based remediation workflows</p>
+            </div>
+        </div>
+        <div class="card-features">
+            <div class="feat">CVE database integration</div>
+            <div class="feat">CVSS v3.1 scoring</div>
+            <div class="feat">Exploit intelligence</div>
+            <div class="feat">SLA-based remediation</div>
+            <div class="feat">Asset-to-vuln mapping</div>
+            <div class="feat">Patch verification</div>
+        </div>
+        <div class="card-specs">
+            <div class="spec">Port 9008</div>
+            <div class="spec">2 CPU / 2 GB RAM</div>
+            <div class="spec">10 GB Disk</div>
+        </div>
+        <div class="card-compare"><strong>Comparable to:</strong> Tenable Nessus, Qualys VMDR, Rapid7 InsightVM, OpenVAS</div>
+        <div class="card-actions">
+            <a href="https://github.com/SmritaPandey/SOC/tree/master/qs-vam" target="_blank" class="btn-dl btn-primary">⬇ Download QS-VAM</a>
+            <a href="docs/manuals/QS-VAM-Operational-Manual.md" class="btn-dl btn-secondary">📖 Manual</a>
+            <a href="#" class="btn-dl btn-docker" onclick="showDockerCmd('vam')">🐳 Docker</a>
+        </div>
+    </div>
+</div>
+
+<!-- Documentation Section -->
+<section class="docs-section">
+    <h2 class="docs-title">📚 Documentation & Manuals</h2>
+    <div class="docs-grid">
+        <div class="doc-card">
+            <h4>📖 Unified SOC Operations Manual</h4>
+            <p>Complete guide for deploying and operating the full QShield CSOC platform with all 8 modules.</p>
+            <a href="docs/manuals/QShield-CSOC-Unified-Operations-Manual.md" class="doc-link">Download Manual →</a>
+        </div>
+        <div class="doc-card">
+            <h4>🚀 Quick Start Guide</h4>
+            <p>Get the full platform running in under 5 minutes with Maven and a single PowerShell command.</p>
+            <a href="https://github.com/SmritaPandey/SOC#readme" class="doc-link" target="_blank">View Guide →</a>
+        </div>
+        <div class="doc-card">
+            <h4>🐳 Docker Deployment Guide</h4>
+            <p>Container-based deployment with Docker Compose for individual or unified platform setup.</p>
+            <a href="https://github.com/SmritaPandey/SOC/blob/master/docker-compose.yml" class="doc-link" target="_blank">View Config →</a>
+        </div>
+        <div class="doc-card">
+            <h4>📊 QS-SIEM Manual</h4>
+            <p>Log ingestion, correlation rules, UEBA configuration, and API reference.</p>
+            <a href="docs/manuals/QS-SIEM-Operational-Manual.md" class="doc-link">Download →</a>
+        </div>
+        <div class="doc-card">
+            <h4>⚡ QS-SOAR Manual</h4>
+            <p>Incident management, playbook configuration, and automation workflows.</p>
+            <a href="docs/manuals/QS-SOAR-Operational-Manual.md" class="doc-link">Download →</a>
+        </div>
+        <div class="doc-card">
+            <h4>🎯 QS-EDR Manual</h4>
+            <p>Endpoint registration, telemetry, isolation procedures, and event types.</p>
+            <a href="docs/manuals/QS-EDR-Operational-Manual.md" class="doc-link">Download →</a>
+        </div>
+        <div class="doc-card">
+            <h4>🌐 QS-XDR Manual</h4>
+            <p>Cross-layer correlation, attack chain analysis, and data source integration.</p>
+            <a href="docs/manuals/QS-XDR-Operational-Manual.md" class="doc-link">Download →</a>
+        </div>
+        <div class="doc-card">
+            <h4>🔐 QS-DLP Manual</h4>
+            <p>Content scanning, PII detection patterns, DLP policies, and channel monitoring.</p>
+            <a href="docs/manuals/QS-DLP-Operational-Manual.md" class="doc-link">Download →</a>
+        </div>
+        <div class="doc-card">
+            <h4>🔑 QS-IDAM / 🛡️ QS-AV / 🔍 QS-VAM</h4>
+            <p>Identity management, antivirus operations, and vulnerability assessment guides.</p>
+            <a href="docs/manuals/" class="doc-link">Browse All →</a>
+        </div>
     </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     QShield Antivirus
-     ═══════════════════════════════════════════════════════ -->
-<section class="section" id="dl-av">
-    <div class="container">
-        <div class="product-section-header">
-            <div class="ps-icon icon-red">🛡️</div>
-            <div>
-                <h3>QShield Antivirus</h3>
-                <div style="font-size:0.82rem; color:var(--text-muted);">AI-Powered Endpoint Protection</div>
-            </div>
-        </div>
-        <p class="product-section-desc">Multi-engine antivirus with custom neural network (20→64→32→14), Random Forest, Isolation Forest anomaly detection, and NIST PQC quantum-safe cryptographic channels.</p>
-        
-        <div class="download-grid reveal">
-            <!-- Scanner CLI -->
-            <div class="download-card">
-                <div class="dl-icon icon-orange">🔬</div>
-                <div style="flex:1">
-                    <h4>QShield Scanner (CLI)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v1.0.0</span>
-                        <span class="tag tag-size">0.2 MB</span>
-                        <span class="tag tag-platform">Windows x64</span>
-                        <span class="tag tag-type">Native EXE</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Command-line scanner with multi-engine detection (signature, heuristic, AI neural network). Usage: <code style="background:rgba(0,212,255,0.1); padding:2px 6px; border-radius:4px; font-size:0.75rem;">qshield_scan.exe --scan C:\path</code></p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-av/qshield_scan.exe" class="btn btn-primary btn-sm" download>⬇ Download Scanner</a>
-                    </div>
-                </div>
-            </div>
+<!-- Footer -->
+<footer class="dl-footer">
+    <p>© 2026 NeurQAI Technologies Pvt. Ltd. — QShield CSOC Platform v1.0.0</p>
+    <p>All products are on-premises, open-source, and enterprise-ready. No cloud dependency. No vendor lock-in.</p>
+</footer>
 
-            <!-- Daemon -->
-            <div class="download-card">
-                <div class="dl-icon icon-cyan">⚡</div>
-                <div style="flex:1">
-                    <h4>QShield Daemon (Real-Time)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v1.0.0</span>
-                        <span class="tag tag-size">0.2 MB</span>
-                        <span class="tag tag-platform">Windows x64</span>
-                        <span class="tag tag-type">Native EXE</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Background service for real-time file system monitoring, process behavior analysis, and automatic threat quarantine.</p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-av/qshield_daemon.exe" class="btn btn-primary btn-sm" download>⬇ Download Daemon</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Java Installer -->
-            <div class="download-card">
-                <div class="dl-icon icon-green">📦</div>
-                <div style="flex:1">
-                    <h4>QShield AV Setup (GUI)</h4>
-                    <div class="dl-file-info">
-                        <span class="tag tag-version">v1.0.0</span>
-                        <span class="tag tag-size">0.03 MB</span>
-                        <span class="tag tag-platform">Cross-Platform</span>
-                        <span class="tag tag-type">JAR</span>
-                    </div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">GUI-based installer wizard. Installs scanner, daemon, AI engine, and signature database. Requires Java 17+.</p>
-                    <div class="dl-actions">
-                        <a href="dist/qs-av/QShieldAV-Setup.jar" class="btn btn-primary btn-sm" download>⬇ Download Setup</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="dist/qs-av/README.md" class="readme-link" target="_blank">📖 Read Quick Start Guide →</a>
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════
-     Integrity Verification
-     ═══════════════════════════════════════════════════════ -->
-<section class="section section-alt" id="verification">
-    <div class="container">
-        <div class="section-header reveal">
-            <div class="label">Security</div>
-            <h2>Integrity <span class="gradient-text">Verification</span></h2>
-            <p>Verify your downloads using SHA-256 checksums. All packages are additionally signed with CRYSTALS-Dilithium (NIST FIPS 204).</p>
-        </div>
-
-        <div class="checksum-box reveal">
-            <strong>SHA-256 Checksums:</strong><br><br>
-            <strong>QShield SOC Platform:</strong><br>
-            QShield-SOC-Platform-2.0.0.jar &nbsp;(202 MB) — Spring Boot JAR<br>
-            QShield-SOC-Platform-2.0.0.exe &nbsp;(202 MB) — Standalone EXE<br>
-            QShield-SOC-Setup-2.0.0.msi &nbsp;&nbsp;&nbsp;(94 MB) &nbsp;— Windows MSI Installer<br><br>
-            <strong>QShield IDAM:</strong><br>
-            QShield-IDAM-Server-1.0.0.jar &nbsp;&nbsp;(99 MB) &nbsp;— Spring Boot JAR<br>
-            QShield-IDAM-Setup-1.0.0.exe &nbsp;&nbsp;&nbsp;(88 MB) &nbsp;— Windows Installer<br><br>
-            <strong>QShield Antivirus:</strong><br>
-            qshield_scan.exe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.2 MB) — Scanner CLI<br>
-            qshield_daemon.exe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.2 MB) — Real-Time Daemon<br>
-            QShieldAV-Setup.jar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0.03 MB) — GUI Installer<br><br>
-            <a href="dist/SHA256SUMS.txt" style="color:var(--brand-primary)" target="_blank">📄 Download SHA256SUMS.txt</a>
-        </div>
-
-        <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:16px;" class="reveal">
-            <div style="background:var(--gradient-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:20px;">
-                <h4 style="font-size:0.9rem; margin-bottom:8px; color:var(--brand-primary);">Windows (PowerShell)</h4>
-                <code style="font-size:0.78rem; color:var(--text-muted); display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; white-space:pre-wrap;">Get-FileHash .\QShield-SOC-Platform-2.0.0.jar -Algorithm SHA256</code>
-            </div>
-            <div style="background:var(--gradient-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:20px;">
-                <h4 style="font-size:0.9rem; margin-bottom:8px; color:var(--brand-primary);">Linux / macOS</h4>
-                <code style="font-size:0.78rem; color:var(--text-muted); display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; white-space:pre-wrap;">sha256sum QShield-SOC-Platform-2.0.0.jar</code>
-            </div>
+<!-- Docker Modal -->
+<div id="docker-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);align-items:center;justify-content:center">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:600px;width:90%">
+        <h3 style="margin:0 0 16px;font-size:1rem" id="docker-title">Docker Deployment</h3>
+        <pre style="background:var(--bg);border-radius:8px;padding:16px;overflow-x:auto;font-size:.78rem;font-family:'JetBrains Mono';color:var(--accent)" id="docker-cmd"></pre>
+        <div style="display:flex;gap:8px;margin-top:16px">
+            <button onclick="copyDocker()" class="btn-dl btn-primary" style="border:none">📋 Copy</button>
+            <button onclick="document.getElementById('docker-modal').style.display='none'" class="btn-dl btn-secondary">Close</button>
         </div>
     </div>
-</section>
+</div>
 
-<!-- System Requirements Summary -->
-<section class="section" id="requirements">
-    <div class="container">
-        <div class="section-header reveal"><div class="label">Requirements</div><h2>System <span class="gradient-text">Requirements</span></h2></div>
-        <div style="overflow-x:auto" class="reveal">
-            <table style="width:100%; border-collapse:collapse; font-size:0.85rem; min-width:700px;">
-                <thead>
-                    <tr style="border-bottom:2px solid var(--border-medium);">
-                        <th style="text-align:left; padding:14px 12px; color:var(--text-secondary);">Product</th>
-                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">OS</th>
-                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">Java</th>
-                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">RAM (Min)</th>
-                        <th style="text-align:center; padding:14px 12px; color:var(--text-secondary);">Disk</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom:1px solid var(--border-subtle);">
-                        <td style="padding:12px; font-weight:600;">📊 QShield SOC Platform</td>
-                        <td style="text-align:center; padding:12px;">Windows 10+ / Linux / macOS</td>
-                        <td style="text-align:center; padding:12px;">JDK 17+ (EXE bundles JRE)</td>
-                        <td style="text-align:center; padding:12px;">4 GB</td>
-                        <td style="text-align:center; padding:12px;">2 GB</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid var(--border-subtle);">
-                        <td style="padding:12px; font-weight:600;">🔑 QShield IDAM</td>
-                        <td style="text-align:center; padding:12px;">Windows 10+ / Linux / macOS</td>
-                        <td style="text-align:center; padding:12px;">JDK 17+</td>
-                        <td style="text-align:center; padding:12px;">2 GB</td>
-                        <td style="text-align:center; padding:12px;">500 MB</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:12px; font-weight:600;">🛡️ QShield Antivirus</td>
-                        <td style="text-align:center; padding:12px;">Windows 10+ (x64)</td>
-                        <td style="text-align:center; padding:12px;">Not required (native C)</td>
-                        <td style="text-align:center; padding:12px;">512 MB</td>
-                        <td style="text-align:center; padding:12px;">100 MB</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
+<script>
+function showDockerCmd(product) {
+    const modal = document.getElementById('docker-modal');
+    const title = document.getElementById('docker-title');
+    const cmd = document.getElementById('docker-cmd');
+    if (product === 'all') {
+        title.textContent = 'QShield CSOC — Full Platform Docker Deployment';
+        cmd.textContent = `# Clone the repository
+git clone https://github.com/SmritaPandey/SOC.git
+cd SOC
 
-<!-- Quick Start Commands -->
-<section class="section section-alt">
-    <div class="container">
-        <div class="section-header reveal"><div class="label">Quick Start</div><h2>Get Running in <span class="gradient-text">60 Seconds</span></h2></div>
-        <div class="features-grid reveal">
-            <div class="feature-card">
-                <div class="f-icon icon-cyan">📊</div>
-                <h3>SOC Platform</h3>
-                <code style="display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">java -jar QShield-SOC-Platform-2.0.0.jar</code>
-                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Then open http://localhost:8080</p>
-            </div>
-            <div class="feature-card">
-                <div class="f-icon icon-magenta">🔑</div>
-                <h3>IDAM Server</h3>
-                <code style="display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">java -jar QShield-IDAM-Server-1.0.0.jar</code>
-                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Then open http://localhost:8090</p>
-            </div>
-            <div class="feature-card">
-                <div class="f-icon icon-red">🛡️</div>
-                <h3>Antivirus Scanner</h3>
-                <code style="display:block; background:rgba(0,0,0,0.3); padding:12px; border-radius:6px; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">qshield_scan.exe --scan C:\</code>
-                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Instant scan, no setup needed</p>
-            </div>
-        </div>
-    </div>
-</section>
+# Build and deploy all 8 products
+docker compose up -d --build
 
-<section class="cta-section">
-    <h2>Need Enterprise <span class="gradient-text">Deployment?</span></h2>
-    <p>Docker, Kubernetes, air-gapped, and managed deployment options available for enterprise customers.</p>
-    <div class="cta-actions">
-        <a href="enterprise.html" class="btn btn-primary btn-lg">Contact Sales →</a>
-        <a href="free-trial.html" class="btn btn-secondary btn-lg">Register for Trial</a>
-    </div>
-</section>
+# Verify all services
+for port in 9001 9002 9003 9004 9005 9006 9007 9008; do
+  curl -s http://localhost:\${port}/api/v1/*/health
+done`;
+    } else {
+        title.textContent = `QS-${product.toUpperCase()} — Docker Deployment`;
+        cmd.textContent = `# Clone and navigate to product
+git clone https://github.com/SmritaPandey/SOC.git
+cd SOC/qs-${product}
 
-<footer class="footer"><div class="container"><div class="footer-grid"><div><div class="footer-brand">🛡️ QShield ONE</div><p class="footer-desc">The quantum-safe, AI-powered cybersecurity platform.</p></div><div><h4>Products</h4><ul class="footer-links"><li><a href="products/siem.html">QS-SIEM</a></li><li><a href="products/soar.html">QS-SOAR</a></li><li><a href="products/dlp.html">QS-DLP</a></li><li><a href="products/edr.html">QS-EDR</a></li><li><a href="products/xdr.html">QS-XDR</a></li><li><a href="products/antivirus.html">QShield AV</a></li><li><a href="products/idam.html">QS-IDAM</a></li></ul></div><div><h4>Resources</h4><ul class="footer-links"><li><a href="downloads.html">Downloads</a></li><li><a href="#">Documentation</a></li><li><a href="#">API Reference</a></li></ul></div><div><h4>Company</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="enterprise.html">Enterprise</a></li></ul></div></div><div class="footer-bottom"><span>© <span class="current-year">2026</span> QualityShield Technologies Pvt. Ltd.</span><span>Quantum Safe • AI Powered</span></div></div></footer>
-<script src="js/qshield-platform.js"></script>
+# Build and deploy
+docker compose up -d --build
+
+# Verify
+curl http://localhost:${{'siem':9001,'soar':9002,'edr':9003,'xdr':9004,'dlp':9005,'idam':9006,'av':9007,'vam':9008}[product]}/api/v1/${product}/health`;
+    }
+    modal.style.display = 'flex';
+}
+
+function copyDocker() {
+    navigator.clipboard.writeText(document.getElementById('docker-cmd').textContent);
+    event.target.textContent = '✓ Copied!';
+    setTimeout(() => event.target.textContent = '📋 Copy', 2000);
+}
+
+function showAll() {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('[data-cat]').forEach(c => c.style.display = '');
+}
+
+function filterBy(cat) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('[data-cat]').forEach(c => {
+        c.style.display = (c.dataset.cat === cat || c.dataset.cat === 'all') ? '' : 'none';
+    });
+}
+</script>
 </body>
 </html>

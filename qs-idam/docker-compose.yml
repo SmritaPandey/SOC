@@ -1,0 +1,36 @@
+﻿version: '3.8'
+services:
+  qs-idam:
+    build: .
+    container_name: qs-idam
+    ports:
+      - "9006:9006"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_HOST=postgres
+      - DB_USERNAME=qshield
+      - DB_PASSWORD=${DB_PASSWORD:-QShield2026!}
+      - JWT_SECRET=${JWT_SECRET:-QShield-CSOC-Secret-2026}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: qshield_csoc
+      POSTGRES_USER: qshield
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-QShield2026!}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qshield"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:
